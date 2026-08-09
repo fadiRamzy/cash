@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0F4C81">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>نظام تقارير الزيارات الميدانية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-primary:#0F4C81;
+  --c-primary-light:#E8F0F9;
+  --c-primary-mid:#1A6BB5;
+  --c-accent:#C8860A;
+  --c-accent-light:#FDF3E0;
+  --c-success:#1D6B3E;
+  --c-success-light:#EBF5EE;
+  --c-danger:#A32D2D;
+  --c-danger-light:#FCEBEB;
+  --c-border:rgba(15,76,129,0.15);
+  --c-border-strong:rgba(15,76,129,0.28);
+  --c-bg:#F5F7FA;
+  --c-card:#FFFFFF;
+  --c-text:#1A2332;
+  --c-text-muted:#5A6882;
+  --c-text-hint:#8A98AE;
+  --font-ar:'Cairo','Segoe UI',Tahoma,sans-serif;
+  --radius:10px;
+  --radius-lg:14px;
+  --shadow:0 1px 4px rgba(15,76,129,0.08),0 4px 16px rgba(15,76,129,0.06);
+}
+html,body{font-family:var(--font-ar);direction:rtl;background:var(--c-bg);color:var(--c-text);font-size:15px;line-height:1.6;min-height:100vh}
+
+/* ─── HEADER ─── */
+.app-header{background:var(--c-primary);color:#fff;box-shadow:0 2px 12px rgba(15,76,129,0.25)}
+.header-inner{max-width:940px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:14px}
+.header-logo{width:42px;height:42px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.header-title{font-size:18px;font-weight:700}
+.header-sub{font-size:12px;opacity:0.75;margin-top:2px}
+.progress-bar{background:rgba(255,255,255,0.15);height:4px}
+.progress-fill{height:100%;background:rgba(255,255,255,0.85);transition:width 0.4s ease}
+
+/* ─── STEPS NAV ─── */
+.steps-nav{background:#fff;border-bottom:1px solid var(--c-border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.steps-nav::-webkit-scrollbar{display:none}
+.steps-nav-inner{max-width:940px;margin:0 auto;display:flex;padding:0 8px}
+.step-tab{flex-shrink:0;padding:11px 13px;font-size:12px;font-weight:500;color:var(--c-text-hint);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:6px;user-select:none}
+.step-tab.active{color:var(--c-primary);border-bottom-color:var(--c-primary);font-weight:700}
+.step-tab.done{color:var(--c-success)}
+.step-tab .snum{width:20px;height:20px;border-radius:50%;background:var(--c-bg);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;transition:all 0.2s}
+.step-tab.active .snum{background:var(--c-primary);color:#fff}
+.step-tab.done .snum{background:var(--c-success);color:#fff}
+
+/* ─── MAIN ─── */
+.main-content{max-width:940px;margin:0 auto;padding:20px 16px 90px}
+
+/* ─── CARDS ─── */
+.section-card{background:var(--c-card);border-radius:var(--radius-lg);border:1px solid var(--c-border);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.section-header{background:var(--c-primary-light);border-bottom:1px solid var(--c-border);padding:13px 20px;display:flex;align-items:center;gap:10px}
+.section-icon{width:32px;height:32px;background:var(--c-primary);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.section-title{font-size:15px;font-weight:700;color:var(--c-primary)}
+.section-body{padding:20px}
+
+/* ─── FORMS ─── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:6px}
+label.field-label{font-size:13px;font-weight:600;color:var(--c-text-muted)}
+label.field-label .req{color:#C43333;margin-right:3px}
+input[type=text],input[type=date],input[type=number],textarea{
+  width:100%;padding:10px 14px;
+  border:1.5px solid var(--c-border-strong);
+  border-radius:var(--radius);
+  background:#fff;color:var(--c-text);
+  font-family:var(--font-ar);font-size:14px;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  outline:none;direction:rtl
+}
+input:focus,textarea:focus{border-color:var(--c-primary);box-shadow:0 0 0 3px rgba(15,76,129,0.1)}
+textarea{resize:vertical;min-height:90px;line-height:1.8}
+input::placeholder,textarea::placeholder{color:var(--c-text-hint);font-size:13px}
+
+/* ─── RADIO BUTTONS ─── */
+.radio-group{display:flex;gap:10px;flex-wrap:wrap}
+.radio-btn{flex:1;min-width:90px;padding:10px 12px;border:1.5px solid var(--c-border-strong);border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:500;color:var(--c-text-muted);text-align:center;transition:all 0.2s;user-select:none}
+.radio-btn:hover{border-color:var(--c-primary);color:var(--c-primary)}
+.radio-btn.selected{background:var(--c-primary-light);border-color:var(--c-primary);color:var(--c-primary);font-weight:700}
+
+/* ─── DYNAMIC ITEMS ─── */
+.dynamic-list{display:flex;flex-direction:column;gap:12px}
+.dynamic-item{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:16px;position:relative}
+.dynamic-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.item-badge{background:var(--c-primary);color:#fff;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700}
+.btn-remove{background:var(--c-danger-light);color:var(--c-danger);border:1px solid rgba(163,45,45,0.2);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:4px;transition:all 0.2s}
+.btn-remove:hover{background:var(--c-danger);color:#fff}
+.btn-add{width:100%;padding:12px;border:2px dashed var(--c-border-strong);border-radius:var(--radius);background:none;color:var(--c-primary);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;transition:all 0.2s}
+.btn-add:hover{background:var(--c-primary-light);border-style:solid}
+
+/* ─── CHECKBOX OPTION ─── */
+.checkbox-option{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1.5px solid var(--c-border-strong);border-radius:var(--radius);cursor:pointer;transition:all 0.2s;margin-bottom:4px}
+.checkbox-option.checked{background:var(--c-success-light);border-color:var(--c-success)}
+.checkbox-option input[type=checkbox]{width:18px;height:18px;accent-color:var(--c-success);cursor:pointer;flex-shrink:0}
+.checkbox-option label{font-size:14px;font-weight:600;cursor:pointer;color:var(--c-text);margin:0}
+
+/* ─── FOOTER NAV ─── */
+.nav-footer{position:fixed;bottom:0;right:0;left:0;background:#fff;border-top:1px solid var(--c-border);box-shadow:0 -4px 20px rgba(15,76,129,0.1);padding:12px 20px;z-index:100}
+.nav-footer-inner{max-width:940px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn-primary{background:var(--c-primary);color:#fff;border:none;border-radius:var(--radius);padding:12px 30px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:8px;transition:background 0.2s}
+.btn-primary:hover{background:var(--c-primary-mid)}
+.btn-secondary{background:#fff;color:var(--c-primary);border:1.5px solid var(--c-primary);border-radius:var(--radius);padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:8px;transition:all 0.2s}
+.btn-secondary:hover{background:var(--c-primary-light)}
+.step-counter{font-size:13px;color:var(--c-text-muted);font-weight:500;white-space:nowrap}
+
+/* ─── REPORT ─── */
+.report-container{background:var(--c-card);border-radius:var(--radius-lg);border:1px solid var(--c-border);box-shadow:var(--shadow);overflow:hidden}
+.report-header{background:var(--c-primary);color:#fff;padding:22px 28px;text-align:center}
+.report-header h2{font-size:20px;font-weight:700;margin-bottom:6px}
+.report-header p{font-size:13px;opacity:0.8}
+.report-body{padding:24px 28px;direction:rtl}
+.report-section{margin-bottom:24px}
+.report-section-title{font-size:14px;font-weight:700;color:var(--c-primary);background:var(--c-primary-light);padding:8px 16px;border-radius:6px;border-right:4px solid var(--c-primary);margin-bottom:12px}
+.report-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed rgba(15,76,129,0.12);font-size:14px;gap:12px;align-items:flex-start}
+.report-row:last-child{border-bottom:none}
+.report-label{color:var(--c-text-muted);font-weight:500;flex-shrink:0;min-width:130px}
+.report-value{color:var(--c-text);font-weight:600;text-align:left;flex:1}
+.report-text{font-size:14px;line-height:2;color:var(--c-text);white-space:pre-wrap}
+.report-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.report-table th{background:var(--c-primary);color:#fff;padding:8px 12px;text-align:right;font-weight:600;font-size:12px}
+.report-table td{padding:8px 12px;border-bottom:1px solid var(--c-border);text-align:right;font-size:13px}
+.report-table tr:nth-child(even) td{background:var(--c-bg)}
+.report-actions{display:flex;gap:12px;padding:20px 28px;border-top:1px solid var(--c-border);background:var(--c-bg);flex-wrap:wrap}
+.btn-copy{background:var(--c-primary);color:#fff;border:none;border-radius:var(--radius);padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:8px;flex:1;justify-content:center;min-width:140px;transition:background 0.2s}
+.btn-copy:hover{background:var(--c-primary-mid)}
+.btn-telegram{background:#229ED9;color:#fff;border:none;border-radius:var(--radius);padding:13px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:8px;flex:1;justify-content:center;min-width:140px;transition:background 0.2s}
+.btn-telegram:hover{background:#1A8FC2}
+.btn-edit{background:#fff;color:var(--c-text-muted);border:1.5px solid var(--c-border-strong);border-radius:var(--radius);padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-ar);display:flex;align-items:center;gap:8px;justify-content:center;transition:all 0.2s}
+.btn-edit:hover{background:var(--c-bg)}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);background:#1D6B3E;color:#fff;padding:12px 28px;border-radius:var(--radius);font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;font-family:var(--font-ar);white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.toast.show{opacity:1}
+
+/* ─── HIDDEN ─── */
+.hidden{display:none!important}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  .form-grid,.form-grid-3{grid-template-columns:1fr}
+  .header-title{font-size:15px}
+  .step-tab{padding:10px 9px;font-size:11px}
+  .radio-btn{min-width:75px;font-size:12px;padding:9px 8px}
+  .report-body{padding:16px}
+  .report-actions{padding:14px 16px}
+  .report-table{font-size:11px}
+  .report-table th,.report-table td{padding:6px 8px}
+  .report-label{min-width:100px;font-size:13px}
+}
+@media(max-width:400px){
+  .btn-copy,.btn-telegram{font-size:13px;padding:11px 14px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div id="toast" class="toast">تم النسخ بنجاح ✓</div>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-inner">
+    <div class="header-logo">🏦</div>
+    <div>
+      <div class="header-title">نظام تقارير الزيارات الميدانية</div>
+      <div class="header-sub">إدارة المخاطر الائتمانية — مولّد التقارير الاحترافية</div>
+    </div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:12.5%"></div>
+  </div>
+</div>
+
+<!-- STEPS NAV -->
+<div class="steps-nav">
+  <div class="steps-nav-inner" id="stepsNav">
+    <div class="step-tab active" data-step="1"><span class="snum">1</span>البيانات الأساسية</div>
+    <div class="step-tab" data-step="2"><span class="snum">2</span>الضامنون</div>
+    <div class="step-tab" data-step="3"><span class="snum">3</span>آي سكور العميل</div>
+    <div class="step-tab" data-step="4"><span class="snum">4</span>آي سكور الضامنين</div>
+    <div class="step-tab" data-step="5"><span class="snum">5</span>الالتزامات</div>
+    <div class="step-tab" data-step="6"><span class="snum">6</span>نتيجة الفحص</div>
+    <div class="step-tab" data-step="7"><span class="snum">7</span>الزيارة الميدانية</div>
+    <div class="step-tab" data-step="8"><span class="snum">8</span>التقييم النهائي</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent">
+
+  <!-- ══════════════ STEP 1 ══════════════ -->
+  <div id="step1" class="step-content">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">📋</div>
+        <div><div class="section-title">البيانات الأساسية للعميل</div></div>
+      </div>
+      <div class="section-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="field-label">الفرع <span class="req">*</span></label>
+            <input type="text" id="branch" placeholder="مثال: فرع بني سويف">
+          </div>
+          <div class="form-group">
+            <label class="field-label">تاريخ الزيارة الميدانية <span class="req">*</span></label>
+            <input type="date" id="visitDate">
+          </div>
+          <div class="form-group">
+            <label class="field-label">اسم العميل <span class="req">*</span></label>
+            <input type="text" id="clientName" placeholder="الاسم رباعياً">
+          </div>
+          <div class="form-group">
+            <label class="field-label">النشاط الاساسي <span class="req">*</span></label>
+            <input type="text" id="activity" placeholder="مثال: تجارة مواد غذائية">
+          </div>
+          <div class="form-group form-full">
+            <label class="field-label">حالة العميل <span class="req">*</span></label>
+            <div class="radio-group" id="clientStatus">
+              <div class="radio-btn" onclick="selectRadio('clientStatus',this,'عميل جديد');toggleRenewal(false)">عميل جديد</div>
+              <div class="radio-btn" onclick="selectRadio('clientStatus',this,'عميل حالي');toggleRenewal(false)">عميل حالي</div>
+              <div class="radio-btn" onclick="selectRadio('clientStatus',this,'تجديد');toggleRenewal(true)">تجديد</div>
+            </div>
+            <input type="hidden" id="clientStatusVal">
+          </div>
+          <div class="form-group form-full hidden" id="renewalGroup">
+            <label class="field-label">قيمة التجديد</label>
+            <input type="text" id="renewalVal" placeholder="مثال: 49,000 / 12 — قسط 4,083 جنيه">
+          </div>
+          <div class="form-group form-full">
+            <label class="field-label">تقييم العمليات</label>
+            <textarea id="opsEvalVal" rows="3"
+              placeholder="مثال: 150,000 / 24 شهر — قسط شهري 6,250 جنيه&#10;أو اكتب أي ملاحظات تقييمية للعمليات"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 2 ══════════════ -->
+  <div id="step2" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">👥</div>
+        <div><div class="section-title">الضامنون</div></div>
+      </div>
+      <div class="section-body">
+        <div class="dynamic-list" id="guarantorsList"></div>
+        <button class="btn-add" onclick="addGuarantor()">+ إضافة ضامن جديد</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 3 ══════════════ -->
+  <div id="step3" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">📊</div>
+        <div><div class="section-title">الآي سكور الخاص بالعميل</div></div>
+      </div>
+      <div class="section-body">
+        <div class="checkbox-option" id="noClientScoreOpt" onclick="toggleNoScore()">
+          <input type="checkbox" id="noClientScoreChk">
+          <label for="noClientScoreChk">لا يوجد سجل ائتماني للعميل</label>
+        </div>
+        <div id="clientScoreSection" style="margin-top:16px">
+          <div class="dynamic-list" id="clientScoreList"></div>
+          <button class="btn-add" onclick="addCreditRecord('client',null)">+ إضافة سجل ائتماني</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 4 ══════════════ -->
+  <div id="step4" class="step-content hidden">
+    <div id="guarantorScoreSections"></div>
+  </div>
+
+  <!-- ══════════════ STEP 5 ══════════════ -->
+  <div id="step5" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">💳</div>
+        <div><div class="section-title">الالتزامات الشهرية</div></div>
+      </div>
+      <div class="section-body">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--c-primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--c-primary-light)">التزامات العميل</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="field-label">المبلغ الشهري (جنيه)</label><input type="number" id="obClient" placeholder="0"></div>
+              <div class="form-group"><label class="field-label">ملاحظات</label><input type="text" id="obClientNote" placeholder="تفاصيل اختيارية"></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--c-primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--c-primary-light)">التزامات الزوجة / الزوج ( إن وجد )</div>
+            <div class="form-grid">
+              <div class="form-group"><label class="field-label">المبلغ الشهري (جنيه)</label><input type="number" id="obSpouse" placeholder="0"></div>
+              <div class="form-group"><label class="field-label">ملاحظات</label><input type="text" id="obSpouseNote" placeholder="تفاصيل اختيارية"></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--c-primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--c-primary-light)">التزامات النشاط في حالة وجود شركاء (اختياري)</div>
+            <div class="form-group"><label class="field-label">اكتب قيمة الالتزام يدوياً</label><input type="text" id="obBusiness" placeholder="مثال: 11,000 جنيه / شهريا — في حالة وجود شركاء"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 6 ══════════════ -->
+  <div id="step6" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">🔍</div>
+        <div><div class="section-title">نتيجة الفحص الائتماني</div></div>
+      </div>
+      <div class="section-body">
+        <div class="form-group">
+          <label class="field-label">نتيجة الفحص الائتماني / فحص صلة القرابة</label>
+          <textarea id="investigationResult" rows="9"
+            placeholder="اكتب هنا نتائج الفحص الائتماني التفصيلية و نتيجة فحص صلة القرابه لدي نظام الدلتا ( سيستم الشركة )&#10;&#10;مثال :&#10;- ملاحظات خلال الاستعلام الائتماني&#10;- لا توجد مديونيات متعثرة&#10;- صله القرابة لدي العميل&#10;- صلة القرابة لدي الضمان"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 7 ══════════════ -->
+  <div id="step7" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">🏪</div>
+        <div><div class="section-title">تقرير الزيارة الميدانية</div></div>
+      </div>
+      <div class="section-body">
+        <div class="form-grid" style="margin-bottom:18px">
+          <div class="form-group">
+            <label class="field-label">النشاط الاساسي / انشطة اخري</label>
+            <input type="text" id="mainActivity" placeholder="مثال: ملابس / مواشي / ادوات منزلية">
+          </div>
+          <div class="form-group">
+            <label class="field-label">موقع النشاط التفصيلي ( الحيز الجغرافي )</label>
+            <input type="text" id="businessLocation" placeholder="مثال: اهناسيا – مركز اهناسيا، شارع السوق">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label">تقرير الزيارة الميدانية التفصيلي</label>
+          <textarea id="fieldReport" rows="12" style="min-height:200px"
+            placeholder="اكتب هنا تقرير الزيارة الكامل...&#10;&#10;مثال:&#10;— تم زيارة النشاط في موقعه المحدد&#10;— المحل يعمل منذ أكثر من 5 سنوات وفق إفادة العميل&#10;— المخزون متنوع ومنظم&#10;— وجود حركة تجارية ملحوظة أثناء الزيارة&#10;— المكان مملوك / مستأجر&#10;— ملاحظات إضافية على الوضع الاقتصادي للنشاط"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ STEP 8 ══════════════ -->
+  <div id="step8" class="step-content hidden">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">✅</div>
+        <div><div class="section-title">التقييم النهائي والتوصيات</div></div>
+      </div>
+      <div class="section-body">
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label class="field-label">اسم القائم بالزيارة الميدانية <span class="req">*</span></label>
+            <input type="text" id="officerName" placeholder="الاسم الكامل للموظف القائم بالزيارة">
+          </div>
+          <div class="form-group form-full">
+            <label class="field-label">التقييم النهائي للعميل <span class="req">*</span></label>
+            <textarea id="finalEvalText" rows="4"
+              placeholder="اكتب التقييم المالي التفصيلي...&#10;&#10;مثال:&#10;المبلغ المقترح: 150,000 جنيه / 24 شهر — قسط شهري 6,250 جنيه&#10;أو: 80,000 / 18 شهر — قسط 4,445 جنيه&#10;أو: مرفوض — السبب: ..."></textarea>
+          </div>
+          <div class="form-group form-full">
+            <label class="field-label">الطلبات والتوصيات</label>
+            <textarea id="recommendations" rows="5"
+              placeholder="اكتب الطلبات والتوصيات التفصيلية...&#10;&#10;مثال:&#10;— مطلوب مستندات النشاط التجاري&#10;— التحقق من ملكية المحل / عقد الإيجار&#10;— مراجعة الكشف البنكي لآخر 6 أشهر&#10;— مستندات الضامن مكتملة"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ REPORT ══════════════ -->
+  <div id="stepReport" class="step-content hidden">
+    <div class="report-container">
+      <div class="report-header">
+        <h2>تقرير الزيارة الميدانية</h2>
+        <p id="reportMeta">تقرير ائتماني رسمي — إدارة المخاطر الائتمانية</p>
+      </div>
+      <div class="report-body" id="reportBody"></div>
+      <div class="report-actions">
+        <button class="btn-copy" onclick="copyReport()">📋 نسخ التقرير كاملاً</button>
+        <button class="btn-edit" onclick="goToStep(1)">✏️ تعديل البيانات</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end main-content -->
+
+<!-- FOOTER NAV -->
+<div class="nav-footer" id="navFooter">
+  <div class="nav-footer-inner">
+    <button class="btn-secondary" id="btnPrev" onclick="prevStep()">→ السابق</button>
+    <span class="step-counter" id="stepCounter">الخطوة 1 من 8</span>
+    <button class="btn-primary" id="btnNext" onclick="nextStep()">التالي ←</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════
+let currentStep = 1;
+const TOTAL_STEPS = 8;
+let guarantors = [];
+let clientScoreRecords = [];
+let noClientScore = false;
+let guarantorScoreRecords = {}; // { guarantorId: [{...}] }
+let gScoreNoRecord = {};        // { guarantorId: bool }
+
+// ════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════
+function arabicOrdinal(n) {
+  const o = ['الأول','الثاني','الثالث','الرابع','الخامس',
+             'السادس','السابع','الثامن','التاسع','العاشر'];
+  return o[n - 1] || n;
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  const p = d.split('-');
+  if (p.length !== 3) return d;
+  return p[2] + '/' + p[1] + '/' + p[0];
+}
+
+function formatNum(n) {
+  if (!n || n === '0' || n === 0) return '—';
+  return Number(n).toLocaleString('ar-EG') + ' جنيه';
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? '#A32D2D' : '#1D6B3E';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ════════════════════════════════════════
+//  RADIO BUTTONS
+// ════════════════════════════════════════
+function selectRadio(groupId, el, val) {
+  document.querySelectorAll('#' + groupId + ' .radio-btn')
+    .forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(groupId + 'Val').value = val;
+}
+
+function toggleRenewal(show) {
+  const grp = document.getElementById('renewalGroup');
+  if (show) grp.classList.remove('hidden');
+  else { grp.classList.add('hidden'); document.getElementById('renewalVal').value = ''; }
+}
+
+// ════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════
+function goToStep(n) {
+  document.querySelectorAll('.step-content').forEach(s => s.classList.add('hidden'));
+  const target = (n <= TOTAL_STEPS) ? 'step' + n : 'stepReport';
+  document.getElementById(target).classList.remove('hidden');
+
+  document.querySelectorAll('.step-tab').forEach(t => {
+    const sn = parseInt(t.dataset.step);
+    t.classList.remove('active', 'done');
+    if (sn === n)      t.classList.add('active');
+    else if (sn < n)   t.classList.add('done');
+  });
+
+  currentStep = n;
+  const pct = (n > TOTAL_STEPS) ? 100 : Math.round((n / TOTAL_STEPS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepCounter').textContent =
+    (n > TOTAL_STEPS) ? 'التقرير جاهز' : ('الخطوة ' + n + ' من ' + TOTAL_STEPS);
+  document.getElementById('btnNext').textContent =
+    (n === TOTAL_STEPS) ? 'إنشاء التقرير ✓' : 'التالي ←';
+  document.getElementById('btnPrev').style.visibility = (n <= 1) ? 'hidden' : 'visible';
+  document.getElementById('navFooter').style.display = (n > TOTAL_STEPS) ? 'none' : 'flex';
+
+  // scroll step tab into view
+  const activeTab = document.querySelector('.step-tab.active');
+  if (activeTab) activeTab.scrollIntoView({behavior:'smooth', inline:'nearest', block:'nearest'});
+  window.scrollTo(0, 0);
+}
+
+function markError(el) {
+  el.style.borderColor = '#C43333';
+  el.style.boxShadow  = '0 0 0 3px rgba(196,51,51,0.15)';
+  el.addEventListener('input', function fix() {
+    el.style.borderColor = '';
+    el.style.boxShadow  = '';
+    el.removeEventListener('input', fix);
+  }, { once: true });
+}
+
+function validateStep(n) {
+  let ok = true;
+
+  function req(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const v = el.value.trim();
+    if (!v) { markError(el); ok = false; }
+  }
+
+  function reqRadio(groupId, hiddenId) {
+    const v = document.getElementById(hiddenId)?.value;
+    if (!v) {
+      document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(b => {
+        b.style.borderColor = '#C43333';
+        b.style.background  = '#fff0f0';
+      });
+      // auto-clear on any click
+      document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(b => {
+        b.addEventListener('click', function fix() {
+          document.querySelectorAll('#' + groupId + ' .radio-btn').forEach(x => {
+            x.style.borderColor = ''; x.style.background = '';
+          });
+          b.removeEventListener('click', fix);
+        }, { once: true });
+      });
+      ok = false;
+    }
+  }
+
+  if (n === 1) {
+    req('branch'); req('visitDate'); req('clientName'); req('activity');
+    reqRadio('clientStatus', 'clientStatusVal');
+    req('opsEvalVal');
+  }
+
+  if (n === 2) {
+    guarantors.forEach(g => {
+      const nameEl = document.getElementById('gName' + g.id);
+      const relEl  = document.getElementById('gRel'  + g.id);
+      if (nameEl && !nameEl.value.trim()) { markError(nameEl); ok = false; }
+      if (relEl  && !relEl.value.trim())  { markError(relEl);  ok = false; }
+    });
+  }
+
+  // step 3 — validate client credit records if any exist
+  if (n === 3) {
+    if (!noClientScore) {
+      clientScoreRecords.forEach(r => {
+        const p = `cr${r.id}`;
+        ['_bank','_type','_date','_amount','_inst'].forEach(f => {
+          const el = document.getElementById(p + f);
+          if (el && !el.value.trim()) { markError(el); ok = false; }
+        });
+      });
+    }
+  }
+
+  // step 4 — validate guarantor credit records if any exist
+  if (n === 4) {
+    guarantors.forEach(g => {
+      if (!gScoreNoRecord[g.id]) {
+        (guarantorScoreRecords[g.id] || []).forEach(r => {
+          const p = `gr${g.id}_${r.id}`;
+          ['_bank','_type','_date','_amount','_inst'].forEach(f => {
+            const el = document.getElementById(p + f);
+            if (el && !el.value.trim()) { markError(el); ok = false; }
+          });
+        });
+      }
+    });
+  }
+
+  if (n === 5) {
+    req('obClient');
+    // obSpouse optional
+  }
+
+  if (n === 6) { req('investigationResult'); }
+
+  if (n === 7) {
+    req('mainActivity');
+    req('businessLocation');
+    req('fieldReport');
+  }
+
+  if (n === 8) {
+    req('officerName');
+    req('finalEvalText');
+  }
+
+  if (!ok) { showToast('يرجى تعبئة جميع الخانات المطلوبة ✕', true); }
+  return ok;
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep === TOTAL_STEPS) { generateReport(); }
+  else { goToStep(currentStep + 1); }
+}
+function prevStep() {
+  if (currentStep > 1) goToStep(currentStep - 1);
+}
+
+// ════════════════════════════════════════
+//  GUARANTORS
+// ════════════════════════════════════════
+function addGuarantor() {
+  const id = Date.now();
+  guarantors.push({ id, name: '', relation: '', note: '' });
+  renderGuarantors();
+  updateStep4();
+}
+
+function removeGuarantor(id) {
+  guarantors = guarantors.filter(g => g.id !== id);
+  delete guarantorScoreRecords[id];
+  delete gScoreNoRecord[id];
+  renderGuarantors();
+  updateStep4();
+}
+
+function saveGuarantorField(id) {
+  const g = guarantors.find(x => x.id === id);
+  if (!g) return;
+  g.name     = document.getElementById('gName' + id)?.value || '';
+  g.relation = document.getElementById('gRel'  + id)?.value || '';
+  g.note     = document.getElementById('gNote' + id)?.value || '';
+  // also update step4 header labels
+  const lbl = document.getElementById('gScoreLabel' + id);
+  if (lbl) lbl.textContent = g.name || ('الضامن ' + (guarantors.indexOf(g) + 1));
+}
+
+function renderGuarantors() {
+  const list = document.getElementById('guarantorsList');
+  list.innerHTML = guarantors.map((g, i) => `
+    <div class="dynamic-item" id="gItem${g.id}">
+      <div class="dynamic-item-header">
+        <span class="item-badge">الضامن ${arabicOrdinal(i + 1)}</span>
+        <button class="btn-remove" onclick="removeGuarantor(${g.id})">✕ حذف</button>
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="field-label">اسم الضامن</label>
+          <input type="text" id="gName${g.id}" placeholder="الاسم رباعياً"
+            oninput="saveGuarantorField(${g.id})" value="${escHtml(g.name)}">
+        </div>
+        <div class="form-group">
+          <label class="field-label">صلة القرابة</label>
+          <input type="text" id="gRel${g.id}" placeholder="مثال: زوجة، أخ، شريك"
+            oninput="saveGuarantorField(${g.id})" value="${escHtml(g.relation)}">
+        </div>
+        <div class="form-group form-full">
+          <label class="field-label">ملاحظات</label>
+          <input type="text" id="gNote${g.id}" placeholder="أي ملاحظات إضافية"
+            oninput="saveGuarantorField(${g.id})" value="${escHtml(g.note)}">
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ════════════════════════════════════════
+//  CLIENT i-SCORE
+// ════════════════════════════════════════
+function toggleNoScore() {
+  const chk = document.getElementById('noClientScoreChk');
+  const opt = document.getElementById('noClientScoreOpt');
+  const sec = document.getElementById('clientScoreSection');
+  chk.checked = !chk.checked;
+  noClientScore = chk.checked;
+  opt.classList.toggle('checked', chk.checked);
+  sec.style.display = chk.checked ? 'none' : 'block';
+}
+
+// ════════════════════════════════════════
+//  CREDIT RECORDS (shared for client & guarantors)
+// ════════════════════════════════════════
+function saveAllClientRecords() {
+  clientScoreRecords.forEach(r => {
+    const p = `cr${r.id}`;
+    r.bank   = document.getElementById(p+'_bank')?.value  || r.bank  || '';
+    r.ltype  = document.getElementById(p+'_type')?.value  || r.ltype || '';
+    r.date   = document.getElementById(p+'_date')?.value  || r.date  || '';
+    r.amount = document.getElementById(p+'_amount')?.value|| r.amount|| '';
+    r.inst   = document.getElementById(p+'_inst')?.value  || r.inst  || '';
+    r.delay  = document.getElementById(p+'_delay')?.value || r.delay || '';
+    r.note   = document.getElementById(p+'_note')?.value  || r.note  || '';
+  });
+}
+
+function saveAllGuarantorRecords(gId) {
+  (guarantorScoreRecords[gId] || []).forEach(r => {
+    const p = `gr${gId}_${r.id}`;
+    r.bank   = document.getElementById(p+'_bank')?.value  || r.bank  || '';
+    r.ltype  = document.getElementById(p+'_type')?.value  || r.ltype || '';
+    r.date   = document.getElementById(p+'_date')?.value  || r.date  || '';
+    r.amount = document.getElementById(p+'_amount')?.value|| r.amount|| '';
+    r.inst   = document.getElementById(p+'_inst')?.value  || r.inst  || '';
+    r.delay  = document.getElementById(p+'_delay')?.value || r.delay || '';
+    r.note   = document.getElementById(p+'_note')?.value  || r.note  || '';
+  });
+}
+
+function addCreditRecord(type, gId) {
+  const id = Date.now();
+  if (type === 'client') {
+    saveAllClientRecords();
+    clientScoreRecords.push({ id });
+    renderClientScore();
+  } else {
+    saveAllGuarantorRecords(gId);
+    if (!guarantorScoreRecords[gId]) guarantorScoreRecords[gId] = [];
+    guarantorScoreRecords[gId].push({ id });
+    renderGuarantorScore(gId);
+  }
+}
+
+function removeCreditRecord(type, id, gId) {
+  if (type === 'client') {
+    saveAllClientRecords();
+    clientScoreRecords = clientScoreRecords.filter(r => r.id !== id);
+    renderClientScore();
+  } else {
+    saveAllGuarantorRecords(gId);
+    guarantorScoreRecords[gId] = (guarantorScoreRecords[gId] || []).filter(r => r.id !== id);
+    renderGuarantorScore(gId);
+  }
+}
+
+function creditRecordHTML(r, i, type, gId) {
+  const rmv = (type === 'client')
+    ? `removeCreditRecord('client',${r.id},null)`
+    : `removeCreditRecord('guarantor',${r.id},${gId})`;
+  const p = (type === 'client') ? `cr${r.id}` : `gr${gId}_${r.id}`;
+  return `
+    <div class="dynamic-item" id="item${p}">
+      <div class="dynamic-item-header">
+        <span class="item-badge">سجل ${i + 1}</span>
+        <button class="btn-remove" onclick="${rmv}">✕ حذف</button>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label class="field-label">اسم البنك / الشركة</label>
+          <input type="text" id="${p}_bank" placeholder="اسم الجهة" value="${escHtml(r.bank||'')}"></div>
+        <div class="form-group"><label class="field-label">نوع التمويل</label>
+          <input type="text" id="${p}_type" placeholder="مقترض / ضامن شخصي / كفيل شركة" value="${escHtml(r.ltype||'')}"></div>
+        <div class="form-group"><label class="field-label">تاريخ المنح</label>
+          <input type="date" id="${p}_date" value="${r.date||''}"></div>
+        <div class="form-group"><label class="field-label">مبلغ القرض / المدة</label>
+          <input type="text" id="${p}_amount" placeholder="مثال: 150,000 / 24" value="${escHtml(r.amount||'')}"></div>
+        <div class="form-group"><label class="field-label">القسط الشهري (جنيه)</label>
+          <input type="number" id="${p}_inst" placeholder="0" value="${r.inst||''}"></div>
+        <div class="form-group"><label class="field-label">التأخيرات (أيام)</label>
+          <input type="number" id="${p}_delay" placeholder="0" value="${r.delay||''}"></div>
+        <div class="form-group form-full"><label class="field-label">ملاحظات</label>
+          <input type="text" id="${p}_note" placeholder="تفاصيل إضافية" value="${escHtml(r.note||'')}"></div>
+      </div>
+    </div>`;
+}
+
+function renderClientScore() {
+  document.getElementById('clientScoreList').innerHTML =
+    clientScoreRecords.map((r, i) => creditRecordHTML(r, i, 'client', null)).join('');
+}
+
+// ════════════════════════════════════════
+//  STEP 4 — GUARANTOR i-SCORE
+// ════════════════════════════════════════
+function updateStep4() {
+  const container = document.getElementById('guarantorScoreSections');
+  if (!guarantors.length) {
+    container.innerHTML = `
+      <div class="section-card">
+        <div class="section-body" style="text-align:center;padding:40px;color:var(--c-text-hint)">
+          لم يتم إضافة ضامنين بعد.<br>يمكن إضافتهم في الخطوة الثانية.
+        </div>
+      </div>`;
+    return;
+  }
+  container.innerHTML = guarantors.map((g, i) => `
+    <div class="section-card" style="margin-bottom:16px">
+      <div class="section-header">
+        <div class="section-icon">${i + 1}</div>
+        <div><div class="section-title">آي سكور — <span id="gScoreLabel${g.id}">${escHtml(g.name) || 'الضامن ' + (i + 1)}</span></div></div>
+      </div>
+      <div class="section-body">
+        <div class="checkbox-option ${gScoreNoRecord[g.id] ? 'checked' : ''}" id="noGScore${g.id}" onclick="toggleGuarantorNoScore(${g.id})">
+          <input type="checkbox" id="noGScoreChk${g.id}" ${gScoreNoRecord[g.id] ? 'checked' : ''}>
+          <label for="noGScoreChk${g.id}">لا يوجد سجل ائتماني لهذا الضامن</label>
+        </div>
+        <div id="gScoreSection${g.id}" style="margin-top:16px;${gScoreNoRecord[g.id]?'display:none':''}">
+          <div class="dynamic-list" id="gScoreList${g.id}"></div>
+          <button class="btn-add" onclick="addCreditRecord('guarantor',${g.id})">+ إضافة سجل ائتماني</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  guarantors.forEach(g => renderGuarantorScore(g.id));
+}
+
+function toggleGuarantorNoScore(gId) {
+  const chk = document.getElementById('noGScoreChk' + gId);
+  const opt = document.getElementById('noGScore' + gId);
+  const sec = document.getElementById('gScoreSection' + gId);
+  chk.checked = !chk.checked;
+  gScoreNoRecord[gId] = chk.checked;
+  opt.classList.toggle('checked', chk.checked);
+  sec.style.display = chk.checked ? 'none' : 'block';
+}
+
+function renderGuarantorScore(gId) {
+  const el = document.getElementById('gScoreList' + gId);
+  if (el) {
+    el.innerHTML = (guarantorScoreRecords[gId] || [])
+      .map((r, i) => creditRecordHTML(r, i, 'guarantor', gId)).join('');
+  }
+}
+
+// ════════════════════════════════════════
+//  COLLECT CREDIT RECORD DATA
+// ════════════════════════════════════════
+function collectRecord(r, type, gId) {
+  const p = (type === 'client') ? `cr${r.id}` : `gr${gId}_${r.id}`;
+  return {
+    bank:   document.getElementById(p + '_bank')?.value  || '',
+    ltype:  document.getElementById(p + '_type')?.value  || '',
+    date:   document.getElementById(p + '_date')?.value  || '',
+    amount: document.getElementById(p + '_amount')?.value || '',
+    inst:   document.getElementById(p + '_inst')?.value  || '',
+    delay:  document.getElementById(p + '_delay')?.value || '',
+    note:   document.getElementById(p + '_note')?.value  || ''
+  };
+}
+
+// ════════════════════════════════════════
+//  GENERATE REPORT
+// ════════════════════════════════════════
+function generateReport() {
+  // sync guarantor names first
+  guarantors.forEach(g => {
+    g.name     = document.getElementById('gName' + g.id)?.value || g.name;
+    g.relation = document.getElementById('gRel'  + g.id)?.value || g.relation;
+    g.note     = document.getElementById('gNote' + g.id)?.value || g.note;
+  });
+
+  const D = {
+    branch:           val('branch'),
+    visitDate:        val('visitDate'),
+    clientName:       val('clientName'),
+    activity:         val('activity'),
+    clientStatus:     val('clientStatusVal'),
+    opsEval:          val('opsEvalVal'),
+    obClient:         val('obClient'),
+    obClientNote:     val('obClientNote'),
+    obSpouse:         val('obSpouse'),
+    obSpouseNote:     val('obSpouseNote'),
+    obBusiness:       val('obBusiness'),
+    obBusinessNote:   val('obBusinessNote'),
+    investigationResult: val('investigationResult'),
+    mainActivity:     val('mainActivity'),
+    businessLocation: val('businessLocation'),
+    fieldReport:      val('fieldReport'),
+    officerName:      val('officerName'),
+    finalEvalText:    val('finalEvalText'),
+    recommendations:  val('recommendations'),
+  };
+
+  const clientRecords = clientScoreRecords.map(r => collectRecord(r, 'client', null));
+  const gRecords = {};
+  guarantors.forEach(g => {
+    gRecords[g.id] = (guarantorScoreRecords[g.id] || []).map(r => collectRecord(r, 'guarantor', g.id));
+  });
+
+  const totalOb = (parseInt(D.obClient) || 0) +
+                  (parseInt(D.obSpouse) || 0) +
+                  (parseInt(D.obBusiness) || 0);
+
+  let html = '';
+
+  /* ── Section 1: Basic Data ── */
+  html += sect('أولاً: البيانات الأساسية للعميل', `
+    ${row('الفرع', D.branch)}
+    ${row('تاريخ الزيارة', formatDate(D.visitDate))}
+    ${row('اسم العميل', D.clientName)}
+    ${row('النشاط الاقتصادي', D.activity)}
+    ${row('حالة العميل', D.clientStatus)}
+    ${D.opsEval ? `<div class="report-row"><span class="report-label">تقييم العمليات:</span><span class="report-value">${escHtmlFull(D.opsEval)}</span></div>` : ''}
+  `);
+
+  /* ── Section 2: Guarantors ── */
+  if (guarantors.length) {
+    let gHtml = '';
+    guarantors.forEach((g, i) => {
+      gHtml += `<div style="margin-bottom:10px;padding:12px 14px;background:var(--c-bg);border-radius:8px;border:1px solid var(--c-border)">
+        ${row('الضامن ' + arabicOrdinal(i + 1), g.name || '—')}
+        ${row('صلة القرابة', g.relation || '—')}
+        ${g.note ? row('ملاحظات', g.note) : ''}
+      </div>`;
+    });
+    html += sect('ثانياً: الضامنون', gHtml);
+  }
+
+  /* ── Section 3: Client iScore ── */
+  let s3 = '';
+  if (noClientScore) {
+    s3 = `<p style="font-size:14px;color:var(--c-text-muted);padding:6px 0">لا يوجد سجل ائتماني للعميل</p>`;
+  } else if (!clientRecords.length) {
+    s3 = `<p style="font-size:14px;color:var(--c-text-hint);padding:6px 0">لم يتم إدخال سجلات ائتمانية</p>`;
+  } else {
+    s3 = creditTable(clientRecords);
+  }
+  html += sect('ثالثاً: الآي سكور الخاص بالعميل', s3);
+
+  /* ── Section 4: Guarantors iScore ── */
+  if (guarantors.length) {
+    let s4 = '';
+    guarantors.forEach((g, i) => {
+      const recs = gRecords[g.id] || [];
+      s4 += `<div style="margin-bottom:14px">
+        <div style="font-size:13px;font-weight:700;color:var(--c-primary);margin-bottom:8px">${escHtml(g.name) || 'الضامن ' + (i + 1)}</div>`;
+      if (gScoreNoRecord[g.id]) {
+        s4 += `<p style="font-size:13px;color:var(--c-text-muted);padding-right:8px">لا يوجد سجل ائتماني لهذا الضامن</p>`;
+      } else if (!recs.length) {
+        s4 += `<p style="font-size:13px;color:var(--c-text-hint);padding-right:8px">لم يتم إدخال سجلات ائتمانية</p>`;
+      } else {
+        s4 += creditTable(recs);
+      }
+      s4 += `</div>`;
+    });
+    html += sect('رابعاً: الآي سكور الخاص بالضامنين', s4);
+  }
+
+  /* ── Section 5: Obligations ── */
+  html += sect('خامساً: الالتزامات الشهرية', `
+    ${row('التزامات العميل', formatNum(D.obClient) + (D.obClientNote ? ' — ' + D.obClientNote : ''))}
+    ${row('التزامات الزوجة / الزوج', formatNum(D.obSpouse) + (D.obSpouseNote ? ' — ' + D.obSpouseNote : ''))}
+    ${row('التزامات النشاط', formatNum(D.obBusiness) + (D.obBusinessNote ? ' — ' + D.obBusinessNote : ''))}
+    <div class="report-row" style="font-weight:700;border-top:2px solid var(--c-primary-light);margin-top:6px;padding-top:10px">
+      <span class="report-label" style="color:var(--c-primary)">إجمالي الالتزامات الشهرية:</span>
+      <span class="report-value" style="color:var(--c-primary);font-size:16px">${totalOb.toLocaleString('ar-EG')} جنيه / شهرياً</span>
+    </div>
+  `);
+
+  /* ── Section 6: Investigation ── */
+  if (D.investigationResult) {
+    html += sect('سادساً: نتيجة الفحص الائتماني',
+      `<p class="report-text">${escHtmlFull(D.investigationResult)}</p>`);
+  }
+
+  /* ── Section 7: Field Visit ── */
+  let s7 = '';
+  if (D.mainActivity)     s7 += row('النشاط الرئيسي المرئي', D.mainActivity);
+  if (D.businessLocation) s7 += row('موقع النشاط', D.businessLocation);
+  if (D.fieldReport)      s7 += `<div style="margin-top:12px"><p class="report-text">${escHtmlFull(D.fieldReport)}</p></div>`;
+  html += sect('سابعاً: تقرير الزيارة الميدانية', s7 || '<p style="color:var(--c-text-hint);font-size:14px">لم يتم إدخال تفاصيل الزيارة</p>');
+
+  /* ── Section 8: Final Evaluation ── */
+  html += sect('ثامناً: التقييم النهائي والتوصيات', `
+    ${row('القائم بالزيارة', D.officerName)}
+    ${D.finalEvalText ? `
+      <div style="margin-top:12px">
+        <div style="font-size:13px;font-weight:600;color:var(--c-text-muted);margin-bottom:8px">التقييم النهائي:</div>
+        <p class="report-text" style="background:var(--c-primary-light);padding:12px 16px;border-radius:8px;border-right:4px solid var(--c-primary)">${escHtmlFull(D.finalEvalText)}</p>
+      </div>` : ''}
+    ${D.recommendations ? `
+      <div style="margin-top:14px">
+        <div style="font-size:13px;font-weight:600;color:var(--c-text-muted);margin-bottom:8px">الطلبات والتوصيات:</div>
+        <p class="report-text">${escHtmlFull(D.recommendations)}</p>
+      </div>` : ''}
+  `);
+
+  /* ── Footer ── */
+  const today = new Date().toLocaleDateString('ar-EG', {year:'numeric',month:'long',day:'numeric'});
+  html += `<div style="margin-top:28px;padding-top:16px;border-top:2px solid var(--c-border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--c-text-hint);flex-wrap:wrap;gap:8px">
+    <span>تاريخ إصدار التقرير: ${today}</span>
+    <span style="font-weight:700;color:var(--c-primary)">نظام تقارير الزيارات الميدانية — إدارة المخاطر</span>
+  </div>`;
+
+  document.getElementById('reportBody').innerHTML = html;
+  document.getElementById('reportMeta').textContent =
+    (D.clientName || 'العميل') + ' — ' + (D.branch || '') + ' — ' + formatDate(D.visitDate);
+
+  goToStep(TOTAL_STEPS + 1);
+}
+
+/* helpers for report building */
+function val(id) { return (document.getElementById(id)?.value || '').trim(); }
+function row(label, value) {
+  return `<div class="report-row"><span class="report-label">${label}:</span><span class="report-value">${value || '—'}</span></div>`;
+}
+function sect(title, body) {
+  return `<div class="report-section"><div class="report-section-title">${title}</div>${body}</div>`;
+}
+function creditTable(records) {
+  let t = `<div style="overflow-x:auto"><table class="report-table">
+    <thead><tr><th>الجهة</th><th>النوع</th><th>تاريخ المنح</th><th>المبلغ</th><th>القسط</th><th>التأخير</th><th>ملاحظات</th></tr></thead><tbody>`;
+  records.forEach(r => {
+    t += `<tr>
+      <td>${r.bank||'—'}</td><td>${r.ltype||'—'}</td><td>${formatDate(r.date)}</td>
+      <td>${r.amount?Number(r.amount).toLocaleString('ar-EG')+' ج':'—'}</td>
+      <td>${r.inst?Number(r.inst).toLocaleString('ar-EG')+' ج':'—'}</td>
+      <td>${r.delay?r.delay+' يوم':'—'}</td><td>${r.note||'—'}</td>
+    </tr>`;
+  });
+  t += `</tbody></table></div>`;
+  return t;
+}
+function escHtmlFull(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// ════════════════════════════════════════
+//  COPY & SHARE
+// ════════════════════════════════════════
+function buildPlainText() {
+  const D = {
+    branch:              val('branch'),
+    visitDate:           val('visitDate'),
+    clientName:          val('clientName'),
+    activity:            val('activity'),
+    clientStatus:        val('clientStatusVal'),
+    opsEval:             val('opsEvalVal'),
+    renewalVal:          val('renewalVal'),
+    obClient:            val('obClient'),
+    obClientNote:        val('obClientNote'),
+    obSpouse:            val('obSpouse'),
+    obSpouseNote:        val('obSpouseNote'),
+    obBusiness:          val('obBusiness'),
+    obBusinessNote:      val('obBusinessNote'),
+    investigationResult: val('investigationResult'),
+    mainActivity:        val('mainActivity'),
+    businessLocation:    val('businessLocation'),
+    fieldReport:         val('fieldReport'),
+    officerName:         val('officerName'),
+    finalEvalText:       val('finalEvalText'),
+    recommendations:     val('recommendations'),
+  };
+
+  guarantors.forEach(g => {
+    g.name     = document.getElementById('gName' + g.id)?.value || g.name;
+    g.relation = document.getElementById('gRel'  + g.id)?.value || g.relation;
+    g.note     = document.getElementById('gNote' + g.id)?.value || g.note;
+  });
+
+  const clientRecords = clientScoreRecords.map(r => collectRecord(r, 'client', null));
+  const gRecords = {};
+  guarantors.forEach(g => {
+    gRecords[g.id] = (guarantorScoreRecords[g.id] || []).map(r => collectRecord(r, 'guarantor', g.id));
+  });
+
+  // format number as Western digits
+  function fmtN(n) {
+    if (!n || n === '0' || n === 0) return '';
+    const num = Number(n);
+    if (isNaN(num)) return String(n);
+    return num.toLocaleString('en-US');
+  }
+
+  // format date dd/ mm / yyyy
+  function fmtD(d) {
+    if (!d) return '';
+    const p = d.split('-');
+    if (p.length !== 3) return d;
+    return p[2] + '/ ' + p[1] + ' / ' + p[0];
+  }
+
+  let o = '';
+
+  // ── عنوان
+  o += 'تقرير تقييم ائتماني – بعد زيارة اداره المخاطر';
+  o += '\n•\tمعلومات العميل الأساسية\n';
+
+  // ── البيانات الأساسية (بنفس ترتيب النموذج)
+  o += '\nالقائم بالزيارة من إدارة المخاطر: ' + (D.officerName || '');
+  o += '\nتاريخ الزيارة : ' + fmtD(D.visitDate);
+  o += '\nالفرع : ' + (D.branch || '');
+  o += '\nاسم العميل : ' + (D.clientName || '');
+  o += '\nالنشاط الأساسي : ' + (D.activity || '');
+  o += '\nالحاله : ' + (D.clientStatus || '');
+  if (D.renewalVal) o += '\nقيمة التجديد : ' + D.renewalVal;
+  if (D.opsEval) o += '\nتقييم العمليات : ' + D.opsEval;
+
+  // ── الضامنون
+  if (guarantors.length) {
+    o += '\n\nاسماء الضمان : ';
+    guarantors.forEach((g, i) => {
+      let line = '\n' + (i + 1) + '.\t' + (g.name || '');
+      if (g.relation) line += ' – ' + g.relation;
+      if (g.note)     line += ' – ' + g.note;
+      o += line;
+    });
+  }
+
+  // ── آي سكور العميل
+  o += '\n\n•\tالعميل : ';
+  o += '\nالسجل الائتماني للعميل :\n';
+  if (noClientScore) {
+    o += '\nلا يوجد سجل ائتماني';
+  } else if (!clientRecords.length) {
+    o += '\nلم يتم إدخال سجلات ائتمانية';
+  } else {
+    clientRecords.forEach(r => {
+      const bankLine = [r.bank, r.ltype ? '( ' + r.ltype + ' )' : ''].filter(Boolean).join(' ');
+      if (bankLine) o += '\n•\tالشركه : ' + bankLine;
+      if (r.date)   o += '\n•\tتاريخ المنح : ' + fmtD(r.date);
+      if (r.amount) o += '\n•\tمبلغ القرض : ' + fmtN(r.amount);
+      if (r.inst)   o += '\n•\tقسط شهرى : ' + fmtN(r.inst);
+      if (r.delay && r.delay !== '0') o += '\n•\tأيام التأخير : ' + r.delay;
+      if (r.note)   o += '\n•\tملاحظات : ' + r.note;
+      o += '\n';
+    });
+  }
+
+  // ── آي سكور الضامنين
+  if (guarantors.length) {
+    guarantors.forEach((g, i) => {
+      o += '\n\n•\tالضامن ' + arabicOrdinal(i + 1) + ' :';
+      o += '\n' + (i + 1) + '.\t' + (g.name || '');
+      if (g.relation) o += ' – ' + g.relation;
+      o += '\nالسجل الائتماني للضامن ' + arabicOrdinal(i + 1) + ' : \n';
+      const recs = gRecords[g.id] || [];
+      if (gScoreNoRecord[g.id] || !recs.length) {
+        o += '\nلا يوجد سجل ائتماني\n';
+      } else {
+        recs.forEach(r => {
+          const bankLine = [r.bank, r.ltype ? '( ' + r.ltype + ' )' : ''].filter(Boolean).join(' ');
+          if (bankLine) o += '\n•\tالشركه : ' + bankLine;
+          if (r.date)   o += '\n•\tتاريخ المنح : ' + fmtD(r.date);
+          if (r.amount) o += '\n•\tمبلغ القرض : ' + fmtN(r.amount);
+          if (r.inst)   o += '\n•\tقسط شهرى : ' + fmtN(r.inst);
+          if (r.delay && r.delay !== '0') o += '\n•\tأيام التأخير : ' + r.delay;
+          if (r.note)   o += '\n•\tملاحظات : ' + r.note;
+          o += '\n';
+        });
+      }
+    });
+  }
+
+  // ── الالتزامات الشهرية
+  o += '\n\n•\tالتزامات العميل الشهرية : \n';
+  const obCLine = D.obClient   ? fmtN(D.obClient)   + ' جنيها' + (D.obClientNote   ? ' ' + D.obClientNote   : '') : '';
+  const obSLine = D.obSpouse   ? fmtN(D.obSpouse)   + ' جنيها' + (D.obSpouseNote   ? ' ' + D.obSpouseNote   : '') : '';
+  const obBLine = D.obBusiness ? fmtN(D.obBusiness) + ' جنيها' + (D.obBusinessNote ? ' ' + D.obBusinessNote : '') : '';
+  const totalOb = (parseInt(D.obClient)||0) + (parseInt(D.obSpouse)||0) + (parseInt(D.obBusiness)||0);
+  o += '\nالعميل : ' + (obCLine || '');
+  o += '\nزوجته : ' + (obSLine || 'لا يوجد التزامات');
+  if (totalOb > 0) o += '\nاجمالي الالتزامات الشهريه : ' + fmtN(totalOb) + ' جنيه / شهريا';
+  if (D.obBusiness) o += '\nالتزامات النشاط في حاله وجود شركاء : ' + D.obBusiness;
+
+  // ── نتيجة الفحص
+  o += '\n\n•\tنتيجه الفحص ( صله القرابة ) لدي نظام الدلتا : \n';
+  if (D.investigationResult) {
+    o += '\n' + D.investigationResult;
+  }
+
+  // ── 1. نتائج الزيارة الميدانية
+  o += '\n\n1.\tنتائج الزيارة الميدانية \u2013 تفاصيل النشاط :\n';
+  o += '\nالنشاط الرئيسي : ';
+  o += '\n' + (D.mainActivity || '');
+  o += '\n\nعنوان النشاط الجغرافي: ';
+  o += '\n' + (D.businessLocation || '');
+  if (D.fieldReport) {
+    o += '\n\nآلية العمل :\n';
+    o += '\n' + D.fieldReport;
+  }
+
+  // ── 2. المطلوب بعد الزيارة
+  if (D.recommendations) {
+    o += '\n\n2.\tالمطلوب بعد الزيارة من طرف اداره المخاطر :\n';
+    o += '\n' + D.recommendations;
+  }
+
+  // ── 3. التقييم النهائي
+  o += '\n\n3.\tالتقييم النهائي :';
+  o += '\nالقائم بالزيارة من \u0625دارة المخاطر : ' + (D.officerName || '');
+  if (D.finalEvalText) {
+    o += '\nتقييم العميل : ' + D.finalEvalText;
+  }
+
+  return o;
+}
+
+function copyReport() {
+  const text = buildPlainText();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast('تم نسخ التقرير بنجاح ✓'))
+      .catch(() => fallbackCopy(text));
+  } else { fallbackCopy(text); }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;right:-9999px;opacity:0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); showToast('تم نسخ التقرير بنجاح ✓'); }
+  catch(e) { showToast('يرجى النسخ يدوياً'); }
+  document.body.removeChild(ta);
+}
+
+function shareViaTelegram() {
+  const text = buildPlainText();
+  window.open('https://t.me/share/url?url=&text=' + encodeURIComponent(text), '_blank');
+}
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('visitDate').valueAsDate = new Date();
+  addGuarantor();
+  goToStep(1);
+});
+</script>
+</body>
+</html>
