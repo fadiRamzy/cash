@@ -1,0 +1,17 @@
+{
+  "name": "أكواد الاستعلامات الائتمانية",
+  "short_name": "أكواد ائتمانية",
+  "description": "نظام مرجعي داخلي لأكواد الاستعلام الائتماني - إدارة المخاطر، كاش للتمويل متناهي الصغر",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1f3a",
+  "theme_color": "#0b1f3a",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
