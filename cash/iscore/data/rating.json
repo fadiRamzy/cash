@@ -1,0 +1,41 @@
+{
+  "scale": "300-850",
+  "bands": [
+    {
+      "rating": "ممتاز",
+      "min": 751,
+      "max": 850,
+      "riskRate": 2.0
+    },
+    {
+      "rating": "جيد جدا",
+      "min": 701,
+      "max": 750,
+      "riskRate": 20.8
+    },
+    {
+      "rating": "مرضي",
+      "min": 626,
+      "max": 700,
+      "riskRate": 5.1
+    },
+    {
+      "rating": "غير مرضي",
+      "min": 521,
+      "max": 625,
+      "riskRate": 25.8
+    },
+    {
+      "rating": "مخاطر مرتفعه",
+      "min": 400,
+      "max": 520,
+      "riskRate": 31.9
+    },
+    {
+      "rating": "متعثر",
+      "min": 300,
+      "max": 399,
+      "riskRate": 74.5
+    }
+  ]
+}
