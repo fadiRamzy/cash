@@ -1104,9 +1104,9 @@ function loadScriptOnce(src) {
 
 function loadExtractionLibs() {
   if (!exLibsPromise) {
-    exLibsPromise = loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js')
+    exLibsPromise = loadScriptOnce('iscore/assets/vendor/pdfjs/pdf.min.js')
       .then(() => {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'iscore/assets/vendor/pdfjs/pdf.worker.min.js';
         return loadScriptOnce('iscore/assets/js/iscore-parser.js');
       });
   }
