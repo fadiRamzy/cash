@@ -1705,8 +1705,12 @@ function buildPlainText() {
 
 function copyReport() {
   const text = buildPlainText();
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text)
+  if (navigator.clipboard && navigator.clipboard.write && window.ClipboardItem) {
+    navigator.clipboard.write([
+      new ClipboardItem({
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      })
+    ])
       .then(() => { showToast('تم نسخ التقرير بنجاح ✓'); resetFormData(); })
       .catch(() => fallbackCopy(text));
   } else { fallbackCopy(text); }
