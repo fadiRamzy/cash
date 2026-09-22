@@ -30,6 +30,16 @@
       "lastSeen": "2026-09-22T12:05:22.393Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "xmxxmx20123@gmail.com",
+      "deviceId": "b27940d6-1606-4436-a841-3e2f3a230f71",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T13:07:17.703Z",
+      "lastSeen": "2026-09-22T13:07:17.703Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
