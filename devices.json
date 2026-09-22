@@ -130,6 +130,16 @@
       "lastSeen": "2026-09-22T12:43:04.712Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "عماد",
+      "deviceId": "fde7e5b9-da54-439a-aeef-883999a7999c",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-22T13:18:56.027Z",
+      "lastSeen": "2026-09-22T13:18:56.027Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
