@@ -242,7 +242,6 @@
     </p>
   </div>
 
-
   <!-- GitHub Settings -->
   <div class="card">
 
@@ -313,7 +312,6 @@
 
   </div>
 
-
   <!-- Users -->
   <div class="card">
 
@@ -378,7 +376,6 @@
     </div>
 
   </div>
-
 
   <!-- New Login Issues -->
   <div class="card">
@@ -741,11 +738,6 @@
     $("connectBtn").disabled = true;
 
 
-    /*
-     * Load users first.
-     * Then load Issues.
-     */
-
     loadUsers()
 
       .then(function () {
@@ -836,9 +828,6 @@
 
   /* =========================================================
      LOAD USERS
-     
-     users.json is public, so GET does NOT need Authorization.
-     This also removes one unnecessary CORS dependency.
   ========================================================= */
 
   function loadUsers() {
@@ -953,9 +942,6 @@
 
   /* =========================================================
      LOAD ISSUES
-     
-     Authenticated because Issues are being read
-     through the Admin Token.
   ========================================================= */
 
   function loadIssues() {
@@ -1106,21 +1092,6 @@
 
   /* =========================================================
      SAVE ONE USER SAFELY
-     
-     This is the important SHA fix.
-     
-     We do NOT use the old state.users as the source
-     for the whole file.
-     
-     Instead:
-       1. GET latest users.json
-       2. Get latest SHA
-       3. Decode latest content
-       4. Modify only the requested username
-       5. PUT using latest SHA
-     
-     Therefore another change to users.json will not
-     cause the previous SHA mismatch.
   ========================================================= */
 
   function saveUserStatus(
@@ -1165,11 +1136,6 @@
         Date.now()
       );
 
-
-    /*
-     * Step 1:
-     * Get absolutely latest users.json.
-     */
 
     return fetch(
 
@@ -1235,19 +1201,9 @@
       }
 
 
-      /*
-       * Step 2:
-       * Use latest SHA.
-       */
-
       state.usersSha =
         latest.sha;
 
-
-      /*
-       * Step 3:
-       * Decode latest file.
-       */
 
       var latestUsers =
         safeJsonParse(
@@ -1269,8 +1225,12 @@
 
 
       /*
-       * Step 4:
-       * Modify ONLY this username.
+       * IMPORTANT:
+       * Find the existing record and change ONLY
+       * its status.
+       *
+       * This specifically allows a blocked user
+       * to become allowed again.
        */
 
       var oldRecord =
@@ -1292,11 +1252,6 @@
 
         status: status,
 
-        /*
-         * Preserve original creation date
-         * when available.
-         */
-
         createdAt:
           oldNormalized.createdAt ||
           new Date().toISOString()
@@ -1304,19 +1259,9 @@
       };
 
 
-      /*
-       * Update local state to exactly match
-       * what we're about to save.
-       */
-
       state.users =
         latestUsers;
 
-
-      /*
-       * Step 5:
-       * PUT with latest SHA.
-       */
 
       var body = {
 
@@ -1399,10 +1344,6 @@
     })
 
     .then(function (result) {
-
-      /*
-       * Save the new SHA returned by GitHub.
-       */
 
       if (
         result &&
@@ -1497,6 +1438,13 @@
 
   /* =========================================================
      ALLOW USER
+     
+     Supports BOTH:
+       1. New user from Issue
+       2. Previously blocked user
+     
+     A previously blocked user has no open Issue,
+     so the status is changed directly to allowed.
   ========================================================= */
 
   window.allowUser = function (
@@ -1509,10 +1457,18 @@
       String(username || "").trim();
 
 
-    /*
-     * Explicit button parameter.
-     * No use of global event.
-     */
+    if (!username) {
+
+      setMsg(
+        "usersMsg",
+        "اسم المستخدم غير صحيح.",
+        "err"
+      );
+
+      return;
+
+    }
+
 
     if (button) {
 
@@ -1523,6 +1479,10 @@
 
     var issue = null;
 
+
+    /*
+     * First try the supplied Issue number.
+     */
 
     if (issueNumber) {
 
@@ -1538,6 +1498,14 @@
 
     }
 
+
+    /*
+     * If there is no Issue number,
+     * search by username.
+     *
+     * This is important for a previously blocked
+     * user who may no longer have an open Issue.
+     */
 
     if (!issue) {
 
@@ -1558,12 +1526,24 @@
     );
 
 
+    /*
+     * MAIN ACTION:
+     *
+     * Change blocked -> allowed in users.json.
+     */
+
     saveUserStatus(
       username,
       "allowed"
     )
 
     .then(function () {
+
+      /*
+       * If there is an open Issue, close it.
+       *
+       * If there is no Issue, this simply continues.
+       */
 
       if (
         issue &&
@@ -1589,8 +1569,9 @@
 
 
       /*
-       * Refresh from GitHub after successful
-       * operation.
+       * Reload users.json and Issues.
+       * The user should now appear as "مسموح"
+       * and the button should become "حظر".
        */
 
       return refreshAll();
@@ -1733,11 +1714,6 @@
 
   /* =========================================================
      RENDER USERS
-     
-     Combines:
-       users.json
-       +
-       open New login Issues
   ========================================================= */
 
   function renderUsers() {
@@ -1748,10 +1724,6 @@
 
     var merged = {};
 
-
-    /*
-     * Existing users
-     */
 
     Object.keys(
       state.users || {}
@@ -1778,10 +1750,6 @@
 
       });
 
-
-    /*
-     * New users from Issues
-     */
 
     (state.issues || [])
       .forEach(function (issue) {
@@ -1934,6 +1902,12 @@
               'محظور' +
             '</span>';
 
+
+          /*
+           * This button now calls allowUser()
+           * with the blocked username.
+           * No Issue is required.
+           */
 
           actionHtml =
             '<button class="btn-success" ' +
@@ -2143,12 +2117,6 @@
 
   /* =========================================================
      REFRESH ALL
-     
-     Every refresh:
-       - reloads users.json
-       - reloads Issues
-       - disables browser cache
-       - renders both tables
   ========================================================= */
 
   window.refreshAll = function () {
@@ -2186,11 +2154,6 @@
 
     $("refreshIssuesBtn").disabled = true;
 
-
-    /*
-     * Sequential loading is intentional.
-     * It avoids unnecessary simultaneous requests.
-     */
 
     return loadUsers()
 
