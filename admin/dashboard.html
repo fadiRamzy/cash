@@ -198,11 +198,6 @@
       color: #6b7280;
     }
 
-    .small {
-      color: #6b7280;
-      font-size: 14px;
-    }
-
     .top-actions {
       display: flex;
       justify-content: space-between;
@@ -247,45 +242,75 @@
     </p>
   </div>
 
+
   <!-- GitHub Settings -->
   <div class="card">
+
     <h2>إعدادات الاتصال</h2>
 
     <div class="form-grid">
 
       <div class="field">
         <label for="owner">GitHub Owner</label>
-        <input id="owner" type="text" placeholder="fadiRamzy">
+        <input
+          id="owner"
+          type="text"
+          placeholder="fadiRamzy"
+        >
       </div>
 
       <div class="field">
         <label for="repo">Repository</label>
-        <input id="repo" type="text" placeholder="cash">
+        <input
+          id="repo"
+          type="text"
+          placeholder="cash"
+        >
       </div>
 
       <div class="field">
         <label for="branch">Branch</label>
-        <input id="branch" type="text" value="main">
+        <input
+          id="branch"
+          type="text"
+          value="main"
+        >
       </div>
 
       <div class="field">
         <label for="token">Admin Token</label>
-        <input id="token" type="password" placeholder="أدخل Admin Token">
+        <input
+          id="token"
+          type="password"
+          placeholder="أدخل Admin Token"
+        >
       </div>
 
     </div>
 
     <div class="actions">
-      <button class="btn-primary" id="connectBtn" onclick="connectGitHub()">
+
+      <button
+        class="btn-primary"
+        id="connectBtn"
+        onclick="connectGitHub()"
+      >
         اتصال
       </button>
 
-      <button class="btn-secondary" id="refreshBtn" onclick="refreshAll()" disabled>
+      <button
+        class="btn-secondary"
+        id="refreshBtn"
+        onclick="refreshAll()"
+        disabled
+      >
         تحديث
       </button>
+
     </div>
 
     <div id="connectionMsg" class="msg"></div>
+
   </div>
 
 
@@ -293,37 +318,63 @@
   <div class="card">
 
     <div class="top-actions">
+
       <div>
-        <h2 style="margin-bottom:5px;">المستخدمون</h2>
-        <div class="counter" id="usersCounter"></div>
+
+        <h2 style="margin-bottom:5px;">
+          المستخدمون
+        </h2>
+
+        <div
+          class="counter"
+          id="usersCounter"
+        ></div>
+
       </div>
 
-      <button class="btn-secondary" onclick="refreshAll()" id="refreshUsersBtn" disabled>
+      <button
+        class="btn-secondary"
+        onclick="refreshAll()"
+        id="refreshUsersBtn"
+        disabled
+      >
         ↻ تحديث المستخدمين
       </button>
+
     </div>
 
     <div id="usersMsg" class="msg"></div>
 
     <div class="table-wrap">
+
       <table>
+
         <thead>
+
           <tr>
             <th>اسم المستخدم</th>
             <th>الحالة</th>
             <th>تاريخ الإضافة / الدخول</th>
             <th>الإجراء</th>
           </tr>
+
         </thead>
 
         <tbody id="usersTableBody">
+
           <tr>
-            <td colspan="4" class="empty">
+            <td
+              colspan="4"
+              class="empty"
+            >
               قم بالاتصال أولاً.
             </td>
           </tr>
+
         </tbody>
+
       </table>
+
     </div>
 
   </div>
@@ -333,37 +384,63 @@
   <div class="card">
 
     <div class="top-actions">
+
       <div>
-        <h2 style="margin-bottom:5px;">محاولات الدخول الجديدة</h2>
-        <div class="counter" id="issuesCounter"></div>
+
+        <h2 style="margin-bottom:5px;">
+          محاولات الدخول الجديدة
+        </h2>
+
+        <div
+          class="counter"
+          id="issuesCounter"
+        ></div>
+
       </div>
 
-      <button class="btn-secondary" onclick="refreshAll()" id="refreshIssuesBtn" disabled>
+      <button
+        class="btn-secondary"
+        onclick="refreshAll()"
+        id="refreshIssuesBtn"
+        disabled
+      >
         ↻ تحديث
       </button>
+
     </div>
 
     <div id="issuesMsg" class="msg"></div>
 
     <div class="table-wrap">
+
       <table>
+
         <thead>
+
           <tr>
             <th>اسم المستخدم</th>
             <th>التاريخ</th>
             <th>رقم Issue</th>
             <th>الإجراء</th>
           </tr>
+
         </thead>
 
         <tbody id="issuesTableBody">
+
           <tr>
-            <td colspan="4" class="empty">
+            <td
+              colspan="4"
+              class="empty"
+            >
               لا توجد بيانات.
             </td>
           </tr>
+
         </tbody>
+
       </table>
+
     </div>
 
   </div>
@@ -372,65 +449,111 @@
 
 
 <script>
+
 (function () {
 
   "use strict";
 
+
+  /* =========================================================
+     STATE
+  ========================================================= */
+
   var state = {
+
     owner: "",
     repo: "",
     branch: "main",
     token: "",
+
     usersSha: null,
+
     users: {},
+
     issues: [],
+
     connected: false
+
   };
 
 
   /* =========================================================
-     Helpers
+     HELPERS
   ========================================================= */
 
   function $(id) {
+
     return document.getElementById(id);
+
   }
 
 
   function setMsg(id, text, type) {
+
     var el = $(id);
 
     if (!el) return;
 
     el.textContent = text || "";
-    el.className = "msg" + (type ? " " + type : "");
+
+    el.className =
+      "msg" +
+      (type ? " " + type : "");
+
   }
 
 
   function api(path) {
-    return "https://api.github.com/repos/" +
+
+    return (
+      "https://api.github.com/repos/" +
       encodeURIComponent(state.owner) +
       "/" +
       encodeURIComponent(state.repo) +
-      path;
+      path
+    );
+
   }
 
+
+  /*
+   * Authentication headers.
+   *
+   * IMPORTANT:
+   * No Cache-Control header here.
+   * This avoids unnecessary CORS preflight problems.
+   */
 
   function authHeaders(extra) {
 
     var headers = {
-      "Accept": "application/vnd.github+json",
-      "Authorization": "Bearer " + state.token,
-      "X-GitHub-Api-Version": "2022-11-28"
+
+      "Accept":
+        "application/vnd.github+json",
+
+      "Authorization":
+        "Bearer " + state.token,
+
+      "X-GitHub-Api-Version":
+        "2022-11-28"
+
     };
 
+
     if (extra) {
-      Object.keys(extra).forEach(function (key) {
-        headers[key] = extra[key];
-      });
+
+      Object.keys(extra)
+        .forEach(function (key) {
+
+          headers[key] = extra[key];
+
+        });
+
     }
 
+
     return headers;
+
   }
 
 
@@ -449,7 +572,9 @@
 
     return decodeURIComponent(
       escape(
-        atob(str.replace(/\n/g, ""))
+        atob(
+          String(str).replace(/\n/g, "")
+        )
       )
     );
 
@@ -459,26 +584,141 @@
   function safeJsonParse(text) {
 
     try {
+
       return JSON.parse(text);
+
     } catch (e) {
+
       return {};
+
     }
 
   }
 
 
+  function escapeHtml(value) {
+
+    return String(
+      value == null ? "" : value
+    )
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function escapeJs(value) {
+
+    return JSON.stringify(
+      String(
+        value == null ? "" : value
+      )
+    );
+
+  }
+
+
+  function formatDate(value) {
+
+    if (!value) return "-";
+
+    var d = new Date(value);
+
+    if (isNaN(d.getTime())) {
+
+      return String(value);
+
+    }
+
+
+    return d.toLocaleString(
+
+      "ar-EG",
+
+      {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+
+    );
+
+  }
+
+
+  function normalizeUserRecord(value) {
+
+    if (typeof value === "string") {
+
+      return {
+
+        status: value,
+
+        createdAt: ""
+
+      };
+
+    }
+
+
+    if (!value || typeof value !== "object") {
+
+      return {
+
+        status: "allowed",
+
+        createdAt: ""
+
+      };
+
+    }
+
+
+    return {
+
+      status:
+        value.status || "allowed",
+
+      createdAt:
+        value.createdAt ||
+        value.addedAt ||
+        value.date ||
+        ""
+
+    };
+
+  }
+
+
   /* =========================================================
-     GitHub Connection
+     CONNECT
   ========================================================= */
 
   window.connectGitHub = function () {
 
-    state.owner = $("owner").value.trim();
-    state.repo = $("repo").value.trim();
-    state.branch = $("branch").value.trim() || "main";
-    state.token = $("token").value.trim();
+    state.owner =
+      $("owner").value.trim();
 
-    if (!state.owner || !state.repo || !state.token) {
+    state.repo =
+      $("repo").value.trim();
+
+    state.branch =
+      $("branch").value.trim() || "main";
+
+    state.token =
+      $("token").value.trim();
+
+
+    if (
+      !state.owner ||
+      !state.repo ||
+      !state.token
+    ) {
 
       setMsg(
         "connectionMsg",
@@ -487,7 +727,9 @@
       );
 
       return;
+
     }
+
 
     setMsg(
       "connectionMsg",
@@ -495,22 +737,39 @@
       ""
     );
 
+
     $("connectBtn").disabled = true;
 
+
+    /*
+     * Load users first.
+     * Then load Issues.
+     */
+
     loadUsers()
+
       .then(function () {
+
         return loadIssues();
+
       })
+
       .then(function () {
 
         state.connected = true;
 
+
         $("refreshBtn").disabled = false;
+
         $("refreshUsersBtn").disabled = false;
+
         $("refreshIssuesBtn").disabled = false;
 
+
         renderUsers();
+
         renderIssues(state.issues);
+
 
         setMsg(
           "connectionMsg",
@@ -519,30 +778,67 @@
         );
 
       })
+
       .catch(function (e) {
 
         state.connected = false;
 
+
         $("refreshBtn").disabled = true;
+
         $("refreshUsersBtn").disabled = true;
+
         $("refreshIssuesBtn").disabled = true;
+
 
         setMsg(
           "connectionMsg",
-          "فشل الاتصال: " + e.message,
+          "فشل الاتصال: " +
+            getErrorMessage(e),
           "err"
         );
 
       })
+
       .finally(function () {
+
         $("connectBtn").disabled = false;
+
       });
 
   };
 
 
   /* =========================================================
-     Load users.json
+     ERROR MESSAGE
+  ========================================================= */
+
+  function getErrorMessage(e) {
+
+    if (!e) {
+
+      return "خطأ غير معروف.";
+
+    }
+
+
+    if (e.message) {
+
+      return e.message;
+
+    }
+
+
+    return String(e);
+
+  }
+
+
+  /* =========================================================
+     LOAD USERS
+     
+     users.json is public, so GET does NOT need Authorization.
+     This also removes one unnecessary CORS dependency.
   ========================================================= */
 
   function loadUsers() {
@@ -555,33 +851,51 @@
         Date.now()
       );
 
-    return fetch(url, {
-      method: "GET",
-      cache: "no-store",
-      headers: authHeaders({
-        "Cache-Control": "no-cache"
-      })
-    })
+
+    return fetch(
+
+      url,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
+
+      }
+
+    )
 
     .then(function (r) {
 
       if (!r.ok) {
 
-        if (r.status === 404) {
-          throw new Error("users.json غير موجود.");
-        }
+        return r.text()
+          .then(function (txt) {
 
-        return r.text().then(function (txt) {
+            throw new Error(
 
-          throw new Error(
-            "HTTP " +
-            r.status +
-            (txt ? " - " + txt : "")
-          );
+              "فشل تحميل users.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
 
-        });
+            );
+
+          });
 
       }
+
 
       return r.json();
 
@@ -589,21 +903,46 @@
 
     .then(function (data) {
 
-      if (!data.content) {
-        throw new Error("تعذر قراءة users.json.");
+      if (
+        !data ||
+        !data.content ||
+        !data.sha
+      ) {
+
+        throw new Error(
+          "تعذر قراءة users.json."
+        );
+
       }
 
-      state.usersSha = data.sha;
 
-      var decoded = b64DecodeUtf8(data.content);
+      state.usersSha =
+        data.sha;
 
-      var parsed = safeJsonParse(decoded);
 
-      if (!parsed || typeof parsed !== "object") {
+      var decoded =
+        b64DecodeUtf8(
+          data.content
+        );
+
+
+      var parsed =
+        safeJsonParse(decoded);
+
+
+      if (
+        !parsed ||
+        typeof parsed !== "object" ||
+        Array.isArray(parsed)
+      ) {
+
         parsed = {};
+
       }
+
 
       state.users = parsed;
+
 
       return state.users;
 
@@ -613,7 +952,10 @@
 
 
   /* =========================================================
-     Load open login Issues
+     LOAD ISSUES
+     
+     Authenticated because Issues are being read
+     through the Admin Token.
   ========================================================= */
 
   function loadIssues() {
@@ -624,29 +966,46 @@
         Date.now()
       );
 
-    return fetch(url, {
-      method: "GET",
-      cache: "no-store",
-      headers: authHeaders({
-        "Cache-Control": "no-cache"
-      })
-    })
+
+    return fetch(
+
+      url,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: authHeaders()
+
+      }
+
+    )
 
     .then(function (r) {
 
       if (!r.ok) {
 
-        return r.text().then(function (txt) {
+        return r.text()
+          .then(function (txt) {
 
-          throw new Error(
-            "HTTP " +
-            r.status +
-            (txt ? " - " + txt : "")
-          );
+            throw new Error(
 
-        });
+              "فشل تحميل GitHub Issues: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
 
       }
+
 
       return r.json();
 
@@ -655,17 +1014,27 @@
     .then(function (list) {
 
       if (!Array.isArray(list)) {
+
         list = [];
+
       }
 
-      state.issues = list.filter(function (issue) {
 
-        return (
-          !issue.pull_request &&
-          /^New login: /.test(issue.title || "")
-        );
+      state.issues =
+        list.filter(function (issue) {
 
-      });
+          return (
+
+            !issue.pull_request &&
+
+            /^New login: /.test(
+              issue.title || ""
+            )
+
+          );
+
+        });
+
 
       return state.issues;
 
@@ -675,41 +1044,60 @@
 
 
   /* =========================================================
-     Get username from Issue
+     ISSUE USERNAME
   ========================================================= */
 
   function getIssueUsername(issue) {
 
-    var title = issue && issue.title
-      ? issue.title
-      : "";
+    var title =
+      issue && issue.title
+        ? issue.title
+        : "";
 
-    return title.replace(/^New login:\s*/, "").trim();
+
+    return title
+      .replace(/^New login:\s*/, "")
+      .trim();
 
   }
 
 
   /* =========================================================
-     Find latest open Issue for username
+     FIND ISSUE BY USERNAME
   ========================================================= */
 
   function getPendingIssueByName(username) {
 
-    var normalized = String(username || "")
-      .trim()
-      .toLowerCase();
+    var normalized =
+      String(username || "")
+        .trim()
+        .toLowerCase();
 
-    for (var i = 0; i < state.issues.length; i++) {
+
+    for (
+      var i = 0;
+      i < state.issues.length;
+      i++
+    ) {
 
       var issueUsername =
-        getIssueUsername(state.issues[i])
+        getIssueUsername(
+          state.issues[i]
+        )
           .toLowerCase();
 
-      if (issueUsername === normalized) {
+
+      if (
+        issueUsername ===
+        normalized
+      ) {
+
         return state.issues[i];
+
       }
 
     }
+
 
     return null;
 
@@ -717,47 +1105,57 @@
 
 
   /* =========================================================
-     Normalize users
-  ========================================================= */
-
-  function normalizeUserRecord(value) {
-
-    if (typeof value === "string") {
-
-      return {
-        status: value,
-        createdAt: ""
-      };
-
-    }
-
-    if (!value || typeof value !== "object") {
-
-      return {
-        status: "allowed",
-        createdAt: ""
-      };
-
-    }
-
-    return {
-      status: value.status || "allowed",
-      createdAt: value.createdAt || value.date || ""
-    };
-
-  }
-
-
-  /* =========================================================
-     Save users.json
+     SAVE ONE USER SAFELY
      
-     IMPORTANT:
-     Before every PUT, fetch the latest users.json SHA.
-     This prevents:
-     "users.json does not match SHA"
+     This is the important SHA fix.
+     
+     We do NOT use the old state.users as the source
+     for the whole file.
+     
+     Instead:
+       1. GET latest users.json
+       2. Get latest SHA
+       3. Decode latest content
+       4. Modify only the requested username
+       5. PUT using latest SHA
+     
+     Therefore another change to users.json will not
+     cause the previous SHA mismatch.
   ========================================================= */
 
-  function saveUsers(message) {
+  function saveUserStatus(
+    username,
+    status
+  ) {
+
+    username =
+      String(username || "").trim();
+
+
+    if (!username) {
+
+      return Promise.reject(
+        new Error(
+          "اسم المستخدم غير صحيح."
+        )
+      );
+
+    }
+
+
+    if (
+      status !== "allowed" &&
+      status !== "blocked"
+    ) {
+
+      return Promise.reject(
+        new Error(
+          "حالة المستخدم غير صحيحة."
+        )
+      );
+
+    }
+
 
     var latestUrl =
       api(
@@ -767,29 +1165,56 @@
         Date.now()
       );
 
-    return fetch(latestUrl, {
-      method: "GET",
-      cache: "no-store",
-      headers: authHeaders({
-        "Cache-Control": "no-cache"
-      })
-    })
+
+    /*
+     * Step 1:
+     * Get absolutely latest users.json.
+     */
+
+    return fetch(
+
+      latestUrl,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
+
+      }
+
+    )
 
     .then(function (r) {
 
       if (!r.ok) {
 
-        return r.text().then(function (txt) {
+        return r.text()
+          .then(function (txt) {
 
-          throw new Error(
-            "تعذر الحصول على أحدث نسخة من users.json: HTTP " +
-            r.status +
-            (txt ? " - " + txt : "")
-          );
+            throw new Error(
 
-        });
+              "تعذر الحصول على أحدث users.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
 
       }
+
 
       return r.json();
 
@@ -797,30 +1222,149 @@
 
     .then(function (latest) {
 
-      if (!latest || !latest.sha) {
-        throw new Error("لم يتم العثور على SHA الحالي لـ users.json.");
+      if (
+        !latest ||
+        !latest.sha ||
+        !latest.content
+      ) {
+
+        throw new Error(
+          "تعذر الحصول على SHA الحالي لـ users.json."
+        );
+
       }
 
-      state.usersSha = latest.sha;
 
-      var body = {
-        message: message || "Update users.json",
-        content: b64EncodeUtf8(
-          JSON.stringify(state.users, null, 2)
-        ),
-        branch: state.branch,
-        sha: state.usersSha
+      /*
+       * Step 2:
+       * Use latest SHA.
+       */
+
+      state.usersSha =
+        latest.sha;
+
+
+      /*
+       * Step 3:
+       * Decode latest file.
+       */
+
+      var latestUsers =
+        safeJsonParse(
+          b64DecodeUtf8(
+            latest.content
+          )
+        );
+
+
+      if (
+        !latestUsers ||
+        typeof latestUsers !== "object" ||
+        Array.isArray(latestUsers)
+      ) {
+
+        latestUsers = {};
+
+      }
+
+
+      /*
+       * Step 4:
+       * Modify ONLY this username.
+       */
+
+      var oldRecord =
+        Object.prototype.hasOwnProperty.call(
+          latestUsers,
+          username
+        )
+          ? latestUsers[username]
+          : null;
+
+
+      var oldNormalized =
+        normalizeUserRecord(
+          oldRecord
+        );
+
+
+      latestUsers[username] = {
+
+        status: status,
+
+        /*
+         * Preserve original creation date
+         * when available.
+         */
+
+        createdAt:
+          oldNormalized.createdAt ||
+          new Date().toISOString()
+
       };
 
+
+      /*
+       * Update local state to exactly match
+       * what we're about to save.
+       */
+
+      state.users =
+        latestUsers;
+
+
+      /*
+       * Step 5:
+       * PUT with latest SHA.
+       */
+
+      var body = {
+
+        message:
+          (
+            status === "allowed"
+              ? "Allow user: "
+              : "Block user: "
+          ) + username,
+
+        content:
+          b64EncodeUtf8(
+            JSON.stringify(
+              latestUsers,
+              null,
+              2
+            )
+          ),
+
+        branch:
+          state.branch,
+
+        sha:
+          latest.sha
+
+      };
+
+
       return fetch(
+
         api("/contents/users.json"),
+
         {
+
           method: "PUT",
+
           headers: authHeaders({
-            "Content-Type": "application/json"
+
+            "Content-Type":
+              "application/json"
+
           }),
-          body: JSON.stringify(body)
+
+          body:
+            JSON.stringify(body)
+
         }
+
       );
 
     })
@@ -836,19 +1380,29 @@
           .then(function (j) {
 
             throw new Error(
+
               j.message ||
-              ("HTTP " + r.status)
+              (
+                "فشل تحديث users.json: HTTP " +
+                r.status
+              )
+
             );
 
           });
 
       }
 
+
       return r.json();
 
     })
 
     .then(function (result) {
+
+      /*
+       * Save the new SHA returned by GitHub.
+       */
 
       if (
         result &&
@@ -867,26 +1421,46 @@
 
 
   /* =========================================================
-     Close Issue
+     CLOSE ISSUE
   ========================================================= */
 
   function closeIssue(issueNumber) {
 
     if (!issueNumber) {
+
       return Promise.resolve();
+
     }
 
+
     return fetch(
-      api("/issues/" + encodeURIComponent(issueNumber)),
+
+      api(
+        "/issues/" +
+        encodeURIComponent(
+          issueNumber
+        )
+      ),
+
       {
+
         method: "PATCH",
+
         headers: authHeaders({
-          "Content-Type": "application/json"
+
+          "Content-Type":
+            "application/json"
+
         }),
+
         body: JSON.stringify({
+
           state: "closed"
+
         })
+
       }
+
     )
 
     .then(function (r) {
@@ -900,13 +1474,19 @@
           .then(function (j) {
 
             throw new Error(
+
               j.message ||
-              ("فشل إغلاق Issue - HTTP " + r.status)
+              (
+                "فشل إغلاق Issue: HTTP " +
+                r.status
+              )
+
             );
 
           });
 
       }
+
 
       return r.json();
 
@@ -916,106 +1496,102 @@
 
 
   /* =========================================================
-     Set User Status
+     ALLOW USER
   ========================================================= */
 
-  function setUserStatus(username, status, issue) {
+  window.allowUser = function (
+    username,
+    issueNumber,
+    button
+  ) {
 
-    username = String(username || "").trim();
-
-    if (!username) {
-      return Promise.reject(
-        new Error("اسم المستخدم غير صحيح.")
-      );
-    }
-
-    if (
-      status !== "allowed" &&
-      status !== "blocked"
-    ) {
-
-      return Promise.reject(
-        new Error("حالة المستخدم غير صحيحة.")
-      );
-
-    }
-
-    var previous =
-      Object.prototype.hasOwnProperty.call(
-        state.users,
-        username
-      )
-        ? state.users[username]
-        : null;
-
-    state.users[username] = {
-      status: status,
-      createdAt:
-        previous &&
-        typeof previous === "object" &&
-        previous.createdAt
-          ? previous.createdAt
-          : new Date().toISOString()
-    };
-
-    var message =
-      status === "allowed"
-        ? "Allow user: " + username
-        : "Block user: " + username;
-
-    return saveUsers(message)
-      .then(function () {
-
-        if (issue && issue.number) {
-          return closeIssue(issue.number);
-        }
-
-      });
-
-  }
+    username =
+      String(username || "").trim();
 
 
-  /* =========================================================
-     Allow User
-  ========================================================= */
-
-  window.allowUser = function (username, issueNumber) {
-
-    var issue =
-      issueNumber
-        ? state.issues.find(function (i) {
-            return String(i.number) === String(issueNumber);
-          })
-        : getPendingIssueByName(username);
-
-    var button =
-      event && event.target
-        ? event.target
-        : null;
+    /*
+     * Explicit button parameter.
+     * No use of global event.
+     */
 
     if (button) {
+
       button.disabled = true;
+
     }
+
+
+    var issue = null;
+
+
+    if (issueNumber) {
+
+      issue =
+        state.issues.find(
+          function (i) {
+
+            return String(i.number) ===
+              String(issueNumber);
+
+          }
+        );
+
+    }
+
+
+    if (!issue) {
+
+      issue =
+        getPendingIssueByName(
+          username
+        );
+
+    }
+
 
     setMsg(
       "usersMsg",
-      "جارٍ السماح للمستخدم: " + username + "...",
+      "جارٍ السماح للمستخدم: " +
+        username +
+        "...",
       ""
     );
 
-    setUserStatus(
+
+    saveUserStatus(
       username,
-      "allowed",
-      issue
+      "allowed"
     )
+
+    .then(function () {
+
+      if (
+        issue &&
+        issue.number
+      ) {
+
+        return closeIssue(
+          issue.number
+        );
+
+      }
+
+    })
 
     .then(function () {
 
       setMsg(
         "usersMsg",
-        "تم السماح للمستخدم: " + username,
+        "تم السماح للمستخدم: " +
+          username,
         "ok"
       );
+
+
+      /*
+       * Refresh from GitHub after successful
+       * operation.
+       */
 
       return refreshAll();
 
@@ -1025,12 +1601,16 @@
 
       setMsg(
         "usersMsg",
-        "فشل السماح: " + e.message,
+        "فشل السماح: " +
+          getErrorMessage(e),
         "err"
       );
 
+
       if (button) {
+
         button.disabled = false;
+
       }
 
     });
@@ -1039,46 +1619,92 @@
 
 
   /* =========================================================
-     Block User
+     BLOCK USER
   ========================================================= */
 
-  window.blockUser = function (username, issueNumber) {
+  window.blockUser = function (
+    username,
+    issueNumber,
+    button
+  ) {
 
-    var issue =
-      issueNumber
-        ? state.issues.find(function (i) {
-            return String(i.number) === String(issueNumber);
-          })
-        : getPendingIssueByName(username);
+    username =
+      String(username || "").trim();
 
-    var button =
-      event && event.target
-        ? event.target
-        : null;
 
     if (button) {
+
       button.disabled = true;
+
     }
+
+
+    var issue = null;
+
+
+    if (issueNumber) {
+
+      issue =
+        state.issues.find(
+          function (i) {
+
+            return String(i.number) ===
+              String(issueNumber);
+
+          }
+        );
+
+    }
+
+
+    if (!issue) {
+
+      issue =
+        getPendingIssueByName(
+          username
+        );
+
+    }
+
 
     setMsg(
       "usersMsg",
-      "جارٍ حظر المستخدم: " + username + "...",
+      "جارٍ حظر المستخدم: " +
+        username +
+        "...",
       ""
     );
 
-    setUserStatus(
+
+    saveUserStatus(
       username,
-      "blocked",
-      issue
+      "blocked"
     )
+
+    .then(function () {
+
+      if (
+        issue &&
+        issue.number
+      ) {
+
+        return closeIssue(
+          issue.number
+        );
+
+      }
+
+    })
 
     .then(function () {
 
       setMsg(
         "usersMsg",
-        "تم حظر المستخدم: " + username,
+        "تم حظر المستخدم: " +
+          username,
         "ok"
       );
+
 
       return refreshAll();
 
@@ -1088,12 +1714,16 @@
 
       setMsg(
         "usersMsg",
-        "فشل الحظر: " + e.message,
+        "فشل الحظر: " +
+          getErrorMessage(e),
         "err"
       );
 
+
       if (button) {
+
         button.disabled = false;
+
       }
 
     });
@@ -1102,69 +1732,110 @@
 
 
   /* =========================================================
-     Render Users
+     RENDER USERS
      
-     Users = users.json + open login Issues
-     
-     Therefore new usernames automatically appear in
-     "المستخدمون" after Refresh.
+     Combines:
+       users.json
+       +
+       open New login Issues
   ========================================================= */
 
   function renderUsers() {
 
-    var body = $("usersTableBody");
+    var body =
+      $("usersTableBody");
+
 
     var merged = {};
 
-    /* Existing users.json users */
 
-    Object.keys(state.users || {})
+    /*
+     * Existing users
+     */
+
+    Object.keys(
+      state.users || {}
+    )
       .forEach(function (username) {
 
         merged[username] = {
-          username: username,
-          source: "users",
-          record: normalizeUserRecord(
-            state.users[username]
-          ),
-          issue: null
+
+          username:
+            username,
+
+          source:
+            "users",
+
+          record:
+            normalizeUserRecord(
+              state.users[username]
+            ),
+
+          issue:
+            null
+
         };
 
       });
 
 
-    /* New usernames from open Issues */
+    /*
+     * New users from Issues
+     */
 
     (state.issues || [])
       .forEach(function (issue) {
 
         var username =
-          getIssueUsername(issue);
+          getIssueUsername(
+            issue
+          );
+
 
         if (!username) return;
 
+
         var existing =
-          Object.keys(merged).find(function (name) {
-            return name.toLowerCase() ===
-              username.toLowerCase();
-          });
+          Object.keys(merged)
+            .find(function (name) {
+
+              return (
+                name.toLowerCase() ===
+                username.toLowerCase()
+              );
+
+            });
+
 
         if (!existing) {
 
           merged[username] = {
-            username: username,
-            source: "issue",
+
+            username:
+              username,
+
+            source:
+              "issue",
+
             record: {
-              status: "new",
+
+              status:
+                "new",
+
               createdAt:
                 issue.created_at || ""
+
             },
-            issue: issue
+
+            issue:
+              issue
+
           };
 
         } else {
 
-          merged[existing].issue = issue;
+          merged[existing].issue =
+            issue;
 
         }
 
@@ -1172,13 +1843,19 @@
 
 
     var names =
-      Object.keys(merged).sort(function (a, b) {
-        return a.localeCompare(
-          b,
-          "en",
-          { sensitivity: "base" }
-        );
-      });
+      Object.keys(merged)
+        .sort(function (a, b) {
+
+          return a.localeCompare(
+            b,
+            "en",
+            {
+              sensitivity:
+                "base"
+            }
+          );
+
+        });
 
 
     $("usersCounter").textContent =
@@ -1196,141 +1873,184 @@
         '</tr>';
 
       return;
+
     }
 
 
-    body.innerHTML = names.map(function (username) {
+    body.innerHTML =
+      names.map(function (username) {
 
-      var item = merged[username];
-
-      var record = item.record;
-
-      var status =
-        record.status || "allowed";
-
-      var statusHtml = "";
-
-      var actionHtml = "";
+        var item =
+          merged[username];
 
 
-      if (status === "allowed") {
+        var record =
+          item.record;
 
-        statusHtml =
-          '<span class="status status-allowed">' +
-            'مسموح' +
-          '</span>';
 
-        actionHtml =
-          '<button class="btn-danger" ' +
-            'onclick="blockUser(' +
-              escapeJs(username) +
-            ', null)">' +
-            'حظر' +
-          '</button>';
+        var status =
+          record.status ||
+          "allowed";
 
-      }
 
-      else if (status === "blocked") {
+        var statusHtml = "";
 
-        statusHtml =
-          '<span class="status status-blocked">' +
-            'محظور' +
-          '</span>';
+        var actionHtml = "";
 
-        actionHtml =
-          '<button class="btn-success" ' +
-            'onclick="allowUser(' +
-              escapeJs(username) +
-            ', null)">' +
-            'سماح' +
-          '</button>';
 
-      }
+        /*
+         * ALLOWED
+         */
 
-      else {
+        if (status === "allowed") {
 
-        statusHtml =
-          '<span class="status status-new">' +
-            'جديد - غير مُراجع' +
-          '</span>';
+          statusHtml =
+            '<span class="status status-allowed">' +
+              'مسموح' +
+            '</span>';
 
-        var issueNumber =
-          item.issue
-            ? item.issue.number
-            : "";
 
-        actionHtml =
-          '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
-
-            '<button class="btn-success" ' +
-              'onclick="allowUser(' +
-                escapeJs(username) +
-                ',' +
-                JSON.stringify(issueNumber) +
-              ')">' +
-              'سماح' +
-            '</button>' +
-
+          actionHtml =
             '<button class="btn-danger" ' +
               'onclick="blockUser(' +
                 escapeJs(username) +
-                ',' +
-                JSON.stringify(issueNumber) +
-              ')">' +
+                ', null, this)">' +
               'حظر' +
-            '</button>' +
+            '</button>';
 
-          '</div>';
-
-      }
+        }
 
 
-      var date =
-        item.issue && item.issue.created_at
-          ? formatDate(item.issue.created_at)
-          : record.createdAt
-            ? formatDate(record.createdAt)
-            : "-";
+        /*
+         * BLOCKED
+         */
+
+        else if (
+          status === "blocked"
+        ) {
+
+          statusHtml =
+            '<span class="status status-blocked">' +
+              'محظور' +
+            '</span>';
 
 
-      return (
-        '<tr>' +
+          actionHtml =
+            '<button class="btn-success" ' +
+              'onclick="allowUser(' +
+                escapeJs(username) +
+                ', null, this)">' +
+              'سماح' +
+            '</button>';
 
-          '<td>' +
-            escapeHtml(username) +
-          '</td>' +
+        }
 
-          '<td>' +
-            statusHtml +
-          '</td>' +
 
-          '<td>' +
-            escapeHtml(date) +
-          '</td>' +
+        /*
+         * NEW
+         */
 
-          '<td>' +
-            actionHtml +
-          '</td>' +
+        else {
 
-        '</tr>'
-      );
+          statusHtml =
+            '<span class="status status-new">' +
+              'جديد - غير مُراجع' +
+            '</span>';
 
-    }).join("");
+
+          var issueNumber =
+            item.issue
+              ? item.issue.number
+              : "";
+
+
+          actionHtml =
+
+            '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
+
+              '<button class="btn-success" ' +
+                'onclick="allowUser(' +
+                  escapeJs(username) +
+                  ',' +
+                  JSON.stringify(issueNumber) +
+                  ', this)">' +
+                'سماح' +
+              '</button>' +
+
+              '<button class="btn-danger" ' +
+                'onclick="blockUser(' +
+                  escapeJs(username) +
+                  ',' +
+                  JSON.stringify(issueNumber) +
+                  ', this)">' +
+                'حظر' +
+              '</button>' +
+
+            '</div>';
+
+        }
+
+
+        var date =
+          item.issue &&
+          item.issue.created_at
+
+            ? formatDate(
+                item.issue.created_at
+              )
+
+            : record.createdAt
+
+              ? formatDate(
+                  record.createdAt
+                )
+
+              : "-";
+
+
+        return (
+
+          '<tr>' +
+
+            '<td>' +
+              escapeHtml(username) +
+            '</td>' +
+
+            '<td>' +
+              statusHtml +
+            '</td>' +
+
+            '<td>' +
+              escapeHtml(date) +
+            '</td>' +
+
+            '<td>' +
+              actionHtml +
+            '</td>' +
+
+          '</tr>'
+
+        );
+
+      }).join("");
 
   }
 
 
   /* =========================================================
-     Render Issues
+     RENDER ISSUES
   ========================================================= */
 
   function renderIssues(list) {
 
-    var body = $("issuesTableBody");
+    var body =
+      $("issuesTableBody");
 
-    list = Array.isArray(list)
-      ? list
-      : [];
+
+    list =
+      Array.isArray(list)
+        ? list
+        : [];
 
 
     $("issuesCounter").textContent =
@@ -1348,71 +2068,87 @@
         '</tr>';
 
       return;
+
     }
 
 
-    body.innerHTML = list.map(function (issue) {
+    body.innerHTML =
+      list.map(function (issue) {
 
-      var username =
-        getIssueUsername(issue);
+        var username =
+          getIssueUsername(
+            issue
+          );
 
-      return (
-        '<tr>' +
 
-          '<td>' +
-            escapeHtml(username) +
-          '</td>' +
+        return (
 
-          '<td>' +
-            escapeHtml(
-              formatDate(issue.created_at)
-            ) +
-          '</td>' +
+          '<tr>' +
 
-          '<td>' +
-            '#' +
-            escapeHtml(String(issue.number)) +
-          '</td>' +
+            '<td>' +
+              escapeHtml(username) +
+            '</td>' +
 
-          '<td>' +
+            '<td>' +
+              escapeHtml(
+                formatDate(
+                  issue.created_at
+                )
+              ) +
+            '</td>' +
 
-            '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
+            '<td>' +
+              '#' +
+              escapeHtml(
+                String(
+                  issue.number
+                )
+              ) +
+            '</td>' +
 
-              '<button class="btn-success" ' +
-                'onclick="allowUser(' +
-                  escapeJs(username) +
-                  ',' +
-                  JSON.stringify(issue.number) +
-                ')">' +
-                'سماح' +
-              '</button>' +
+            '<td>' +
 
-              '<button class="btn-danger" ' +
-                'onclick="blockUser(' +
-                  escapeJs(username) +
-                  ',' +
-                  JSON.stringify(issue.number) +
-                ')">' +
-                'حظر' +
-              '</button>' +
+              '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
 
-            '</div>' +
+                '<button class="btn-success" ' +
+                  'onclick="allowUser(' +
+                    escapeJs(username) +
+                    ',' +
+                    JSON.stringify(issue.number) +
+                    ', this)">' +
+                  'سماح' +
+                '</button>' +
 
-          '</td>' +
+                '<button class="btn-danger" ' +
+                  'onclick="blockUser(' +
+                    escapeJs(username) +
+                    ',' +
+                    JSON.stringify(issue.number) +
+                    ', this)">' +
+                  'حظر' +
+                '</button>' +
 
-        '</tr>'
-      );
+              '</div>' +
 
-    }).join("");
+            '</td>' +
+
+          '</tr>'
+
+        );
+
+      }).join("");
 
   }
 
 
   /* =========================================================
-     Refresh All
+     REFRESH ALL
      
-     Always reload both files from GitHub.
-     Cache disabled + timestamp added.
+     Every refresh:
+       - reloads users.json
+       - reloads Issues
+       - disables browser cache
+       - renders both tables
   ========================================================= */
 
   window.refreshAll = function () {
@@ -1436,6 +2172,7 @@
       ""
     );
 
+
     setMsg(
       "issuesMsg",
       "جارٍ تحديث محاولات الدخول...",
@@ -1444,111 +2181,82 @@
 
 
     $("refreshBtn").disabled = true;
+
     $("refreshUsersBtn").disabled = true;
+
     $("refreshIssuesBtn").disabled = true;
 
 
-    return Promise.all([
-      loadUsers(),
-      loadIssues()
-    ])
+    /*
+     * Sequential loading is intentional.
+     * It avoids unnecessary simultaneous requests.
+     */
 
-    .then(function () {
+    return loadUsers()
 
-      renderUsers();
-      renderIssues(state.issues);
+      .then(function () {
 
-      setMsg(
-        "usersMsg",
-        "تم تحديث المستخدمين.",
-        "ok"
-      );
+        return loadIssues();
 
-      setMsg(
-        "issuesMsg",
-        "",
-        ""
-      );
+      })
 
-    })
+      .then(function () {
 
-    .catch(function (e) {
+        renderUsers();
 
-      setMsg(
-        "usersMsg",
-        "فشل التحديث: " + e.message,
-        "err"
-      );
+        renderIssues(
+          state.issues
+        );
 
-      setMsg(
-        "issuesMsg",
-        "",
-        ""
-      );
 
-    })
+        setMsg(
+          "usersMsg",
+          "تم تحديث المستخدمين.",
+          "ok"
+        );
 
-    .finally(function () {
 
-      $("refreshBtn").disabled = false;
-      $("refreshUsersBtn").disabled = false;
-      $("refreshIssuesBtn").disabled = false;
+        setMsg(
+          "issuesMsg",
+          "",
+          ""
+        );
 
-    });
+      })
+
+      .catch(function (e) {
+
+        setMsg(
+          "usersMsg",
+          "فشل التحديث: " +
+            getErrorMessage(e),
+          "err"
+        );
+
+
+        setMsg(
+          "issuesMsg",
+          "",
+          ""
+        );
+
+      })
+
+      .finally(function () {
+
+        $("refreshBtn").disabled = false;
+
+        $("refreshUsersBtn").disabled = false;
+
+        $("refreshIssuesBtn").disabled = false;
+
+      });
 
   };
 
 
-  /* =========================================================
-     Formatting / escaping
-  ========================================================= */
-
-  function formatDate(value) {
-
-    if (!value) return "-";
-
-    var d = new Date(value);
-
-    if (isNaN(d.getTime())) {
-      return String(value);
-    }
-
-    return d.toLocaleString(
-      "ar-EG",
-      {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
-
-  }
-
-
-  function escapeHtml(value) {
-
-    return String(value == null ? "" : value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  function escapeJs(value) {
-
-    return JSON.stringify(
-      String(value == null ? "" : value)
-    );
-
-  }
-
-
 })();
+
 </script>
 
 </body>
