@@ -6,15 +6,15 @@
 
   // ====================== REQUIRED CONFIG — fill in before deploying ======================
   // GitHub repo that hosts users.json (usually this same Pages repo).
-  var GH_OWNER = 'fadiramzy';
-  var GH_REPO = 'cash';
+  var GH_OWNER = 'PUT_GITHUB_OWNER_HERE';
+  var GH_REPO = 'PUT_GITHUB_REPO_HERE';
   var GH_BRANCH = 'main';
   var USERS_PATH = 'users.json';
   // Fine-grained Personal Access Token scoped ONLY to this repo, with
   // "Issues: Read and write" and NOTHING else (Contents must be No access).
   // This token is public (visible in page source) by design — it can only
   // ever create Issues, never touch users.json or any repo file.
-  var ISSUES_TOKEN = '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';
+  var ISSUES_TOKEN = '__ISSUES_TOKEN__';
   // ==========================================================================================
 
   var SESSION_KEY = 'cashAccessSession';
