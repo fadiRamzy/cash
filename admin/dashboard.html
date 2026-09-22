@@ -513,14 +513,6 @@
   }
 
 
-  /*
-   * Authentication headers.
-   *
-   * IMPORTANT:
-   * No Cache-Control header here.
-   * This avoids unnecessary CORS preflight problems.
-   */
-
   function authHeaders(extra) {
 
     var headers = {
@@ -942,10 +934,6 @@
 
   /* =========================================================
      LOAD ISSUES
-     
-     Public GET:
-     Issues can be read without Admin Token.
-     Token is still used for PATCH when closing an Issue.
   ========================================================= */
 
   function loadIssues() {
@@ -1100,7 +1088,13 @@
 
 
   /* =========================================================
-     SAVE ONE USER SAFELY
+     SAVE USER STATUS
+     
+     This is the main permission function.
+     
+     It ALWAYS reads the latest users.json first,
+     finds the exact existing username ignoring case,
+     changes ONLY the status, then PUTs the file.
   ========================================================= */
 
   function saveUserStatus(
@@ -1176,7 +1170,7 @@
 
             throw new Error(
 
-              "تعذر الحصول على أحدث users.json: HTTP " +
+              "تعذر قراءة users.json: HTTP " +
               r.status +
               (
                 txt
@@ -1204,14 +1198,10 @@
       ) {
 
         throw new Error(
-          "تعذر الحصول على SHA الحالي لـ users.json."
+          "تعذر الحصول على بيانات users.json الحالية."
         );
 
       }
-
-
-      state.usersSha =
-        latest.sha;
 
 
       var latestUsers =
@@ -1233,32 +1223,32 @@
       }
 
 
-      /* =====================================================
-         FIND EXISTING USER CASE-INSENSITIVELY
-
-         Example:
-         users.json has: Fady.Adel
-         Dashboard sends: fady.adel
-
-         We update Fady.Adel itself instead of creating
-         a second record called fady.adel.
-      ===================================================== */
+      /*
+       * Find the REAL existing key.
+       *
+       * This prevents:
+       *
+       * Fady.Adel
+       *
+       * from becoming:
+       *
+       * fady.adel
+       */
 
       var actualKey = null;
 
 
       Object.keys(latestUsers)
-        .some(function (existingUsername) {
+        .some(function (existingKey) {
 
           if (
-            String(existingUsername)
+            String(existingKey)
               .trim()
               .toLowerCase() ===
             username.toLowerCase()
           ) {
 
-            actualKey =
-              existingUsername;
+            actualKey = existingKey;
 
             return true;
 
@@ -1271,8 +1261,10 @@
 
 
       /*
-       * If the user does not already exist,
-       * create the requested username.
+       * If the username already exists,
+       * use the exact existing key.
+       *
+       * Otherwise create it.
        */
 
       if (!actualKey) {
@@ -1298,8 +1290,7 @@
 
 
       /*
-       * Change ONLY the status and preserve
-       * the original date when available.
+       * ONLY CHANGE STATUS.
        */
 
       latestUsers[actualKey] = {
@@ -1313,10 +1304,6 @@
       };
 
 
-      state.users =
-        latestUsers;
-
-
       var body = {
 
         message:
@@ -1324,7 +1311,8 @@
             status === "allowed"
               ? "Allow user: "
               : "Block user: "
-          ) + actualKey,
+          ) +
+          actualKey,
 
         content:
           b64EncodeUtf8(
@@ -1364,31 +1352,136 @@
 
         }
 
+      )
+
+      .then(function (r) {
+
+        if (!r.ok) {
+
+          return r.json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+
+              throw new Error(
+
+                j.message ||
+                (
+                  "فشل تحديث users.json: HTTP " +
+                  r.status
+                )
+
+              );
+
+            });
+
+        }
+
+
+        return r.json();
+
+      })
+
+      .then(function (result) {
+
+        if (
+          result &&
+          result.content &&
+          result.content.sha
+        ) {
+
+          state.usersSha =
+            result.content.sha;
+
+        }
+
+
+        /*
+         * Update local state immediately.
+         */
+
+        state.users =
+          latestUsers;
+
+
+        return {
+
+          username:
+            actualKey,
+
+          status:
+            status,
+
+          sha:
+            result &&
+            result.content
+              ? result.content.sha
+              : null
+
+        };
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================================================
+     VERIFY USER STATUS
+     
+     After saving, read users.json again and confirm
+     the actual status on GitHub.
+  ========================================================= */
+
+  function verifyUserStatus(
+    username,
+    expectedStatus
+  ) {
+
+    username =
+      String(username || "").trim();
+
+
+    var url =
+      api(
+        "/contents/users.json?ref=" +
+        encodeURIComponent(state.branch) +
+        "&_=" +
+        Date.now()
       );
 
-    })
+
+    return fetch(
+
+      url,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
+
+      }
+
+    )
 
     .then(function (r) {
 
       if (!r.ok) {
 
-        return r.json()
-          .catch(function () {
-            return {};
-          })
-          .then(function (j) {
-
-            throw new Error(
-
-              j.message ||
-              (
-                "فشل تحديث users.json: HTTP " +
-                r.status
-              )
-
-            );
-
-          });
+        throw new Error(
+          "تعذر التحقق من users.json بعد التحديث: HTTP " +
+          r.status
+        );
 
       }
 
@@ -1397,18 +1490,97 @@
 
     })
 
-    .then(function (result) {
+    .then(function (data) {
 
       if (
-        result &&
-        result.content &&
-        result.content.sha
+        !data ||
+        !data.content
       ) {
 
-        state.usersSha =
-          result.content.sha;
+        throw new Error(
+          "تعذر التحقق من حالة المستخدم."
+        );
 
       }
+
+
+      var users =
+        safeJsonParse(
+          b64DecodeUtf8(
+            data.content
+          )
+        );
+
+
+      var actualKey = null;
+
+
+      Object.keys(users || {})
+        .some(function (key) {
+
+          if (
+            String(key)
+              .trim()
+              .toLowerCase() ===
+            username.toLowerCase()
+          ) {
+
+            actualKey = key;
+
+            return true;
+
+          }
+
+
+          return false;
+
+        });
+
+
+      if (!actualKey) {
+
+        throw new Error(
+          "المستخدم غير موجود في users.json بعد التحديث."
+        );
+
+      }
+
+
+      var record =
+        normalizeUserRecord(
+          users[actualKey]
+        );
+
+
+      if (
+        record.status !==
+        expectedStatus
+      ) {
+
+        throw new Error(
+          "لم يتم تثبيت حالة المستخدم بشكل صحيح."
+        );
+
+      }
+
+
+      /*
+       * Keep local state synchronized.
+       */
+
+      state.users =
+        users;
+
+
+      if (data.sha) {
+
+        state.usersSha =
+          data.sha;
+
+      }
+
+
+      return true;
 
     });
 
@@ -1492,15 +1664,10 @@
 
   /* =========================================================
      ALLOW USER
-
-     Supports:
-       1. New user from Issue
-       2. Previously blocked user
-
-     The users.json permission change is the MAIN action.
-
-     Closing an Issue is secondary and MUST NOT cancel
-     a successful permission change.
+     
+     BLOCKED -> ALLOWED
+     
+     This function does NOT depend on an Issue.
   ========================================================= */
 
   window.allowUser = function (
@@ -1533,43 +1700,6 @@
     }
 
 
-    var issue = null;
-
-
-    /*
-     * First try the supplied Issue number.
-     */
-
-    if (issueNumber) {
-
-      issue =
-        state.issues.find(
-          function (i) {
-
-            return String(i.number) ===
-              String(issueNumber);
-
-          }
-        );
-
-    }
-
-
-    /*
-     * If there is no Issue number,
-     * search by username.
-     */
-
-    if (!issue) {
-
-      issue =
-        getPendingIssueByName(
-          username
-        );
-
-    }
-
-
     setMsg(
       "usersMsg",
       "جارٍ السماح للمستخدم: " +
@@ -1580,7 +1710,12 @@
 
 
     /*
-     * MAIN ACTION:
+     * IMPORTANT:
+     *
+     * First and ONLY important operation:
+     *
+     * users.json
+     *
      * blocked -> allowed
      */
 
@@ -1592,13 +1727,53 @@
     .then(function () {
 
       /*
-       * Permission has already been saved.
-       *
-       * If an Issue exists, try to close it.
-       * Failure to close the Issue must NOT
-       * turn the successful permission change
-       * into a failure.
+       * Verify that GitHub really contains
+       * status = allowed.
        */
+
+      return verifyUserStatus(
+        username,
+        "allowed"
+      );
+
+    })
+
+    .then(function () {
+
+      /*
+       * Permission is now confirmed.
+       *
+       * If there is an Issue, close it.
+       * Failure here must NOT undo permission.
+       */
+
+      var issue = null;
+
+
+      if (issueNumber) {
+
+        issue =
+          state.issues.find(
+            function (i) {
+
+              return String(i.number) ===
+                String(issueNumber);
+
+            }
+          );
+
+      }
+
+
+      if (!issue) {
+
+        issue =
+          getPendingIssueByName(
+            username
+          );
+
+      }
+
 
       if (
         issue &&
@@ -1609,6 +1784,11 @@
           issue.number
         )
         .catch(function () {
+
+          /*
+           * Ignore Issue close failure.
+           * User permission has already succeeded.
+           */
 
           return null;
 
@@ -1623,15 +1803,45 @@
 
     .then(function () {
 
+      /*
+       * Render immediately from the confirmed
+       * users.json state.
+       */
+
+      renderUsers();
+
+
       setMsg(
         "usersMsg",
         "تم السماح للمستخدم: " +
-          username,
+          username +
+          " ويمكنه الدخول الآن.",
         "ok"
       );
 
 
-      return refreshAll();
+      /*
+       * Refresh Issues only.
+       *
+       * Do NOT let a refresh failure cancel
+       * the successful permission operation.
+       */
+
+      return loadIssues()
+        .then(function () {
+
+          renderUsers();
+
+          renderIssues(
+            state.issues
+          );
+
+        })
+        .catch(function () {
+
+          return null;
+
+        });
 
     })
 
@@ -1668,6 +1878,19 @@
 
     username =
       String(username || "").trim();
+
+
+    if (!username) {
+
+      setMsg(
+        "usersMsg",
+        "اسم المستخدم غير صحيح.",
+        "err"
+      );
+
+      return;
+
+    }
 
 
     if (button) {
@@ -1923,9 +2146,7 @@
         var actionHtml = "";
 
 
-        /*
-         * ALLOWED
-         */
+        /* ALLOWED */
 
         if (status === "allowed") {
 
@@ -1946,9 +2167,7 @@
         }
 
 
-        /*
-         * BLOCKED
-         */
+        /* BLOCKED */
 
         else if (
           status === "blocked"
@@ -1971,9 +2190,7 @@
         }
 
 
-        /*
-         * NEW
-         */
+        /* NEW */
 
         else {
 
