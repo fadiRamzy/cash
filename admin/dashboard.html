@@ -387,7 +387,7 @@
       <div>
 
         <h2 style="margin-bottom:5px;">
-          المستخدمون
+          قائمة المستخدمون
         </h2>
 
         <div
@@ -427,6 +427,61 @@
         </thead>
 
         <tbody id="usersTableBody">
+
+          <tr>
+            <td
+              colspan="5"
+              class="empty"
+            >
+              قم بالاتصال أولاً.
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- Blocked Users -->
+  <div class="card">
+
+    <div class="top-actions">
+
+      <div>
+
+        <h2 style="margin-bottom:5px;">
+          قائمة الحظر
+        </h2>
+
+        <div
+          class="counter"
+          id="blockedUsersCounter"
+        ></div>
+
+      </div>
+
+    </div>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>اسم المستخدم</th>
+            <th>الحالة</th>
+            <th>الأجهزة</th>
+            <th>تاريخ الإضافة / الدخول</th>
+            <th>الإجراء</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="blockedUsersTableBody">
 
           <tr>
             <td
@@ -2859,6 +2914,9 @@
     var body =
       $("usersTableBody");
 
+    var blockedBody =
+      $("blockedUsersTableBody");
+
 
     var merged = {};
 
@@ -2964,201 +3022,201 @@
         });
 
 
-    $("usersCounter").textContent =
-      "إجمالي المستخدمين الظاهرين: " +
-      names.length;
-
-
-    if (!names.length) {
-
-      body.innerHTML =
-        '<tr>' +
-          '<td colspan="5" class="empty">' +
-            'لا يوجد مستخدمون حتى الآن.' +
-          '</td>' +
-        '</tr>';
-
-      return;
-
-    }
-
-
-    body.innerHTML =
-      names.map(function (username) {
-
-        var item =
-          merged[username];
-
+    var allowedNames =
+      names.filter(function (username) {
 
         var record =
-          item.record;
-
+          merged[username].record;
 
         var status =
           record.status ||
           "allowed";
 
+        return status === "allowed";
 
-        var statusHtml = "";
-
-        var actionHtml = "";
-
-
-        /* ALLOWED */
-
-        if (status === "allowed") {
-
-          statusHtml =
-            '<span class="status status-allowed">' +
-              'مسموح' +
-            '</span>';
+      });
 
 
-          actionHtml =
-            '<button class="btn-danger" ' +
-              'onclick="blockUser(' +
-                escapeJs(username) +
-                ', null, this)">' +
-              'حظر' +
-            '</button>';
+    var blockedNames =
+      names.filter(function (username) {
 
-        }
+        var record =
+          merged[username].record;
 
+        return record.status === "blocked";
 
-        /* BLOCKED */
-
-        else if (
-          status === "blocked"
-        ) {
-
-          statusHtml =
-            '<span class="status status-blocked">' +
-              'محظور' +
-            '</span>';
+      });
 
 
-          actionHtml =
-            '<button class="btn-success" ' +
-              'onclick="allowUser(' +
-                escapeJs(username) +
-                ', null, this)">' +
-              'سماح' +
-            '</button>';
+    if ($("usersCounter")) {
 
-        }
+      $("usersCounter").textContent =
+        "إجمالي المستخدمين المسموح لهم: " +
+        allowedNames.length;
+
+    }
 
 
-        /* NEW */
+    if ($("blockedUsersCounter")) {
 
-        else {
+      $("blockedUsersCounter").textContent =
+        "إجمالي المستخدمين المحظورين: " +
+        blockedNames.length;
 
-          statusHtml =
-            '<span class="status status-new">' +
-              'جديد - غير مُراجع' +
-            '</span>';
-
-
-          var issueNumber =
-            item.issue
-              ? item.issue.number
-              : "";
+    }
 
 
-          actionHtml =
+    function renderRow(username) {
 
-            '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
+      var item =
+        merged[username];
 
-              '<button class="btn-success" ' +
-                'onclick="allowUser(' +
-                  escapeJs(username) +
-                  ',' +
-                  JSON.stringify(issueNumber) +
-                  ', this)">' +
-                'سماح' +
-              '</button>' +
+      var record =
+        item.record;
 
-              '<button class="btn-danger" ' +
-                'onclick="blockUser(' +
-                  escapeJs(username) +
-                  ',' +
-                  JSON.stringify(issueNumber) +
-                  ', this)">' +
-                'حظر' +
-              '</button>' +
+      var status =
+        record.status ||
+        "allowed";
 
-            '</div>';
+      var statusHtml = "";
+      var actionHtml = "";
 
-        }
+      if (status === "allowed") {
 
+        statusHtml =
+          '<span class="status status-allowed">' +
+            'مسموح' +
+          '</span>';
 
-        var userDevs =
-          getUserDevices(username);
+        actionHtml =
+          '<button class="btn-danger" ' +
+            'onclick="blockUser(' +
+              escapeJs(username) +
+              ', null, this)">' +
+            'حظر' +
+          '</button>';
 
-        var deviceCountText =
-          "الأجهزة: " +
-          userDevs.length +
-          " / " +
-          (state.maxDevices || 3);
+      } else if (status === "blocked") {
 
-        var deviceCellHtml =
+        statusHtml =
+          '<span class="status status-blocked">' +
+            'محظور' +
+          '</span>';
+
+        actionHtml =
+          '<button class="btn-success" ' +
+            'onclick="allowUser(' +
+              escapeJs(username) +
+              ', null, this)">' +
+            'السماح' +
+          '</button>';
+
+      }
+
+      var userDevs =
+        getUserDevices(username);
+
+      var deviceCountText =
+        "الأجهزة: " +
+        userDevs.length +
+        " / " +
+        (state.maxDevices || 3);
+
+      var deviceCellHtml =
+        '<td>' +
+          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+            '<span style="font-weight:bold;font-size:14px;">' +
+              escapeHtml(deviceCountText) +
+            '</span>' +
+            '<button class="btn-secondary" style="padding:4px 9px;font-size:12px;border-radius:7px;" onclick="openDevicesModal(' +
+              escapeJs(username) +
+            ')">' +
+              'عرض الأجهزة' +
+            '</button>' +
+          '</div>' +
+        '</td>';
+
+      var date =
+        item.issue &&
+        item.issue.created_at
+          ? formatDate(item.issue.created_at)
+          : record.createdAt
+            ? formatDate(record.createdAt)
+            : "-";
+
+      return (
+        '<tr>' +
           '<td>' +
-            '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
-              '<span style="font-weight:bold;font-size:14px;">' +
-                escapeHtml(deviceCountText) +
-              '</span>' +
-              '<button class="btn-secondary" style="padding:4px 9px;font-size:12px;border-radius:7px;" onclick="openDevicesModal(' +
-                escapeJs(username) +
-              ')">' +
-                'عرض الأجهزة' +
-              '</button>' +
-            '</div>' +
-          '</td>';
+            escapeHtml(username) +
+          '</td>' +
+          '<td>' +
+            statusHtml +
+          '</td>' +
+          deviceCellHtml +
+          '<td>' +
+            escapeHtml(date) +
+          '</td>' +
+          '<td>' +
+            actionHtml +
+          '</td>' +
+        '</tr>'
+      );
+
+    }
 
 
-        var date =
-          item.issue &&
-          item.issue.created_at
+    /* Render Allowed Users */
 
-            ? formatDate(
-                item.issue.created_at
-              )
+    if (body) {
 
-            : record.createdAt
+      if (!allowedNames.length) {
 
-              ? formatDate(
-                  record.createdAt
-                )
-
-              : "-";
-
-
-        return (
-
+        body.innerHTML =
           '<tr>' +
-
-            '<td>' +
-              escapeHtml(username) +
+            '<td colspan="5" class="empty">' +
+              'لا يوجد مستخدمون مسموح لهم حالياً.' +
             '</td>' +
+          '</tr>';
 
-            '<td>' +
-              statusHtml +
+      } else {
+
+        body.innerHTML =
+          allowedNames.map(function (u) {
+
+            return renderRow(u);
+
+          }).join("");
+
+      }
+
+    }
+
+
+    /* Render Blocked Users */
+
+    if (blockedBody) {
+
+      if (!blockedNames.length) {
+
+        blockedBody.innerHTML =
+          '<tr>' +
+            '<td colspan="5" class="empty">' +
+              'لا يوجد مستخدمون محظورون حالياً.' +
             '</td>' +
+          '</tr>';
 
-            deviceCellHtml +
+      } else {
 
-            '<td>' +
-              escapeHtml(date) +
-            '</td>' +
+        blockedBody.innerHTML =
+          blockedNames.map(function (u) {
 
-            '<td>' +
-              actionHtml +
-            '</td>' +
+            return renderRow(u);
 
-          '</tr>'
+          }).join("");
 
-        );
+      }
 
-      }).join("");
+    }
 
   }
 
@@ -3388,5 +3446,5 @@
 
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f0bd5ef8b258c7',t:'MTc5MDA3NDEzMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f150c09a084b31',t:'MTc5MDA4MDE2OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
