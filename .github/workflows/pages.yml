@@ -21,9 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build deploy copy with secret injected (never written to the repo)
+      - name: Build deploy copy with secrets injected (never written to the repo)
         env:
           ISSUES_TOKEN: ${{ secrets.ISSUES_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           python3 - <<'PYEOF'
           import os
@@ -40,15 +41,17 @@ jobs:
           shutil.copytree(".", "_site", ignore=ignore)
 
           path = os.path.join("_site", "access", "access-gate.js")
-          placeholder = "__ISSUES_TOKEN__"
           with open(path, "r", encoding="utf-8") as f:
               src = f.read()
-          if placeholder not in src:
-              raise SystemExit("Expected placeholder " + placeholder + " not found in " + path)
-          token = os.environ.get("ISSUES_TOKEN", "")
-          if not token:
-              raise SystemExit("ISSUES_TOKEN secret is empty")
-          src = src.replace(placeholder, token)
+
+          for placeholder, env_var in [("__ISSUES_TOKEN__", "ISSUES_TOKEN"), ("__GH_TOKEN__", "GH_TOKEN")]:
+              if placeholder not in src:
+                  raise SystemExit("Expected placeholder " + placeholder + " not found in " + path)
+              token = os.environ.get(env_var, "")
+              if not token:
+                  raise SystemExit(env_var + " secret is empty")
+              src = src.replace(placeholder, token)
+
           with open(path, "w", encoding="utf-8") as f:
               f.write(src)
           PYEOF
