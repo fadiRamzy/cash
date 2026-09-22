@@ -10,6 +10,16 @@
       "lastSeen": "2026-09-22T11:47:24.240Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abanoub.gerges@cash-eg.org",
+      "deviceId": "06624bc7-2d58-4a28-99fe-9c2f31a90080",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T11:48:49.700Z",
+      "lastSeen": "2026-09-22T11:48:49.700Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
