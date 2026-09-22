@@ -6,8 +6,8 @@
 
   // ====================== REQUIRED CONFIG — fill in before deploying ======================
   // GitHub repo that hosts users.json (usually this same Pages repo).
-  var GH_OWNER = 'PUT_GITHUB_OWNER_HERE';
-  var GH_REPO = 'PUT_GITHUB_REPO_HERE';
+  var GH_OWNER = 'fadiRamzy';
+  var GH_REPO = 'cash';
   var GH_BRANCH = 'main';
   var USERS_PATH = 'users.json';
   // Fine-grained Personal Access Token scoped ONLY to this repo, with
