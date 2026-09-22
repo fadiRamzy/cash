@@ -60,6 +60,16 @@
       "lastSeen": "2026-09-22T12:10:50.570Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "maher.fawzy@cash-eg.org",
+      "deviceId": "fec91e1a-119c-486f-8b1b-19b2fec207b1",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:13:26.051Z",
+      "lastSeen": "2026-09-22T12:13:26.051Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
