@@ -268,7 +268,11 @@
     if (!state.owner || !state.repo || !state.token) { setMsg('connectMsg', 'أدخل المستودع والتوكن أولًا', 'err'); return; }
     setMsg('connectMsg', 'جارٍ الاتصال...', '');
     fetch(api(''), { headers: authHeaders() }).then(function (r) {
-      if (!r.ok) throw new Error('تعذر الاتصال (HTTP ' + r.status + ') — تحقق من الاسم والتوكن');
+      if (!r.ok) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          throw new Error('HTTP ' + r.status + ' — ' + (j && j.message ? j.message : 'تعذر الاتصال'));
+        });
+      }
       setMsg('connectMsg', 'متصل.', 'ok');
       el('usersCard').style.display = '';
       el('issuesCard').style.display = '';
