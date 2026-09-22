@@ -3,6 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Password gate - runs first; the page below only loads once a valid 24h session exists. */
+(function () {
+  var KEY = 'cashGateSession', DAY = 864e5, SALT = 'cash-gate|v1', N = 20000, PW = 'eb8ecdde5bc7635c9dd939739b64b05f3d01dc08b724b548a5a0980d8d69c4eb';
+  var K = [], H = [];
+  (function () {
+    var p = 2, c = 0, i;
+    function f(x) { return (x - Math.floor(x)) * 4294967296 | 0; }
+    for (; c < 64; p++) {
+      for (i = 2; i * i <= p; i++) if (p % i === 0) break;
+      if (i * i > p) { if (c < 8) H[c] = f(Math.pow(p, .5)); K[c++] = f(Math.pow(p, 1 / 3)); }
+    }
+  })();
+  function r(x, s) { return (x >>> s) | (x << (32 - s)); }
+  function sha(m) {
+    var b = new TextEncoder().encode(m), l = b.length, n = ((l + 9 + 63) >> 6) << 6, d = new Uint8Array(n);
+    d.set(b); d[l] = 128;
+    var v = new DataView(d.buffer); v.setUint32(n - 8, l >>> 29); v.setUint32(n - 4, l << 3);
+    var h = H.slice(), w = [], i, j, o;
+    for (o = 0; o < n; o += 64) {
+      for (i = 0; i < 16; i++) w[i] = v.getInt32(o + i * 4);
+      for (i = 16; i < 64; i++) {
+        var s0 = r(w[i - 15], 7) ^ r(w[i - 15], 18) ^ (w[i - 15] >>> 3), s1 = r(w[i - 2], 17) ^ r(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+      }
+      var a = h[0], b1 = h[1], c1 = h[2], d1 = h[3], e = h[4], f1 = h[5], g = h[6], k = h[7], t1, t2;
+      for (i = 0; i < 64; i++) {
+        t1 = (k + (r(e, 6) ^ r(e, 11) ^ r(e, 25)) + ((e & f1) ^ (~e & g)) + K[i] + w[i]) | 0;
+        t2 = ((r(a, 2) ^ r(a, 13) ^ r(a, 22)) + ((a & b1) ^ (a & c1) ^ (b1 & c1))) | 0;
+        k = g; g = f1; f1 = e; e = (d1 + t1) | 0; d1 = c1; c1 = b1; b1 = a; a = (t1 + t2) | 0;
+      }
+      h[0] = (h[0] + a) | 0; h[1] = (h[1] + b1) | 0; h[2] = (h[2] + c1) | 0; h[3] = (h[3] + d1) | 0;
+      h[4] = (h[4] + e) | 0; h[5] = (h[5] + f1) | 0; h[6] = (h[6] + g) | 0; h[7] = (h[7] + k) | 0;
+    }
+    var out = '';
+    for (j = 0; j < 8; j++) out += ('0000000' + (h[j] >>> 0).toString(16)).slice(-8);
+    return out;
+  }
+  function derive(p) {
+    var x = sha(SALT + '|' + p), i;
+    for (i = 0; i < N; i++) x = sha(x + '|' + SALT + '|' + p);
+    return x;
+  }
+  function tok(t) { return sha(t + '|' + PW); }
+
+  // Returns the time the session was issued if it is still valid (< 24h old), otherwise 0.
+  function auth() {
+    try {
+      var s = localStorage.getItem(KEY) || '', i = s.indexOf(':'), t = +s.slice(0, i), n = Date.now();
+      return i > 0 && t > 0 && n - t < DAY && t - n < 3e5 && s.slice(i + 1) === tok(t) ? t : 0;
+    } catch (e) { return 0; }
+  }
+  function save() {
+    var t = Date.now();
+    try { localStorage.setItem(KEY, t + ':' + tok(t)); } catch (e) {}
+    return auth();
+  }
+
+  var on = 0;
+  function gate(live) {
+    if (on) return;
+    on = 1;
+    var d = document, css = d.createElement('style'), box = d.createElement('div');
+    css.textContent =
+      'html{overflow:hidden!important}' +
+      'body>*:not(#cashGate),body>*:not(#cashGate) *{visibility:hidden!important}' +
+      '#cashGate{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto;background:#F7F8FA;color:#20293A;direction:rtl;font-family:"Times New Roman",Times,serif;font-size:15px;line-height:1.6;visibility:visible!important}' +
+      '#cashGate *{box-sizing:border-box;margin:0}' +
+      '#cashGate .cg{width:100%;max-width:380px;background:#fff;border:1px solid rgba(28,42,58,.09);border-radius:20px;padding:30px 24px 24px;text-align:center;box-shadow:0 10px 28px rgba(28,42,58,.09)}' +
+      '#cashGate .cg-i{width:48px;height:48px;margin:0 auto 14px;border-radius:50%;background:#EEF4FC;display:flex;align-items:center;justify-content:center}' +
+      '#cashGate h1{font-size:18px;font-weight:700;margin-bottom:4px}' +
+      '#cashGate p{font-size:13px;color:#67728A}' +
+      '#cashGate input{display:block;width:100%;height:46px;margin:18px 0 6px;padding:0 14px;border:1px solid rgba(28,42,58,.16);border-radius:12px;background:#fff;color:#20293A;font:16px "Times New Roman",Times,serif;text-align:center;direction:ltr;outline:0}' +
+      '#cashGate input:focus{border-color:#1C5EA8;box-shadow:0 0 0 3px rgba(28,94,168,.14)}' +
+      '#cashGate .cg-e{min-height:22px;font-size:13px;color:#C24545}' +
+      '#cashGate button{width:100%;height:46px;margin-top:4px;border:0;border-radius:12px;background:#1C5EA8;color:#fff;font:700 15px "Times New Roman",Times,serif;cursor:pointer}' +
+      '#cashGate button:hover{background:#164A85}' +
+      '#cashGate small{display:block;margin-top:14px;font-size:11.5px;color:#9AA4B6}';
+    box.id = 'cashGate';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.innerHTML =
+      '<div class="cg"><div class="cg-i"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C5EA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>' +
+      '<h1>الدخول إلى النظام</h1>' +
+      '<p>أدخل كلمة المرور للمتابعة</p>' +
+      '<input type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="64" data-lpignore="true" data-1p-ignore="true" data-bwignore="true" aria-label="كلمة المرور">' +
+      '<div class="cg-e" role="alert"></div>' +
+      '<button type="button">دخول</button>' +
+      '<small>يجب كتابة كلمة المرور يدويًا — اللصق غير مسموح</small></div>';
+
+    var inp = box.getElementsByTagName('input')[0], err = box.querySelector('.cg-e'), btn = box.getElementsByTagName('button')[0];
+    function note(m) { err.textContent = m; }
+    var NOPASTE = 'اللصق غير مسموح — اكتب كلمة المرور يدويًا';
+
+    // Manual typing only: block every clipboard / drag-drop way of getting text into the field.
+    function stop(e) { e.preventDefault(); note(NOPASTE); }
+    inp.addEventListener('paste', stop);
+    inp.addEventListener('drop', stop);
+    inp.addEventListener('dragover', function (e) { e.preventDefault(); });
+    inp.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    inp.addEventListener('beforeinput', function (e) {
+      if (/^insertFrom/.test(e.inputType || '')) stop(e);
+    });
+    inp.addEventListener('input', function (e) {
+      var t = e.inputType || '';
+      if (/^insertFrom/.test(t) || (t === 'insertText' && e.data && e.data.length > 1)) { inp.value = ''; note(NOPASTE); }
+    });
+    inp.addEventListener('keydown', function (e) {
+      var k = (e.key || '').toLowerCase();
+      if (((e.ctrlKey || e.metaKey) && (k === 'v' || e.code === 'KeyV')) ||
+          (e.shiftKey && (k === 'insert' || e.code === 'Insert')) || k === 'paste') { stop(e); return; }
+      if (e.key === 'Enter') { e.preventDefault(); go(); }
+    });
+
+    function go() {
+      var ok = derive(inp.value) === PW;
+      inp.value = '';
+      if (ok && save()) {
+        if (live) { css.parentNode.removeChild(css); box.parentNode.removeChild(box); on = 0; watch(); }
+        else location.reload();
+        return;
+      }
+      note(ok ? 'تعذّر حفظ الجلسة على هذا المتصفح'
+              : 'كلمة المرور غير صحيحة');
+      inp.focus();
+    }
+    btn.addEventListener('click', go);
+
+    function mount() {
+      if (!live) d.title = 'تسجيل الدخول';
+      d.head.appendChild(css);
+      d.body.appendChild(box);
+      setTimeout(function () { inp.focus(); }, 0);
+    }
+    if (live) mount();
+    else {
+      // Swallow the rest of the document as inert text so none of the page (or its scripts) loads before login.
+      d.write('<plaintext style="display:none">');
+      d.addEventListener('DOMContentLoaded', mount);
+    }
+  }
+
+  // Re-lock an already-open page once the 24h window has passed (timer, tab refocus, back/forward restore).
+  function watch() {
+    var t = auth();
+    if (t) setTimeout(function () { if (auth()) watch(); else gate(1); }, t + DAY - Date.now() + 50);
+  }
+  function chk() { if (!auth() && document.body) gate(1); }
+
+  if (auth()) {
+    watch();
+    addEventListener('pageshow', chk);
+    document.addEventListener('visibilitychange', chk);
+  } else {
+    gate(0);
+  }
+})();
+</script>
 <title>تحليل تقرير آيسكور — أكواد الاستعلامات الائتمانية</title>
 <meta name="theme-color" content="#0b1f3a">
 <link rel="icon" href="../assets/icons/icon-192.png">
