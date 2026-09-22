@@ -364,6 +364,15 @@
         تحديث
       </button>
 
+      <button
+        class="btn-secondary"
+        id="saveLimitBtn"
+        onclick="saveMaxDevices()"
+        disabled
+      >
+        حفظ الحد الأقصى
+      </button>
+
     </div>
 
     <div id="connectionMsg" class="msg"></div>
@@ -873,6 +882,12 @@
 
         $("refreshIssuesBtn").disabled = false;
 
+        if ($("saveLimitBtn")) {
+
+          $("saveLimitBtn").disabled = false;
+
+        }
+
 
         renderUsers();
 
@@ -897,6 +912,12 @@
         $("refreshUsersBtn").disabled = true;
 
         $("refreshIssuesBtn").disabled = true;
+
+        if ($("saveLimitBtn")) {
+
+          $("saveLimitBtn").disabled = true;
+
+        }
 
 
         setMsg(
@@ -1146,17 +1167,30 @@
           safeJsonParse(decoded);
 
 
-        if (Array.isArray(parsed)) {
-
-          state.devices = parsed;
-
-        } else if (
+        if (
           parsed &&
-          typeof parsed === "object"
+          typeof parsed === "object" &&
+          !Array.isArray(parsed)
         ) {
 
+          if (typeof parsed.maxDevices === "number") {
+
+            state.maxDevices = parsed.maxDevices;
+
+            if ($("maxDevices")) {
+
+              $("maxDevices").value = state.maxDevices;
+
+            }
+
+          }
+
           state.devices =
-            Object.values(parsed);
+            Array.isArray(parsed.devices) ? parsed.devices : [];
+
+        } else if (Array.isArray(parsed)) {
+
+          state.devices = parsed;
 
         } else {
 
@@ -1363,6 +1397,17 @@
 
     .then(function (latest) {
 
+      var payload = {
+
+        maxDevices:
+          typeof state.maxDevices === "number" ? state.maxDevices : 3,
+
+        devices:
+          newDevices
+
+      };
+
+
       var body = {
 
         message:
@@ -1371,7 +1416,7 @@
         content:
           b64EncodeUtf8(
             JSON.stringify(
-              newDevices,
+              payload,
               null,
               2
             )
@@ -1466,6 +1511,88 @@
     });
 
   }
+
+
+  /* =========================================================
+     SAVE MAX DEVICES (ONE SHARED LIMIT)
+  ========================================================= */
+
+  window.saveMaxDevices = function () {
+
+    var inputVal =
+      parseInt($("maxDevices").value, 10);
+
+
+    if (isNaN(inputVal) || inputVal < 1) {
+
+      setMsg(
+        "connectionMsg",
+        "يرجى إدخال حد أقصى صحيح للأجهزة (1 على الأقل).",
+        "err"
+      );
+
+      return;
+
+    }
+
+
+    state.maxDevices = inputVal;
+
+
+    setMsg(
+      "connectionMsg",
+      "جارٍ حفظ الحد الأقصى للأجهزة...",
+      ""
+    );
+
+
+    var btn = $("saveLimitBtn");
+
+    if (btn) btn.disabled = true;
+
+
+    saveDevicesList(
+      state.devices,
+      "Update maxDevices: " + inputVal
+    )
+
+    .then(function () {
+
+      setMsg(
+        "connectionMsg",
+        "تم حفظ الحد الأقصى للأجهزة (" + inputVal + ") بنجاح.",
+        "ok"
+      );
+
+      renderUsers();
+
+      if (state.selectedUserDevices) {
+
+        renderUserDevicesModal(
+          state.selectedUserDevices
+        );
+
+      }
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "connectionMsg",
+        "فشل حفظ الحد الأقصى للأجهزة: " + getErrorMessage(e),
+        "err"
+      );
+
+    })
+
+    .finally(function () {
+
+      if (btn) btn.disabled = false;
+
+    });
+
+  };
 
 
   /* =========================================================
@@ -1633,17 +1760,45 @@
 
   /* =========================================================
      DEVICE MODAL UI
+     Loads latest devices.json before opening/rendering
   ========================================================= */
 
   window.openDevicesModal = function (username) {
 
     state.selectedUserDevices = username;
 
-    setMsg("modalDeviceMsg", "", "");
+    $("deviceModal").style.display = "flex";
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ تحميل أحدث بيانات الأجهزة...",
+      ""
+    );
 
     renderUserDevicesModal(username);
 
-    $("deviceModal").style.display = "flex";
+
+    loadDevices()
+
+      .then(function () {
+
+        setMsg("modalDeviceMsg", "", "");
+
+        renderUsers();
+
+        renderUserDevicesModal(username);
+
+      })
+
+      .catch(function (e) {
+
+        setMsg(
+          "modalDeviceMsg",
+          "فشل تحديث بيانات الأجهزة: " + getErrorMessage(e),
+          "err"
+        );
+
+      });
 
   };
 
@@ -1663,7 +1818,25 @@
 
     var tbody = $("modalDevicesTableBody");
 
-    var devs = getUserDevices(username);
+    var devs =
+      getUserDevices(username).slice();
+
+
+    /*
+     * Sort by latest lastSeen first.
+     */
+
+    devs.sort(function (a, b) {
+
+      var tA =
+        a.lastSeen ? new Date(a.lastSeen).getTime() : 0;
+
+      var tB =
+        b.lastSeen ? new Date(b.lastSeen).getTime() : 0;
+
+      return tB - tA;
+
+    });
 
 
     if (title) {
@@ -1821,11 +1994,8 @@
   /* =========================================================
      SAVE USER STATUS
      
-     This is the main permission function.
-     
-     It ALWAYS reads the latest users.json first,
-     finds the exact existing username ignoring case,
-     changes ONLY the status, then PUTs the file.
+     This changes ONLY the existing user's status and preserves
+     every other existing field exactly.
   ========================================================= */
 
   function saveUserStatus(
@@ -1950,15 +2120,7 @@
 
 
       /*
-       * Find the REAL existing key.
-       *
-       * This prevents:
-       *
-       * Fady.Adel
-       *
-       * from becoming:
-       *
-       * fady.adel
+       * Find the REAL existing key (case-insensitive).
        */
 
       var actualKey = null;
@@ -2009,25 +2171,43 @@
           : null;
 
 
-      var oldNormalized =
-        normalizeUserRecord(
-          oldRecord
-        );
-
-
       /*
        * ONLY CHANGE STATUS.
+       * Preserve all other existing fields exactly.
        */
 
-      latestUsers[actualKey] = {
+      if (
+        oldRecord &&
+        typeof oldRecord === "object" &&
+        !Array.isArray(oldRecord)
+      ) {
 
-        status: status,
+        latestUsers[actualKey] =
+          Object.assign({}, oldRecord, {
 
-        createdAt:
-          oldNormalized.createdAt ||
-          new Date().toISOString()
+            status: status
 
-      };
+          });
+
+      } else if (typeof oldRecord === "string") {
+
+        latestUsers[actualKey] = {
+
+          status: status
+
+        };
+
+      } else {
+
+        latestUsers[actualKey] = {
+
+          status: status,
+
+          createdAt: new Date().toISOString()
+
+        };
+
+      }
 
 
       var body = {
@@ -2385,10 +2565,6 @@
 
   /* =========================================================
      ALLOW USER
-     
-     BLOCKED -> ALLOWED
-     
-     This function does NOT depend on an Issue.
   ========================================================= */
 
   window.allowUser = function (
@@ -2430,27 +2606,12 @@
     );
 
 
-    /*
-     * IMPORTANT:
-     *
-     * First and ONLY important operation:
-     *
-     * users.json
-     *
-     * blocked -> allowed
-     */
-
     saveUserStatus(
       username,
       "allowed"
     )
 
     .then(function () {
-
-      /*
-       * Verify that GitHub really contains
-       * status = allowed.
-       */
 
       return verifyUserStatus(
         username,
@@ -2460,13 +2621,6 @@
     })
 
     .then(function () {
-
-      /*
-       * Permission is now confirmed.
-       *
-       * If there is an Issue, close it.
-       * Failure here must NOT undo permission.
-       */
 
       var issue = null;
 
@@ -2506,11 +2660,6 @@
         )
         .catch(function () {
 
-          /*
-           * Ignore Issue close failure.
-           * User permission has already succeeded.
-           */
-
           return null;
 
         });
@@ -2524,11 +2673,6 @@
 
     .then(function () {
 
-      /*
-       * Render immediately from the confirmed
-       * users.json state.
-       */
-
       renderUsers();
 
 
@@ -2540,13 +2684,6 @@
         "ok"
       );
 
-
-      /*
-       * Refresh Issues only.
-       *
-       * Do NOT let a refresh failure cancel
-       * the successful permission operation.
-       */
 
       return loadIssues()
         .then(function () {
@@ -3251,5 +3388,5 @@
 
 </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f0bd5ef8b258c7',t:'MTc5MDA3NDEzMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
