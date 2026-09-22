@@ -942,6 +942,10 @@
 
   /* =========================================================
      LOAD ISSUES
+     
+     Public GET:
+     Issues can be read without Admin Token.
+     Token is still used for PATCH when closing an Issue.
   ========================================================= */
 
   function loadIssues() {
@@ -963,7 +967,12 @@
 
         cache: "no-store",
 
-        headers: authHeaders()
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
 
       }
 
@@ -1224,21 +1233,61 @@
       }
 
 
+      /* =====================================================
+         FIND EXISTING USER CASE-INSENSITIVELY
+
+         Example:
+         users.json has: Fady.Adel
+         Dashboard sends: fady.adel
+
+         We update Fady.Adel itself instead of creating
+         a second record called fady.adel.
+      ===================================================== */
+
+      var actualKey = null;
+
+
+      Object.keys(latestUsers)
+        .some(function (existingUsername) {
+
+          if (
+            String(existingUsername)
+              .trim()
+              .toLowerCase() ===
+            username.toLowerCase()
+          ) {
+
+            actualKey =
+              existingUsername;
+
+            return true;
+
+          }
+
+
+          return false;
+
+        });
+
+
       /*
-       * IMPORTANT:
-       * Find the existing record and change ONLY
-       * its status.
-       *
-       * This specifically allows a blocked user
-       * to become allowed again.
+       * If the user does not already exist,
+       * create the requested username.
        */
+
+      if (!actualKey) {
+
+        actualKey = username;
+
+      }
+
 
       var oldRecord =
         Object.prototype.hasOwnProperty.call(
           latestUsers,
-          username
+          actualKey
         )
-          ? latestUsers[username]
+          ? latestUsers[actualKey]
           : null;
 
 
@@ -1248,7 +1297,12 @@
         );
 
 
-      latestUsers[username] = {
+      /*
+       * Change ONLY the status and preserve
+       * the original date when available.
+       */
+
+      latestUsers[actualKey] = {
 
         status: status,
 
@@ -1270,7 +1324,7 @@
             status === "allowed"
               ? "Allow user: "
               : "Block user: "
-          ) + username,
+          ) + actualKey,
 
         content:
           b64EncodeUtf8(
@@ -1438,13 +1492,15 @@
 
   /* =========================================================
      ALLOW USER
-     
-     Supports BOTH:
+
+     Supports:
        1. New user from Issue
        2. Previously blocked user
-     
-     A previously blocked user has no open Issue,
-     so the status is changed directly to allowed.
+
+     The users.json permission change is the MAIN action.
+
+     Closing an Issue is secondary and MUST NOT cancel
+     a successful permission change.
   ========================================================= */
 
   window.allowUser = function (
@@ -1502,9 +1558,6 @@
     /*
      * If there is no Issue number,
      * search by username.
-     *
-     * This is important for a previously blocked
-     * user who may no longer have an open Issue.
      */
 
     if (!issue) {
@@ -1528,8 +1581,7 @@
 
     /*
      * MAIN ACTION:
-     *
-     * Change blocked -> allowed in users.json.
+     * blocked -> allowed
      */
 
     saveUserStatus(
@@ -1540,9 +1592,12 @@
     .then(function () {
 
       /*
-       * If there is an open Issue, close it.
+       * Permission has already been saved.
        *
-       * If there is no Issue, this simply continues.
+       * If an Issue exists, try to close it.
+       * Failure to close the Issue must NOT
+       * turn the successful permission change
+       * into a failure.
        */
 
       if (
@@ -1552,9 +1607,17 @@
 
         return closeIssue(
           issue.number
-        );
+        )
+        .catch(function () {
+
+          return null;
+
+        });
 
       }
+
+
+      return null;
 
     })
 
@@ -1567,12 +1630,6 @@
         "ok"
       );
 
-
-      /*
-       * Reload users.json and Issues.
-       * The user should now appear as "مسموح"
-       * and the button should become "حظر".
-       */
 
       return refreshAll();
 
@@ -1902,12 +1959,6 @@
               'محظور' +
             '</span>';
 
-
-          /*
-           * This button now calls allowUser()
-           * with the blocked username.
-           * No Issue is required.
-           */
 
           actionHtml =
             '<button class="btn-success" ' +
