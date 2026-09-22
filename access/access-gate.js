@@ -67,7 +67,12 @@
 
   function statusOf(users, username) {
     if (!users || typeof users !== 'object') return 'unknown';
-    var e = users[username];
+    var target = String(username || '').trim().toLowerCase();
+    var e = null;
+    for (var key in users) {
+      if (!Object.prototype.hasOwnProperty.call(users, key)) continue;
+      if (String(key).trim().toLowerCase() === target) { e = users[key]; break; }
+    }
     if (!e) return 'unknown';
     return e.status === 'blocked' ? 'blocked' : 'allowed';
   }
