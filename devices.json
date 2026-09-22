@@ -1,12 +1,4 @@
-[
-  {
-    "username": "fady.adel",
-    "deviceId": "d42ac79b-2478-47c1-868c-923bba9093d3",
-    "deviceType": "Laptop-Desktop",
-    "browser": "Firefox",
-    "firstSeen": "2026-09-22T10:44:31.086Z",
-    "lastSeen": "2026-09-22T10:48:02.487Z",
-    "status": "enabled",
-    "enabled": true
-  }
-]
+{
+  "maxDevices": 1,
+  "devices": []
+}
