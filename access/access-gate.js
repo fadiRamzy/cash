@@ -105,6 +105,10 @@
     return 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/' + GH_BRANCH + '/' + USERS_PATH + '?_=' + Date.now();
   }
 
+  function usersApiUrl() {
+    return 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + USERS_PATH + '?ref=' + encodeURIComponent(GH_BRANCH) + '&_=' + Date.now();
+  }
+
   function devicesRawUrl() {
     return 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/' + GH_BRANCH + '/' + DEVICES_PATH + '?_=' + Date.now();
   }
@@ -120,8 +124,14 @@
     } catch (e) { return null; }
   }
 
-  function setSession(u) {
-    try { localStorage.setItem(SESSION_KEY, JSON.stringify({ u: u, at: Date.now() })); } catch (e) {}
+  function setSession(u, blocked) {
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        u: u,
+        blocked: !!blocked,
+        at: Date.now()
+      }));
+    } catch (e) {}
   }
 
   function clearSession() {
@@ -129,6 +139,31 @@
   }
 
   function fetchUsers() {
+    var token = getContentsToken();
+    if (token) {
+      return fetch(usersApiUrl(), {
+        cache: 'no-store',
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        return r.json().then(function (data) {
+          if (data && data.content) {
+            return JSON.parse(b64DecodeUtf8(data.content));
+          }
+          throw new Error();
+        });
+      })
+      .catch(function () {
+        return fetch(usersUrl(), { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; });
+      });
+    }
+
     return fetch(usersUrl(), { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; });
@@ -264,6 +299,8 @@
     if (cssEl && cssEl.parentNode) cssEl.parentNode.removeChild(cssEl);
     if (boxEl && boxEl.parentNode) boxEl.parentNode.removeChild(boxEl);
     on = 0;
+    cssEl = null;
+    boxEl = null;
   }
 
   function gate(initialMsg) {
@@ -337,6 +374,8 @@
           if (st === 'blocked') {
             busy(false);
             note('لا يمكن الدخول بهذا الاسم');
+            setSession(u, true);
+            watch();
             return;
           }
 
@@ -382,7 +421,7 @@
               }).then(function () {
                 busy(false);
                 if (st === 'unknown') reportNewUsername(u);
-                setSession(u);
+                setSession(u, false);
                 ungate();
                 watch();
               });
@@ -425,7 +464,7 @@
                 }
                 busy(false);
                 if (st === 'unknown') reportNewUsername(u);
-                setSession(u);
+                setSession(u, false);
                 ungate();
                 watch();
               });
@@ -452,6 +491,7 @@
       var st = statusOf(users, s.u);
 
       if (st === 'blocked') {
+        setSession(s.u, true);
         gate('لا يمكن الدخول بهذا الاسم');
         return;
       }
@@ -471,8 +511,13 @@
         }
 
         // Active user is allowed and device is enabled: ungate if previously gated
-        if (on && (st === 'allowed' || st === 'unknown')) {
-          ungate();
+        if (st === 'allowed' || st === 'unknown') {
+          if (s.blocked) {
+            setSession(s.u, false);
+          }
+          if (on) {
+            ungate();
+          }
         }
       });
     });
@@ -487,8 +532,12 @@
   addEventListener('pageshow', recheck);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) recheck(); });
 
-  if (getSession()) {
+  var currentSession = getSession();
+  if (currentSession) {
     watch();
+    if (currentSession.blocked) {
+      gate('لا يمكن الدخول بهذا الاسم');
+    }
     recheck();
   } else {
     gate();
