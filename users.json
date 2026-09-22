@@ -18,5 +18,9 @@
   "abanoub.gerges@cash-eg.org": {
     "status": "allowed",
     "createdAt": "2026-09-22T11:49:06.210Z"
+  },
+  "Ahmed": {
+    "status": "blocked",
+    "createdAt": "2026-09-22T11:53:37.612Z"
   }
 }
