@@ -100,6 +100,16 @@
       "lastSeen": "2026-09-22T12:14:20.085Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "hesham.mohamed@cash-eg.org",
+      "deviceId": "36430dcc-c165-4d76-8f47-9c5bf72c3ae7",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:18:30.021Z",
+      "lastSeen": "2026-09-22T12:18:30.021Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
