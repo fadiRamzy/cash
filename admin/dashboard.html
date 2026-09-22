@@ -212,6 +212,53 @@
       color: #6b7280;
     }
 
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 850px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: 0;
+      font-size: 20px;
+      cursor: pointer;
+      color: #6b7280;
+      padding: 4px 8px;
+    }
+
+    .modal-close-btn:hover {
+      color: #111827;
+    }
+
     @media (max-width: 800px) {
       .form-grid {
         grid-template-columns: 1fr;
@@ -285,6 +332,17 @@
         >
       </div>
 
+      <div class="field">
+        <label for="maxDevices">الحد الأقصى للأجهزة</label>
+        <input
+          id="maxDevices"
+          type="number"
+          min="1"
+          max="10"
+          value="3"
+        >
+      </div>
+
     </div>
 
     <div class="actions">
@@ -352,6 +410,7 @@
           <tr>
             <th>اسم المستخدم</th>
             <th>الحالة</th>
+            <th>الأجهزة</th>
             <th>تاريخ الإضافة / الدخول</th>
             <th>الإجراء</th>
           </tr>
@@ -362,7 +421,7 @@
 
           <tr>
             <td
-              colspan="4"
+              colspan="5"
               class="empty"
             >
               قم بالاتصال أولاً.
@@ -442,6 +501,39 @@
 
   </div>
 
+  <!-- Device Modal -->
+  <div id="deviceModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeDevicesModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalTitle" style="margin:0;font-size:20px;">أجهزة المستخدم</h2>
+        <button type="button" class="modal-close-btn" onclick="closeDevicesModal()" title="إغلاق">✕</button>
+      </div>
+      <div id="modalDeviceMsg" class="msg" style="margin:8px 0;"></div>
+      <div class="table-wrap" style="margin-top:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>نوع الجهاز</th>
+              <th>المتصفح</th>
+              <th>تاريخ أول تسجيل</th>
+              <th>آخر نشاط</th>
+              <th>الحالة</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="modalDevicesTableBody">
+            <tr>
+              <td colspan="6" class="empty">لا توجد أجهزة مسجلة.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:18px;text-align:left;">
+        <button type="button" class="btn-secondary" onclick="closeDevicesModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
@@ -462,14 +554,21 @@
     repo: "",
     branch: "main",
     token: "",
+    maxDevices: 3,
 
     usersSha: null,
 
     users: {},
 
+    devicesSha: null,
+
+    devices: [],
+
     issues: [],
 
-    connected: false
+    connected: false,
+
+    selectedUserDevices: null
 
   };
 
@@ -718,6 +817,9 @@
     state.token =
       $("token").value.trim();
 
+    state.maxDevices =
+      parseInt($("maxDevices") ? $("maxDevices").value : "3", 10) || 3;
+
 
     if (
       !state.owner ||
@@ -747,6 +849,12 @@
 
 
     loadUsers()
+
+      .then(function () {
+
+        return loadDevices();
+
+      })
 
       .then(function () {
 
@@ -835,7 +943,7 @@
 
 
   /* =========================================================
-     LOAD USERS
+     LOAD USERS (AUTHENTICATED)
   ========================================================= */
 
   function loadUsers() {
@@ -859,12 +967,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -949,7 +1052,134 @@
 
 
   /* =========================================================
-     LOAD ISSUES
+     LOAD DEVICES (AUTHENTICATED)
+  ========================================================= */
+
+  function loadDevices() {
+
+    var url =
+      api(
+        "/contents/devices.json?ref=" +
+        encodeURIComponent(state.branch) +
+        "&_=" +
+        Date.now()
+      );
+
+
+    return fetch(
+
+      url,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: authHeaders()
+
+      }
+
+    )
+
+    .then(function (r) {
+
+      if (r.status === 404) {
+
+        state.devicesSha = null;
+
+        state.devices = [];
+
+        return [];
+
+      }
+
+
+      if (!r.ok) {
+
+        return r.text()
+          .then(function (txt) {
+
+            throw new Error(
+
+              "فشل تحميل devices.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
+
+      }
+
+
+      return r.json();
+
+    })
+
+    .then(function (data) {
+
+      if (!data) return [];
+
+
+      if (data.sha) {
+
+        state.devicesSha =
+          data.sha;
+
+      }
+
+
+      if (data.content) {
+
+        var decoded =
+          b64DecodeUtf8(
+            data.content
+          );
+
+
+        var parsed =
+          safeJsonParse(decoded);
+
+
+        if (Array.isArray(parsed)) {
+
+          state.devices = parsed;
+
+        } else if (
+          parsed &&
+          typeof parsed === "object"
+        ) {
+
+          state.devices =
+            Object.values(parsed);
+
+        } else {
+
+          state.devices = [];
+
+        }
+
+      } else {
+
+        state.devices = [];
+
+      }
+
+
+      return state.devices;
+
+    });
+
+  }
+
+
+  /* =========================================================
+     LOAD ISSUES (AUTHENTICATED)
   ========================================================= */
 
   function loadIssues() {
@@ -971,12 +1201,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -1038,6 +1263,496 @@
       return state.issues;
 
     });
+
+  }
+
+
+  /* =========================================================
+     USER DEVICES HELPER
+  ========================================================= */
+
+  function getUserDevices(username) {
+
+    var target =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    return (state.devices || []).filter(function (d) {
+
+      return (
+        String(d.username || "")
+          .trim()
+          .toLowerCase() ===
+        target
+      );
+
+    });
+
+  }
+
+
+  /* =========================================================
+     SAVE DEVICES LIST
+  ========================================================= */
+
+  function saveDevicesList(newDevices, message) {
+
+    var latestUrl =
+      api(
+        "/contents/devices.json?ref=" +
+        encodeURIComponent(state.branch) +
+        "&_=" +
+        Date.now()
+      );
+
+
+    return fetch(
+
+      latestUrl,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: authHeaders()
+
+      }
+
+    )
+
+    .then(function (r) {
+
+      if (r.status === 404) {
+
+        return {
+          sha: null
+        };
+
+      }
+
+
+      if (!r.ok) {
+
+        return r.text()
+          .then(function (txt) {
+
+            throw new Error(
+
+              "تعذر قراءة devices.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
+
+      }
+
+
+      return r.json();
+
+    })
+
+    .then(function (latest) {
+
+      var body = {
+
+        message:
+          message || "Update devices.json",
+
+        content:
+          b64EncodeUtf8(
+            JSON.stringify(
+              newDevices,
+              null,
+              2
+            )
+          ),
+
+        branch:
+          state.branch
+
+      };
+
+
+      if (latest && latest.sha) {
+
+        body.sha = latest.sha;
+
+      }
+
+
+      return fetch(
+
+        api("/contents/devices.json"),
+
+        {
+
+          method: "PUT",
+
+          headers: authHeaders({
+
+            "Content-Type":
+              "application/json"
+
+          }),
+
+          body:
+            JSON.stringify(body)
+
+        }
+
+      )
+
+      .then(function (r) {
+
+        if (!r.ok) {
+
+          return r.json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+
+              throw new Error(
+
+                j.message ||
+                (
+                  "فشل تحديث devices.json: HTTP " +
+                  r.status
+                )
+
+              );
+
+            });
+
+        }
+
+
+        return r.json();
+
+      })
+
+      .then(function (result) {
+
+        if (
+          result &&
+          result.content &&
+          result.content.sha
+        ) {
+
+          state.devicesSha =
+            result.content.sha;
+
+        }
+
+
+        state.devices =
+          newDevices;
+
+
+        return state.devices;
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================================================
+     TOGGLE DEVICE STATUS (ENABLE / DISABLE)
+  ========================================================= */
+
+  window.toggleDeviceStatus = function (
+    username,
+    deviceId,
+    newStatus,
+    button
+  ) {
+
+    if (button) button.disabled = true;
+
+    var actionText =
+      newStatus === "disabled"
+        ? "تعطيل"
+        : "تفعيل";
+
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ " + actionText + " الجهاز...",
+      ""
+    );
+
+
+    var targetUser =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    var updated =
+      (state.devices || []).map(function (d) {
+
+        if (
+          String(d.deviceId) === String(deviceId) &&
+          String(d.username || "").trim().toLowerCase() === targetUser
+        ) {
+
+          var copy = Object.assign({}, d);
+
+          copy.status = newStatus;
+
+          copy.enabled = (newStatus === "enabled");
+
+          return copy;
+
+        }
+
+        return d;
+
+      });
+
+
+    saveDevicesList(
+      updated,
+      (newStatus === "disabled" ? "Disable device: " : "Enable device: ") +
+        username + " (" + deviceId + ")"
+    )
+
+    .then(function () {
+
+      setMsg(
+        "modalDeviceMsg",
+        "تم " + actionText + " الجهاز بنجاح.",
+        "ok"
+      );
+
+      renderUsers();
+
+      renderUserDevicesModal(username);
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "modalDeviceMsg",
+        "فشل " + actionText + ": " + getErrorMessage(e),
+        "err"
+      );
+
+      if (button) button.disabled = false;
+
+    });
+
+  };
+
+
+  /* =========================================================
+     REMOVE DEVICE
+  ========================================================= */
+
+  window.removeDevice = function (
+    username,
+    deviceId,
+    button
+  ) {
+
+    if (!confirm("هل أنت متأكد من حذف هذا الجهاز؟")) return;
+
+    if (button) button.disabled = true;
+
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ حذف الجهاز...",
+      ""
+    );
+
+
+    var targetUser =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    var updated =
+      (state.devices || []).filter(function (d) {
+
+        return !(
+          String(d.deviceId) === String(deviceId) &&
+          String(d.username || "").trim().toLowerCase() === targetUser
+        );
+
+      });
+
+
+    saveDevicesList(
+      updated,
+      "Remove device: " + username + " (" + deviceId + ")"
+    )
+
+    .then(function () {
+
+      setMsg(
+        "modalDeviceMsg",
+        "تم حذف الجهاز بنجاح.",
+        "ok"
+      );
+
+      renderUsers();
+
+      renderUserDevicesModal(username);
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "modalDeviceMsg",
+        "فشل حذف الجهاز: " + getErrorMessage(e),
+        "err"
+      );
+
+      if (button) button.disabled = false;
+
+    });
+
+  };
+
+
+  /* =========================================================
+     DEVICE MODAL UI
+  ========================================================= */
+
+  window.openDevicesModal = function (username) {
+
+    state.selectedUserDevices = username;
+
+    setMsg("modalDeviceMsg", "", "");
+
+    renderUserDevicesModal(username);
+
+    $("deviceModal").style.display = "flex";
+
+  };
+
+
+  window.closeDevicesModal = function () {
+
+    $("deviceModal").style.display = "none";
+
+    state.selectedUserDevices = null;
+
+  };
+
+
+  function renderUserDevicesModal(username) {
+
+    var title = $("modalTitle");
+
+    var tbody = $("modalDevicesTableBody");
+
+    var devs = getUserDevices(username);
+
+
+    if (title) {
+
+      title.textContent =
+        "أجهزة المستخدم: " +
+        username +
+        " (الأجهزة: " +
+        devs.length +
+        " / " +
+        (state.maxDevices || 3) +
+        ")";
+
+    }
+
+
+    if (!devs.length) {
+
+      tbody.innerHTML =
+        '<tr>' +
+          '<td colspan="6" class="empty">' +
+            'لا توجد أجهزة مسجلة لهذا المستخدم حتى الآن.' +
+          '</td>' +
+        '</tr>';
+
+      return;
+
+    }
+
+
+    tbody.innerHTML = devs.map(function (dev) {
+
+      var isDisabled =
+        (dev.status === "disabled" || dev.enabled === false);
+
+
+      var statusHtml = isDisabled
+        ? '<span class="status status-blocked">معطّل</span>'
+        : '<span class="status status-allowed">مفعّل</span>';
+
+
+      var toggleBtn = isDisabled
+        ? '<button class="btn-success" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
+            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'enabled\', this)">تفعيل</button>'
+        : '<button class="btn-danger" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
+            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'disabled\', this)">تعطيل</button>';
+
+
+      var removeBtn =
+        '<button class="btn-secondary" style="padding:6px 10px;font-size:13px;color:#dc2626;" onclick="removeDevice(' +
+          escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', this)">حذف</button>';
+
+
+      return (
+
+        '<tr>' +
+
+          '<td>' +
+            escapeHtml(dev.deviceType || "غير محدد") +
+          '</td>' +
+
+          '<td>' +
+            escapeHtml(dev.browser || "غير محدد") +
+          '</td>' +
+
+          '<td>' +
+            escapeHtml(formatDate(dev.firstSeen)) +
+          '</td>' +
+
+          '<td>' +
+            escapeHtml(formatDate(dev.lastSeen)) +
+          '</td>' +
+
+          '<td>' +
+            statusHtml +
+          '</td>' +
+
+          '<td>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+              toggleBtn +
+              removeBtn +
+            '</div>' +
+          '</td>' +
+
+        '</tr>'
+
+      );
+
+    }).join("");
 
   }
 
@@ -1166,12 +1881,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -1479,12 +2189,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -2131,7 +2836,7 @@
 
       body.innerHTML =
         '<tr>' +
-          '<td colspan="4" class="empty">' +
+          '<td colspan="5" class="empty">' +
             'لا يوجد مستخدمون حتى الآن.' +
           '</td>' +
         '</tr>';
@@ -2249,6 +2954,30 @@
         }
 
 
+        var userDevs =
+          getUserDevices(username);
+
+        var deviceCountText =
+          "الأجهزة: " +
+          userDevs.length +
+          " / " +
+          (state.maxDevices || 3);
+
+        var deviceCellHtml =
+          '<td>' +
+            '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+              '<span style="font-weight:bold;font-size:14px;">' +
+                escapeHtml(deviceCountText) +
+              '</span>' +
+              '<button class="btn-secondary" style="padding:4px 9px;font-size:12px;border-radius:7px;" onclick="openDevicesModal(' +
+                escapeJs(username) +
+              ')">' +
+                'عرض الأجهزة' +
+              '</button>' +
+            '</div>' +
+          '</td>';
+
+
         var date =
           item.issue &&
           item.issue.created_at
@@ -2277,6 +3006,8 @@
             '<td>' +
               statusHtml +
             '</td>' +
+
+            deviceCellHtml +
 
             '<td>' +
               escapeHtml(date) +
@@ -2420,7 +3151,7 @@
 
     setMsg(
       "usersMsg",
-      "جارٍ تحديث المستخدمين...",
+      "جارٍ تحديث المستخدمين والأجهزة...",
       ""
     );
 
@@ -2443,6 +3174,12 @@
 
       .then(function () {
 
+        return loadDevices();
+
+      })
+
+      .then(function () {
+
         return loadIssues();
 
       })
@@ -2455,10 +3192,18 @@
           state.issues
         );
 
+        if (state.selectedUserDevices) {
+
+          renderUserDevicesModal(
+            state.selectedUserDevices
+          );
+
+        }
+
 
         setMsg(
           "usersMsg",
-          "تم تحديث المستخدمين.",
+          "تم تحديث المستخدمين والأجهزة.",
           "ok"
         );
 
