@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>لوحة التحكم — إدارة الوصول</title>
+<style>
+  :root{--bg:#F7F8FA;--paper:#fff;--line:rgba(28,42,58,.1);--text:#20293A;--text-2:#67728A;--blue:#1C5EA8;--green:#1E8E5A;--red:#C24545;--amber:#B7791F}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Times New Roman",Times,serif;font-size:14px;direction:rtl;line-height:1.6}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 18px 60px}
+  h1{font-size:19px;margin:0 0 4px}
+  .sub{color:var(--text-2);font-size:12.5px;margin-bottom:20px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input,button,select{font:inherit}
+  input[type=password],input[type=text]{flex:1;min-width:180px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);direction:ltr;text-align:right}
+  button{height:40px;padding:0 16px;border:0;border-radius:10px;background:var(--blue);color:#fff;cursor:pointer;font-weight:700}
+  button:hover{opacity:.9}
+  button.gray{background:#EEF1F5;color:var(--text)}
+  button.green{background:var(--green)}
+  button.red{background:var(--red)}
+  button:disabled{opacity:.5;cursor:default}
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+  th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}
+  th{color:var(--text-2);font-weight:700;font-size:12px}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11.5px;font-weight:700}
+  .pill.allowed{background:#E6F4EC;color:var(--green)}
+  .pill.blocked{background:#FBEAEA;color:var(--red)}
+  .pill.pendingissue{background:#FDF3E3;color:var(--amber)}
+  .msg{font-size:12.5px;color:var(--text-2);min-height:18px;margin-top:6px}
+  .msg.err{color:var(--red)}
+  .msg.ok{color:var(--green)}
+  small.note{display:block;color:var(--text-2);font-size:11.5px;margin-top:10px}
+  .actions{white-space:nowrap}
+  .actions button{height:32px;padding:0 10px;font-size:12px;margin-inline-start:4px}
+  .hint{font-size:12px;color:var(--text-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>لوحة تحكم الوصول</h1>
+  <div class="sub">صفحة إدارية خاصة — غير مرتبطة بالموقع. لا تتم مشاركة رابطها.</div>
+
+  <div class="card" id="connectCard">
+    <div class="row">
+      <input type="text" id="ownerInput" placeholder="GitHub owner (مالك المستودع)">
+      <input type="text" id="repoInput" placeholder="اسم المستودع (repo)">
+      <input type="text" id="branchInput" placeholder="الفرع" value="main" style="max-width:120px">
+    </div>
+    <div class="row" style="margin-top:10px">
+      <input type="password" id="tokenInput" placeholder="GitHub admin token (Contents + Issues read/write) — لا يُحفظ">
+      <button id="connectBtn">اتصال</button>
+    </div>
+    <div class="msg" id="connectMsg"></div>
+    <small class="note">التوكن يُستخدم فقط في هذه الجلسة داخل الذاكرة، ولا يُحفظ ولا يُرفع إلى أي ملف. أعد إدخاله في كل مرة تفتح فيها هذه الصفحة.</small>
+  </div>
+
+  <div class="card" id="usersCard" style="display:none">
+    <div class="row" style="justify-content:space-between">
+      <strong>المستخدمون</strong>
+      <button id="refreshBtn" class="gray">تحديث</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <input type="text" id="newUserInput" placeholder="اسم مستخدم جديد للسماح به">
+      <button id="addUserBtn" class="green">سماح</button>
+    </div>
+    <div class="msg" id="usersMsg"></div>
+    <table id="usersTable">
+      <thead><tr><th>اسم المستخدم</th><th>الحالة</th><th>أُضيف</th><th>آخر ظهور معروف</th><th class="actions">إجراءات</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <small class="note">"حذف" يزيل الاسم من القائمة فقط — بما أن اسم مستخدم غير معروف يدخل تلقائيًا كمستخدم جديد، الحذف لا يمنعه من الدخول مجددًا. لمنع اسم مستخدم نهائيًا استخدم "حظر" بدلاً من الحذف.</small>
+  </div>
+
+  <div class="card" id="issuesCard" style="display:none">
+    <div class="row" style="justify-content:space-between">
+      <strong>محاولات دخول جديدة (Issues)</strong>
+      <button id="refreshIssuesBtn" class="gray">تحديث</button>
+    </div>
+    <div class="msg" id="issuesMsg"></div>
+    <table id="issuesTable">
+      <thead><tr><th>اسم المستخدم</th><th>أول ظهور</th><th class="actions">إجراءات</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <small class="note hint">هذه قائمة بمحاولات دخول بأسماء مستخدمين غير معروفة سابقًا. أضِفها أعلاه للسماح بها بشكل دائم، أو تجاهلها.</small>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var state = { owner: '', repo: '', branch: 'main', token: '', usersSha: null, users: {} };
+
+  function el(id) { return document.getElementById(id); }
+  function setMsg(id, text, kind) {
+    var e = el(id); e.textContent = text || ''; e.className = 'msg' + (kind ? ' ' + kind : '');
+  }
+  function api(path) { return 'https://api.github.com/repos/' + state.owner + '/' + state.repo + path; }
+  function authHeaders(extra) {
+    var h = { 'Authorization': 'Bearer ' + state.token, 'Accept': 'application/vnd.github+json' };
+    if (extra) for (var k in extra) h[k] = extra[k];
+    return h;
+  }
+  function b64EncodeUtf8(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function b64DecodeUtf8(str) {
+    return decodeURIComponent(escape(atob(str.replace(/\n/g, ''))));
+  }
+
+  function loadUsers() {
+    return fetch(api('/contents/users.json?ref=' + encodeURIComponent(state.branch)), { headers: authHeaders() })
+      .then(function (r) {
+        if (r.status === 404) { state.usersSha = null; state.users = {}; return {}; }
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (data && data.sha) {
+          state.usersSha = data.sha;
+          state.users = data.content ? JSON.parse(b64DecodeUtf8(data.content) || '{}') : {};
+        }
+        return state.users;
+      });
+  }
+
+  function saveUsers(message) {
+    var body = {
+      message: message || 'Update users.json',
+      content: b64EncodeUtf8(JSON.stringify(state.users, null, 2)),
+      branch: state.branch
+    };
+    if (state.usersSha) body.sha = state.usersSha;
+    return fetch(api('/contents/users.json'), {
+      method: 'PUT',
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(body)
+    }).then(function (r) {
+      if (!r.ok) return r.json().then(function (j) { throw new Error(j.message || ('HTTP ' + r.status)); });
+      return r.json();
+    }).then(function (j) {
+      if (j.content && j.content.sha) state.usersSha = j.content.sha;
+    });
+  }
+
+  function fmt(ts) { return ts ? new Date(ts).toLocaleString('ar-EG') : '—'; }
+
+  function renderUsers() {
+    var tbody = el('usersTable').querySelector('tbody');
+    tbody.innerHTML = '';
+    var names = Object.keys(state.users).sort();
+    if (!names.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="hint">لا يوجد مستخدمون في القائمة بعد.</td></tr>';
+      return;
+    }
+    names.forEach(function (name) {
+      var u = state.users[name] || {};
+      var status = u.status === 'blocked' ? 'blocked' : 'allowed';
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + name + '</td>' +
+        '<td><span class="pill ' + status + '">' + (status === 'blocked' ? 'محظور' : 'مسموح') + '</span></td>' +
+        '<td>' + fmt(u.addedAt) + '</td>' +
+        '<td>' + fmt(u.lastSeen) + '</td>' +
+        '<td class="actions"></td>';
+      var td = tr.querySelector('.actions');
+      if (status === 'blocked') {
+        td.appendChild(mkBtn('إعادة تفعيل', 'green', function () { setStatus(name, 'allowed'); }));
+      } else {
+        td.appendChild(mkBtn('حظر', 'red', function () { setStatus(name, 'blocked'); }));
+      }
+      td.appendChild(mkBtn('حذف', 'gray', function () { deleteUser(name); }));
+      tbody.appendChild(tr);
+    });
+  }
+  function mkBtn(label, cls, fn) {
+    var b = document.createElement('button');
+    b.textContent = label; if (cls) b.className = cls;
+    b.addEventListener('click', fn);
+    return b;
+  }
+
+  function setStatus(name, status) {
+    if (!state.users[name]) state.users[name] = { addedAt: Date.now() };
+    state.users[name].status = status;
+    setMsg('usersMsg', 'جارٍ الحفظ...', '');
+    saveUsers((status === 'blocked' ? 'Block ' : 'Allow ') + name)
+      .then(function () { setMsg('usersMsg', 'تم الحفظ.', 'ok'); renderUsers(); })
+      .catch(function (e) { setMsg('usersMsg', 'فشل الحفظ: ' + e.message, 'err'); });
+  }
+  function deleteUser(name) {
+    if (!confirm('حذف "' + name + '" من القائمة؟ (لن يمنعه هذا من الدخول لاحقًا كمستخدم جديد — استخدم الحظر لمنعه نهائيًا)')) return;
+    delete state.users[name];
+    setMsg('usersMsg', 'جارٍ الحذف...', '');
+    saveUsers('Delete ' + name)
+      .then(function () { setMsg('usersMsg', 'تم الحذف.', 'ok'); renderUsers(); })
+      .catch(function (e) { setMsg('usersMsg', 'فشل الحذف: ' + e.message, 'err'); });
+  }
+  function addUser() {
+    var name = (el('newUserInput').value || '').trim();
+    if (!name) return;
+    state.users[name] = { status: 'allowed', addedAt: Date.now() };
+    el('newUserInput').value = '';
+    setMsg('usersMsg', 'جارٍ الحفظ...', '');
+    saveUsers('Allow ' + name)
+      .then(function () { setMsg('usersMsg', 'تمت الإضافة.', 'ok'); renderUsers(); })
+      .catch(function (e) { setMsg('usersMsg', 'فشل الحفظ: ' + e.message, 'err'); });
+  }
+
+  function loadIssues() {
+    return fetch(api('/issues?state=open&labels=&per_page=50&sort=created&direction=desc'), { headers: authHeaders() })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (list) {
+        return list.filter(function (i) { return !i.pull_request && /^New login: /.test(i.title || ''); });
+      });
+  }
+  function renderIssues(list) {
+    var tbody = el('issuesTable').querySelector('tbody');
+    tbody.innerHTML = '';
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="3" class="hint">لا توجد محاولات دخول جديدة غير مُراجَعة.</td></tr>';
+      return;
+    }
+    list.forEach(function (issue) {
+      var name = issue.title.replace(/^New login:\s*/, '');
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + name + '</td><td>' + fmt(issue.created_at) + '</td><td class="actions"></td>';
+      var td = tr.querySelector('.actions');
+      td.appendChild(mkBtn('سماح وإغلاق', 'green', function () {
+        if (!state.users[name]) state.users[name] = { addedAt: Date.now() };
+        state.users[name].status = 'allowed';
+        saveUsers('Allow ' + name + ' (from issue)').then(function () {
+          renderUsers();
+          return closeIssue(issue.number);
+        }).then(refreshIssues).catch(function (e) { setMsg('issuesMsg', e.message, 'err'); });
+      }));
+      td.appendChild(mkBtn('تجاهل', 'gray', function () {
+        closeIssue(issue.number).then(refreshIssues).catch(function (e) { setMsg('issuesMsg', e.message, 'err'); });
+      }));
+      tbody.appendChild(tr);
+    });
+  }
+  function closeIssue(number) {
+    return fetch(api('/issues/' + number), {
+      method: 'PATCH',
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ state: 'closed' })
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); });
+  }
+  function refreshIssues() {
+    setMsg('issuesMsg', 'جارٍ التحميل...', '');
+    return loadIssues().then(function (list) { setMsg('issuesMsg', '', ''); renderIssues(list); })
+      .catch(function (e) { setMsg('issuesMsg', 'فشل التحميل: ' + e.message, 'err'); });
+  }
+  function refreshUsers() {
+    setMsg('usersMsg', 'جارٍ التحميل...', '');
+    return loadUsers().then(function () { setMsg('usersMsg', '', ''); renderUsers(); })
+      .catch(function (e) { setMsg('usersMsg', 'فشل التحميل: ' + e.message, 'err'); });
+  }
+
+  el('connectBtn').addEventListener('click', function () {
+    state.owner = el('ownerInput').value.trim();
+    state.repo = el('repoInput').value.trim();
+    state.branch = el('branchInput').value.trim() || 'main';
+    state.token = el('tokenInput').value.trim();
+    if (!state.owner || !state.repo || !state.token) { setMsg('connectMsg', 'أدخل المستودع والتوكن أولًا', 'err'); return; }
+    setMsg('connectMsg', 'جارٍ الاتصال...', '');
+    fetch(api(''), { headers: authHeaders() }).then(function (r) {
+      if (!r.ok) throw new Error('تعذر الاتصال (HTTP ' + r.status + ') — تحقق من الاسم والتوكن');
+      setMsg('connectMsg', 'متصل.', 'ok');
+      el('usersCard').style.display = '';
+      el('issuesCard').style.display = '';
+      return Promise.all([refreshUsers(), refreshIssues()]);
+    }).catch(function (e) { setMsg('connectMsg', e.message, 'err'); });
+  });
+  el('refreshBtn').addEventListener('click', refreshUsers);
+  el('refreshIssuesBtn').addEventListener('click', refreshIssues);
+  el('addUserBtn').addEventListener('click', addUser);
+  el('newUserInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') addUser(); });
+
+  // The token lives only in `state` (JS memory) for this page load — never written
+  // to localStorage/sessionStorage/cookies, and never sent anywhere but api.github.com.
+})();
+</script>
+</body>
+</html>
