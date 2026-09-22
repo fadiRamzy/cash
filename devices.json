@@ -80,6 +80,16 @@
       "lastSeen": "2026-09-22T12:13:30.190Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "nageb.eid@cash-eg.orgid",
+      "deviceId": "1adf61e8-fa17-4b8f-a527-3ca28ce6f664",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:13:34.813Z",
+      "lastSeen": "2026-09-22T12:13:34.813Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
