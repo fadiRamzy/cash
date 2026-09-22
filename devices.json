@@ -110,6 +110,16 @@
       "lastSeen": "2026-09-22T12:18:30.021Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ebrahim.teleb@cash-eg.org",
+      "deviceId": "c0adaba5-8802-4db9-9541-973a3662ca9d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:20:11.018Z",
+      "lastSeen": "2026-09-22T12:20:11.018Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
