@@ -91,37 +91,70 @@
 <script>
 (function () {
   'use strict';
-  var state = { owner: '', repo: '', branch: 'main', token: '', usersSha: null, users: {} };
+
+  var state = {
+    owner: '',
+    repo: '',
+    branch: 'main',
+    token: '',
+    usersSha: null,
+    users: {},
+    issues: []
+  };
 
   function el(id) { return document.getElementById(id); }
+
   function setMsg(id, text, kind) {
-    var e = el(id); e.textContent = text || ''; e.className = 'msg' + (kind ? ' ' + kind : '');
+    var e = el(id);
+    e.textContent = text || '';
+    e.className = 'msg' + (kind ? ' ' + kind : '');
   }
-  function api(path) { return 'https://api.github.com/repos/' + state.owner + '/' + state.repo + path; }
+
+  function api(path) {
+    return 'https://api.github.com/repos/' + state.owner + '/' + state.repo + path;
+  }
+
   function authHeaders(extra) {
-    var h = { 'Authorization': 'Bearer ' + state.token, 'Accept': 'application/vnd.github+json' };
+    var h = {
+      'Authorization': 'Bearer ' + state.token,
+      'Accept': 'application/vnd.github+json'
+    };
     if (extra) for (var k in extra) h[k] = extra[k];
     return h;
   }
+
   function b64EncodeUtf8(str) {
     return btoa(unescape(encodeURIComponent(str)));
   }
+
   function b64DecodeUtf8(str) {
     return decodeURIComponent(escape(atob(str.replace(/\n/g, ''))));
   }
 
   function loadUsers() {
-    return fetch(api('/contents/users.json?ref=' + encodeURIComponent(state.branch)), { headers: authHeaders() })
+    return fetch(
+      api('/contents/users.json?ref=' + encodeURIComponent(state.branch)),
+      { headers: authHeaders() }
+    )
       .then(function (r) {
-        if (r.status === 404) { state.usersSha = null; state.users = {}; return {}; }
+        if (r.status === 404) {
+          state.usersSha = null;
+          state.users = {};
+          return {};
+        }
+
         if (!r.ok) throw new Error('HTTP ' + r.status);
+
         return r.json();
       })
       .then(function (data) {
         if (data && data.sha) {
           state.usersSha = data.sha;
-          state.users = data.content ? JSON.parse(b64DecodeUtf8(data.content) || '{}') : {};
+          state.users = data.content
+            ? JSON.parse(b64DecodeUtf8(data.content) || '{}')
+            : {};
         }
+
         return state.users;
       });
   }
@@ -132,132 +165,430 @@
       content: b64EncodeUtf8(JSON.stringify(state.users, null, 2)),
       branch: state.branch
     };
+
     if (state.usersSha) body.sha = state.usersSha;
+
     return fetch(api('/contents/users.json'), {
       method: 'PUT',
-      headers: authHeaders({ 'Content-Type': 'application/json' }),
+      headers: authHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: JSON.stringify(body)
-    }).then(function (r) {
-      if (!r.ok) return r.json().then(function (j) { throw new Error(j.message || ('HTTP ' + r.status)); });
-      return r.json();
-    }).then(function (j) {
-      if (j.content && j.content.sha) state.usersSha = j.content.sha;
-    });
+    })
+      .then(function (r) {
+        if (!r.ok) {
+          return r.json().then(function (j) {
+            throw new Error(
+              j.message || ('HTTP ' + r.status)
+            );
+          });
+        }
+
+        return r.json();
+      })
+      .then(function (j) {
+        if (j.content && j.content.sha) {
+          state.usersSha = j.content.sha;
+        }
+      });
   }
 
-  function fmt(ts) { return ts ? new Date(ts).toLocaleString('ar-EG') : '—'; }
+  function fmt(ts) {
+    return ts ? new Date(ts).toLocaleString('ar-EG') : '—';
+  }
 
+  /*
+   * Build a lookup of usernames that currently have open
+   * "New login:" Issues.
+   */
+  function getPendingIssuesByName() {
+    var map = {};
+
+    (state.issues || []).forEach(function (issue) {
+      var name = (issue.title || '').replace(/^New login:\s*/, '').trim();
+
+      if (name && !map[name]) {
+        map[name] = issue;
+      }
+    });
+
+    return map;
+  }
+
+  /*
+   * The users table now displays:
+   * - users from users.json
+   * - plus usernames from open New login Issues
+   *
+   * Issue-only users are display-only until approved.
+   */
   function renderUsers() {
     var tbody = el('usersTable').querySelector('tbody');
     tbody.innerHTML = '';
-    var names = Object.keys(state.users).sort();
+
+    var pendingIssues = getPendingIssuesByName();
+    var namesMap = {};
+
+    Object.keys(state.users).forEach(function (name) {
+      namesMap[name] = true;
+    });
+
+    Object.keys(pendingIssues).forEach(function (name) {
+      namesMap[name] = true;
+    });
+
+    var names = Object.keys(namesMap).sort();
+
     if (!names.length) {
-      tbody.innerHTML = '<tr><td colspan="5" class="hint">لا يوجد مستخدمون في القائمة بعد.</td></tr>';
+      tbody.innerHTML =
+        '<tr><td colspan="5" class="hint">لا يوجد مستخدمون في القائمة بعد.</td></tr>';
       return;
     }
+
     names.forEach(function (name) {
-      var u = state.users[name] || {};
-      var status = u.status === 'blocked' ? 'blocked' : 'allowed';
+      var u = state.users[name];
+
+      /*
+       * User exists only in an Issue and has not been approved yet.
+       */
+      if (!u && pendingIssues[name]) {
+        var issue = pendingIssues[name];
+
+        var pendingTr = document.createElement('tr');
+
+        pendingTr.innerHTML =
+          '<td>' + name + '</td>' +
+          '<td><span class="pill pendingissue">جديد - غير مُراجع</span></td>' +
+          '<td>' + fmt(issue.created_at) + '</td>' +
+          '<td>—</td>' +
+          '<td class="actions"></td>';
+
+        var pendingTd = pendingTr.querySelector('.actions');
+
+        pendingTd.appendChild(
+          mkBtn('سماح وإغلاق', 'green', function () {
+            if (!state.users[name]) {
+              state.users[name] = {
+                addedAt: Date.now()
+              };
+            }
+
+            state.users[name].status = 'allowed';
+
+            setMsg('usersMsg', 'جارٍ الحفظ...', '');
+
+            saveUsers('Allow ' + name + ' (from issue)')
+              .then(function () {
+                return closeIssue(issue.number);
+              })
+              .then(function () {
+                setMsg('usersMsg', 'تم السماح وإغلاق الطلب.', 'ok');
+                return refreshIssues();
+              })
+              .catch(function (e) {
+                setMsg(
+                  'usersMsg',
+                  'فشل التنفيذ: ' + e.message,
+                  'err'
+                );
+              });
+          })
+        );
+
+        pendingTd.appendChild(
+          mkBtn('تجاهل', 'gray', function () {
+            closeIssue(issue.number)
+              .then(refreshIssues)
+              .catch(function (e) {
+                setMsg(
+                  'usersMsg',
+                  'فشل التجاهل: ' + e.message,
+                  'err'
+                );
+              });
+          })
+        );
+
+        tbody.appendChild(pendingTr);
+        return;
+      }
+
+      /*
+       * Normal users already stored in users.json.
+       */
+      var user = state.users[name] || {};
+      var status = user.status === 'blocked' ? 'blocked' : 'allowed';
+
       var tr = document.createElement('tr');
+
       tr.innerHTML =
         '<td>' + name + '</td>' +
-        '<td><span class="pill ' + status + '">' + (status === 'blocked' ? 'محظور' : 'مسموح') + '</span></td>' +
-        '<td>' + fmt(u.addedAt) + '</td>' +
-        '<td>' + fmt(u.lastSeen) + '</td>' +
+        '<td><span class="pill ' + status + '">' +
+        (status === 'blocked' ? 'محظور' : 'مسموح') +
+        '</span></td>' +
+        '<td>' + fmt(user.addedAt) + '</td>' +
+        '<td>' + fmt(user.lastSeen) + '</td>' +
         '<td class="actions"></td>';
+
       var td = tr.querySelector('.actions');
+
       if (status === 'blocked') {
-        td.appendChild(mkBtn('إعادة تفعيل', 'green', function () { setStatus(name, 'allowed'); }));
+        td.appendChild(
+          mkBtn('إعادة تفعيل', 'green', function () {
+            setStatus(name, 'allowed');
+          })
+        );
       } else {
-        td.appendChild(mkBtn('حظر', 'red', function () { setStatus(name, 'blocked'); }));
+        td.appendChild(
+          mkBtn('حظر', 'red', function () {
+            setStatus(name, 'blocked');
+          })
+        );
       }
-      td.appendChild(mkBtn('حذف', 'gray', function () { deleteUser(name); }));
+
+      td.appendChild(
+        mkBtn('حذف', 'gray', function () {
+          deleteUser(name);
+        })
+      );
+
       tbody.appendChild(tr);
     });
   }
+
   function mkBtn(label, cls, fn) {
     var b = document.createElement('button');
-    b.textContent = label; if (cls) b.className = cls;
+    b.textContent = label;
+
+    if (cls) b.className = cls;
+
     b.addEventListener('click', fn);
+
     return b;
   }
 
   function setStatus(name, status) {
-    if (!state.users[name]) state.users[name] = { addedAt: Date.now() };
+    if (!state.users[name]) {
+      state.users[name] = {
+        addedAt: Date.now()
+      };
+    }
+
     state.users[name].status = status;
+
     setMsg('usersMsg', 'جارٍ الحفظ...', '');
-    saveUsers((status === 'blocked' ? 'Block ' : 'Allow ') + name)
-      .then(function () { setMsg('usersMsg', 'تم الحفظ.', 'ok'); renderUsers(); })
-      .catch(function (e) { setMsg('usersMsg', 'فشل الحفظ: ' + e.message, 'err'); });
+
+    saveUsers(
+      (status === 'blocked' ? 'Block ' : 'Allow ') + name
+    )
+      .then(function () {
+        setMsg('usersMsg', 'تم الحفظ.', 'ok');
+        renderUsers();
+      })
+      .catch(function (e) {
+        setMsg(
+          'usersMsg',
+          'فشل الحفظ: ' + e.message,
+          'err'
+        );
+      });
   }
+
   function deleteUser(name) {
-    if (!confirm('حذف "' + name + '" من القائمة؟ (لن يمنعه هذا من الدخول لاحقًا كمستخدم جديد — استخدم الحظر لمنعه نهائيًا)')) return;
+    if (!confirm(
+      'حذف "' + name +
+      '" من القائمة؟ (لن يمنعه هذا من الدخول لاحقًا كمستخدم جديد — استخدم الحظر لمنعه نهائيًا)'
+    )) return;
+
     delete state.users[name];
+
     setMsg('usersMsg', 'جارٍ الحذف...', '');
+
     saveUsers('Delete ' + name)
-      .then(function () { setMsg('usersMsg', 'تم الحذف.', 'ok'); renderUsers(); })
-      .catch(function (e) { setMsg('usersMsg', 'فشل الحذف: ' + e.message, 'err'); });
+      .then(function () {
+        setMsg('usersMsg', 'تم الحذف.', 'ok');
+        renderUsers();
+      })
+      .catch(function (e) {
+        setMsg(
+          'usersMsg',
+          'فشل الحذف: ' + e.message,
+          'err'
+        );
+      });
   }
+
   function addUser() {
     var name = (el('newUserInput').value || '').trim();
+
     if (!name) return;
-    state.users[name] = { status: 'allowed', addedAt: Date.now() };
+
+    state.users[name] = {
+      status: 'allowed',
+      addedAt: Date.now()
+    };
+
     el('newUserInput').value = '';
+
     setMsg('usersMsg', 'جارٍ الحفظ...', '');
+
     saveUsers('Allow ' + name)
-      .then(function () { setMsg('usersMsg', 'تمت الإضافة.', 'ok'); renderUsers(); })
-      .catch(function (e) { setMsg('usersMsg', 'فشل الحفظ: ' + e.message, 'err'); });
+      .then(function () {
+        setMsg('usersMsg', 'تمت الإضافة.', 'ok');
+        renderUsers();
+      })
+      .catch(function (e) {
+        setMsg(
+          'usersMsg',
+          'فشل الحفظ: ' + e.message,
+          'err'
+        );
+      });
   }
 
   function loadIssues() {
-    return fetch(api('/issues?state=open&labels=&per_page=50&sort=created&direction=desc'), { headers: authHeaders() })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    return fetch(
+      api('/issues?state=open&labels=&per_page=50&sort=created&direction=desc'),
+      { headers: authHeaders() }
+    )
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
       .then(function (list) {
-        return list.filter(function (i) { return !i.pull_request && /^New login: /.test(i.title || ''); });
+        state.issues = list.filter(function (i) {
+          return !i.pull_request &&
+            /^New login: /.test(i.title || '');
+        });
+
+        return state.issues;
       });
   }
+
   function renderIssues(list) {
     var tbody = el('issuesTable').querySelector('tbody');
     tbody.innerHTML = '';
+
     if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="3" class="hint">لا توجد محاولات دخول جديدة غير مُراجَعة.</td></tr>';
+      tbody.innerHTML =
+        '<tr><td colspan="3" class="hint">لا توجد محاولات دخول جديدة غير مُراجَعة.</td></tr>';
+
+      /*
+       * Also refresh the users table because pending users
+       * may have disappeared after an Issue was closed.
+       */
+      renderUsers();
       return;
     }
+
     list.forEach(function (issue) {
       var name = issue.title.replace(/^New login:\s*/, '');
+
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + name + '</td><td>' + fmt(issue.created_at) + '</td><td class="actions"></td>';
+
+      tr.innerHTML =
+        '<td>' + name + '</td>' +
+        '<td>' + fmt(issue.created_at) + '</td>' +
+        '<td class="actions"></td>';
+
       var td = tr.querySelector('.actions');
-      td.appendChild(mkBtn('سماح وإغلاق', 'green', function () {
-        if (!state.users[name]) state.users[name] = { addedAt: Date.now() };
-        state.users[name].status = 'allowed';
-        saveUsers('Allow ' + name + ' (from issue)').then(function () {
-          renderUsers();
-          return closeIssue(issue.number);
-        }).then(refreshIssues).catch(function (e) { setMsg('issuesMsg', e.message, 'err'); });
-      }));
-      td.appendChild(mkBtn('تجاهل', 'gray', function () {
-        closeIssue(issue.number).then(refreshIssues).catch(function (e) { setMsg('issuesMsg', e.message, 'err'); });
-      }));
+
+      td.appendChild(
+        mkBtn('سماح وإغلاق', 'green', function () {
+          if (!state.users[name]) {
+            state.users[name] = {
+              addedAt: Date.now()
+            };
+          }
+
+          state.users[name].status = 'allowed';
+
+          saveUsers('Allow ' + name + ' (from issue)')
+            .then(function () {
+              renderUsers();
+              return closeIssue(issue.number);
+            })
+            .then(refreshIssues)
+            .catch(function (e) {
+              setMsg(
+                'issuesMsg',
+                e.message,
+                'err'
+              );
+            });
+        })
+      );
+
+      td.appendChild(
+        mkBtn('تجاهل', 'gray', function () {
+          closeIssue(issue.number)
+            .then(refreshIssues)
+            .catch(function (e) {
+              setMsg(
+                'issuesMsg',
+                e.message,
+                'err'
+              );
+            });
+        })
+      );
+
       tbody.appendChild(tr);
     });
+
+    /*
+     * Keep the users table synchronized with the Issues list.
+     */
+    renderUsers();
   }
+
   function closeIssue(number) {
     return fetch(api('/issues/' + number), {
       method: 'PATCH',
-      headers: authHeaders({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ state: 'closed' })
-    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); });
+      headers: authHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({
+        state: 'closed'
+      })
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+      });
   }
+
   function refreshIssues() {
     setMsg('issuesMsg', 'جارٍ التحميل...', '');
-    return loadIssues().then(function (list) { setMsg('issuesMsg', '', ''); renderIssues(list); })
-      .catch(function (e) { setMsg('issuesMsg', 'فشل التحميل: ' + e.message, 'err'); });
+
+    return loadIssues()
+      .then(function (list) {
+        setMsg('issuesMsg', '', '');
+        renderIssues(list);
+      })
+      .catch(function (e) {
+        setMsg(
+          'issuesMsg',
+          'فشل التحميل: ' + e.message,
+          'err'
+        );
+      });
   }
+
   function refreshUsers() {
     setMsg('usersMsg', 'جارٍ التحميل...', '');
-    return loadUsers().then(function () { setMsg('usersMsg', '', ''); renderUsers(); })
-      .catch(function (e) { setMsg('usersMsg', 'فشل التحميل: ' + e.message, 'err'); });
+
+    return loadUsers()
+      .then(function () {
+        setMsg('usersMsg', '', '');
+        renderUsers();
+      })
+      .catch(function (e) {
+        setMsg(
+          'usersMsg',
+          'فشل التحميل: ' + e.message,
+          'err'
+        );
+      });
   }
 
   el('connectBtn').addEventListener('click', function () {
@@ -265,24 +596,77 @@
     state.repo = el('repoInput').value.trim();
     state.branch = el('branchInput').value.trim() || 'main';
     state.token = el('tokenInput').value.trim();
-    if (!state.owner || !state.repo || !state.token) { setMsg('connectMsg', 'أدخل المستودع والتوكن أولًا', 'err'); return; }
+
+    if (!state.owner || !state.repo || !state.token) {
+      setMsg(
+        'connectMsg',
+        'أدخل المستودع والتوكن أولًا',
+        'err'
+      );
+      return;
+    }
+
     setMsg('connectMsg', 'جارٍ الاتصال...', '');
-    fetch(api(''), { headers: authHeaders() }).then(function (r) {
-      if (!r.ok) {
-        return r.json().catch(function () { return {}; }).then(function (j) {
-          throw new Error('HTTP ' + r.status + ' — ' + (j && j.message ? j.message : 'تعذر الاتصال'));
-        });
-      }
-      setMsg('connectMsg', 'متصل.', 'ok');
-      el('usersCard').style.display = '';
-      el('issuesCard').style.display = '';
-      return Promise.all([refreshUsers(), refreshIssues()]);
-    }).catch(function (e) { setMsg('connectMsg', e.message, 'err'); });
+
+    fetch(api(''), {
+      headers: authHeaders()
+    })
+      .then(function (r) {
+        if (!r.ok) {
+          return r.json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+              throw new Error(
+                'HTTP ' + r.status + ' — ' +
+                (j && j.message
+                  ? j.message
+                  : 'تعذر الاتصال')
+              );
+            });
+        }
+
+        setMsg('connectMsg', 'متصل.', 'ok');
+
+        el('usersCard').style.display = '';
+        el('issuesCard').style.display = '';
+
+        return Promise.all([
+          refreshUsers(),
+          refreshIssues()
+        ]);
+      })
+      .catch(function (e) {
+        setMsg(
+          'connectMsg',
+          e.message,
+          'err'
+        );
+      });
   });
-  el('refreshBtn').addEventListener('click', refreshUsers);
-  el('refreshIssuesBtn').addEventListener('click', refreshIssues);
-  el('addUserBtn').addEventListener('click', addUser);
-  el('newUserInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') addUser(); });
+
+  el('refreshBtn').addEventListener(
+    'click',
+    refreshUsers
+  );
+
+  el('refreshIssuesBtn').addEventListener(
+    'click',
+    refreshIssues
+  );
+
+  el('addUserBtn').addEventListener(
+    'click',
+    addUser
+  );
+
+  el('newUserInput').addEventListener(
+    'keydown',
+    function (e) {
+      if (e.key === 'Enter') addUser();
+    }
+  );
 
   // The token lives only in `state` (JS memory) for this page load — never written
   // to localStorage/sessionStorage/cookies, and never sent anywhere but api.github.com.
