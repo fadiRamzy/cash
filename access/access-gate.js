@@ -14,7 +14,7 @@
   // "Issues: Read and write" and NOTHING else (Contents must be No access).
   // This token is public (visible in page source) by design — it can only
   // ever create Issues, never touch users.json or any repo file.
-  var ISSUES_TOKEN = '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';
+  var ISSUES_TOKEN = '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';
   // ==========================================================================================
 
   var SESSION_KEY = 'cashAccessSession';
