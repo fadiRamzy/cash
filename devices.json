@@ -70,6 +70,16 @@
       "lastSeen": "2026-09-22T12:13:26.051Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "peter.ghali@cash-eg.org",
+      "deviceId": "0f29f56c-dc43-4d34-895b-699922a73c2e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:13:30.190Z",
+      "lastSeen": "2026-09-22T12:13:30.190Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
