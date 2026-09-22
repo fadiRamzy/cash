@@ -601,9 +601,25 @@
 
   function escapeJs(value) {
 
-    return JSON.stringify(
-      String(
-        value == null ? "" : value
+    /*
+     * This is used to splice a JS string literal
+     * (from JSON.stringify) directly into a
+     * DOUBLE-QUOTED HTML onclick="..." attribute.
+     *
+     * JSON.stringify already wraps the value in
+     * double quotes, so those quotes must be
+     * HTML-escaped (to &quot;) or the browser's
+     * HTML parser ends the attribute value at the
+     * very first quote — e.g. onclick="allowUser("
+     * — silently truncating the handler so clicking
+     * the button does nothing.
+     */
+
+    return escapeHtml(
+      JSON.stringify(
+        String(
+          value == null ? "" : value
+        )
       )
     );
 
