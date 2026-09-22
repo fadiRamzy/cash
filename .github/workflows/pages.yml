@@ -48,9 +48,10 @@ jobs:
               if placeholder not in src:
                   raise SystemExit("Expected placeholder " + placeholder + " not found in " + path)
               token = os.environ.get(env_var, "")
-              if not token:
-                  raise SystemExit(env_var + " secret is empty")
-              src = src.replace(placeholder, token)
+              if env_var == "ISSUES_TOKEN" and not token:
+                  raise SystemExit("ISSUES_TOKEN secret is empty")
+              if token:
+                  src = src.replace(placeholder, token)
 
           with open(path, "w", encoding="utf-8") as f:
               f.write(src)
