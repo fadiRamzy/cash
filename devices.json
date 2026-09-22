@@ -90,6 +90,16 @@
       "lastSeen": "2026-09-22T12:13:34.813Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "hegazy.abdelrahman@cash-eg.org",
+      "deviceId": "85eda385-0c75-4307-8d92-d645cc3a217c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-22T12:14:20.085Z",
+      "lastSeen": "2026-09-22T12:14:20.085Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
