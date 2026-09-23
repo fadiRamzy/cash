@@ -220,6 +220,16 @@
       "lastSeen": "2026-09-23T08:28:10.625Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مينا",
+      "deviceId": "1044f0cb-4ea1-45ed-a694-7a76f81cbbc4",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-23T08:28:56.006Z",
+      "lastSeen": "2026-09-23T08:28:56.006Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
