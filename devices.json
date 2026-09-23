@@ -500,6 +500,16 @@
       "lastSeen": "2026-09-23T11:26:02.392Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ishak.emad@cash-eg.org",
+      "deviceId": "70f31449-b9ba-4d80-9737-6ba209343607",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-09-23T11:29:25.921Z",
+      "lastSeen": "2026-09-23T11:29:25.921Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
