@@ -210,6 +210,16 @@
       "lastSeen": "2026-09-23T08:26:42.562Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "فادي عادل",
+      "deviceId": "2f6a865b-8b93-4821-bea1-0cbbdd133d9b",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T08:28:10.625Z",
+      "lastSeen": "2026-09-23T08:28:10.625Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
