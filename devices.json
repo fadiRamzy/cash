@@ -390,6 +390,16 @@
       "lastSeen": "2026-09-23T10:23:31.523Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed arafa",
+      "deviceId": "198c2336-49e8-4be4-a94b-bc8776634fcc",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T10:34:26.178Z",
+      "lastSeen": "2026-09-23T10:34:26.178Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
