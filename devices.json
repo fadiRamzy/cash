@@ -540,6 +540,16 @@
       "lastSeen": "2026-09-23T12:29:35.414Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "islam.sayed@cash.eg.org",
+      "deviceId": "4cdd2075-5b51-4f6e-9d37-4eb353dc579e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T12:46:39.409Z",
+      "lastSeen": "2026-09-23T12:46:39.409Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
