@@ -350,6 +350,16 @@
       "lastSeen": "2026-09-23T10:17:44.576Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Bassem Makram",
+      "deviceId": "50af6bce-9844-4c9c-9611-f3fd11b8e770",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T10:19:47.616Z",
+      "lastSeen": "2026-09-23T10:19:47.616Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
