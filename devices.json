@@ -340,6 +340,16 @@
       "lastSeen": "2026-09-23T10:01:48.703Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جرجس جورج",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T10:17:44.576Z",
+      "lastSeen": "2026-09-23T10:17:44.576Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
