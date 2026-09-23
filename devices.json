@@ -330,6 +330,16 @@
       "lastSeen": "2026-09-23T09:47:45.373Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "َ",
+      "deviceId": "1ec3cdee-99ae-455d-ba1c-9ca4330803ee",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T10:01:48.703Z",
+      "lastSeen": "2026-09-23T10:01:48.703Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
