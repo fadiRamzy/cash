@@ -450,6 +450,16 @@
       "lastSeen": "2026-09-23T10:55:34.223Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed 100",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T11:20:03.695Z",
+      "lastSeen": "2026-09-23T11:20:03.695Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
