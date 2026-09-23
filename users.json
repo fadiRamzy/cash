@@ -150,5 +150,9 @@
   "youssef.samy@cash-eg.org": {
     "status": "allowed",
     "createdAt": "2026-09-23T09:16:44.347Z"
+  },
+  "َ": {
+    "status": "blocked",
+    "createdAt": "2026-09-23T10:16:01.680Z"
   }
 }
