@@ -670,6 +670,16 @@
       "lastSeen": "2026-09-23T13:40:12.857Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohamedsobhyreyad8@gmail.com",
+      "deviceId": "3b0d4276-fe08-4b62-8c35-2fd683ca6b40",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T18:45:01.219Z",
+      "lastSeen": "2026-09-23T18:45:01.219Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
