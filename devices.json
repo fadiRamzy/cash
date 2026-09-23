@@ -660,6 +660,16 @@
       "lastSeen": "2026-09-23T13:39:50.803Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "emad.elshref@cash-eg.org",
+      "deviceId": "6bb7074c-8fed-4799-9f64-e5231f6c0f52",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T13:40:12.857Z",
+      "lastSeen": "2026-09-23T13:40:12.857Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
