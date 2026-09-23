@@ -238,5 +238,9 @@
   "islam.sayed@cash.eg.org": {
     "status": "allowed",
     "createdAt": "2026-09-23T12:48:57.631Z"
+  },
+  "فادى عادل": {
+    "status": "blocked",
+    "createdAt": "2026-09-23T13:01:39.310Z"
   }
 }
