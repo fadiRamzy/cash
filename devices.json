@@ -190,6 +190,16 @@
       "lastSeen": "2026-09-23T08:25:37.135Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohamed.azouz@cash-eg.org",
+      "deviceId": "f899f85e-d160-4598-857b-eb053103ed56",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T08:26:08.141Z",
+      "lastSeen": "2026-09-23T08:26:08.141Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
