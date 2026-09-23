@@ -580,6 +580,16 @@
       "lastSeen": "2026-09-23T13:08:57.555Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "emad88802@gmail.com",
+      "deviceId": "6bb7074c-8fed-4799-9f64-e5231f6c0f52",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T13:09:52.263Z",
+      "lastSeen": "2026-09-23T13:09:52.263Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
