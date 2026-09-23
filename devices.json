@@ -430,6 +430,16 @@
       "lastSeen": "2026-09-23T10:40:39.494Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "beshoy nady",
+      "deviceId": "cc1e9c0c-6291-40bc-a60e-476cf4856065",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-23T10:51:48.563Z",
+      "lastSeen": "2026-09-23T10:51:48.563Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
