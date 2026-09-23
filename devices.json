@@ -160,6 +160,16 @@
       "lastSeen": "2026-09-23T08:14:32.933Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohamed.azzouz",
+      "deviceId": "5643a9a7-083f-4427-8f6f-50da20562cd8",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T08:15:01.947Z",
+      "lastSeen": "2026-09-23T08:15:01.947Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
