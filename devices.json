@@ -650,6 +650,16 @@
       "lastSeen": "2026-09-23T13:37:27.139Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "beshoy.samir@cash-eg.org",
+      "deviceId": "b79cd3b9-6419-4c76-a261-a8574633f97e",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T13:39:50.803Z",
+      "lastSeen": "2026-09-23T13:39:50.803Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
