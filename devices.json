@@ -520,6 +520,16 @@
       "lastSeen": "2026-09-23T12:23:31.644Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "em351358@gmail.com",
+      "deviceId": "4cdd2075-5b51-4f6e-9d37-4eb353dc579e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T12:26:14.953Z",
+      "lastSeen": "2026-09-23T12:26:14.953Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
