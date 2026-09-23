@@ -7,91 +7,134 @@
 
   <style>
     :root {
-      --navy: #0f2942;
-      --primary: #185ec8;
-      --primary-dark: #124a9e;
-      --bg: #f3f5f8;
-      --surface: #ffffff;
-      --border: #e2e7ee;
-      --border-strong: #d3dae4;
-      --text: #1c2733;
-      --muted: #64748b;
-      --muted-2: #94a3b8;
-      --success: #0f8a4c;
-      --success-bg: #e5f6ec;
-      --danger: #c22a2a;
-      --danger-bg: #fbe9e9;
-      --warning: #92600a;
-      --warning-bg: #fdf1dc;
-      --radius: 12px;
-      --radius-lg: 14px;
-      --shadow: 0 1px 2px rgba(15, 41, 66, 0.04), 0 6px 18px rgba(15, 41, 66, 0.05);
+      --ink-900: #101826;
+      --ink-700: #3c4a5e;
+      --ink-500: #6b7686;
+      --ink-300: #a1a9b6;
+
+      --paper: #eef1f5;
+      --panel: #ffffff;
+      --panel-sunken: #f6f8fa;
+
+      --rule: rgba(16, 24, 38, .09);
+      --rule-strong: rgba(16, 24, 38, .16);
+      --focus-ring: rgba(28, 63, 110, .35);
+
+      --seal: #1c3f6e;
+      --seal-strong: #14304f;
+      --seal-soft: #e7edf5;
+      --seal-ink: #ffffff;
+
+      --ok-ink: #155d34;
+      --ok-bg: #e3f3ea;
+      --ok-rule: #bfe0cc;
+
+      --bad-ink: #8f2323;
+      --bad-bg: #fbe9e8;
+      --bad-rule: #eec7c5;
+
+      --pending-ink: #8a5a10;
+      --pending-bg: #fbf1de;
+      --pending-rule: #edd7ab;
+
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 18px;
+
+      --shadow-card: 0 1px 2px rgba(16, 24, 38, .04), 0 8px 22px rgba(16, 24, 38, .06);
+      --shadow-modal: 0 24px 60px rgba(16, 24, 38, .30);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      -webkit-font-smoothing: antialiased;
+    }
+
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", Tahoma, "Helvetica Neue", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      background: var(--paper);
+      color: var(--ink-900);
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--seal);
+      outline-offset: 2px;
+      border-radius: var(--r-sm);
     }
 
     .container {
       max-width: 1180px;
-      margin: 28px auto;
-      padding: 0 20px 44px;
+      margin: 32px auto;
+      padding: 0 20px 48px;
     }
 
     .header {
-      background: var(--navy);
-      background: linear-gradient(135deg, var(--navy) 0%, #163a5c 100%);
-      border-radius: var(--radius-lg);
-      padding: 26px 28px;
-      margin-bottom: 22px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--navy);
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: var(--r-lg);
+      padding: 22px 26px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header .seal-mark {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--seal);
+      color: var(--seal-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header .seal-mark svg {
+      width: 22px;
+      height: 22px;
     }
 
     .header h1 {
-      margin: 0 0 6px;
-      font-size: 22px;
+      margin: 0 0 3px;
+      font-size: 21px;
       font-weight: 600;
-      color: #ffffff;
-      letter-spacing: .2px;
+      letter-spacing: -.01em;
     }
 
     .header p {
       margin: 0;
-      color: #c3d3e3;
-      font-size: 14px;
+      color: var(--ink-500);
+      font-size: 13px;
     }
 
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px 24px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: var(--r-lg);
+      padding: 24px 26px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-card);
     }
 
     .card h2 {
       margin: 0 0 18px;
       font-size: 16px;
-      font-weight: 700;
-      color: var(--navy);
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
+      font-weight: 600;
     }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
 
     .field {
@@ -101,34 +144,32 @@
     }
 
     .field label {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 12.5px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .4px;
+      color: var(--ink-700);
     }
 
     .field input {
       width: 100%;
-      border: 1px solid var(--border-strong);
-      background: #fbfcfe;
-      border-radius: 9px;
+      border: 1px solid var(--rule-strong);
+      background: var(--panel-sunken);
+      border-radius: var(--r-sm);
       padding: 10px 12px;
       font-family: inherit;
-      font-size: 14.5px;
-      color: var(--text);
+      font-size: 14px;
+      color: var(--ink-900);
       outline: none;
-      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+      transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
     }
 
-    .field input:hover {
-      border-color: var(--muted-2);
+    .field input::placeholder {
+      color: var(--ink-300);
     }
 
     .field input:focus {
-      border-color: var(--primary);
-      background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(24, 94, 200, 0.12);
+      border-color: var(--seal);
+      background: var(--panel);
+      box-shadow: 0 0 0 3px var(--focus-ring);
     }
 
     .actions {
@@ -139,248 +180,414 @@
     }
 
     button {
-      border: 1px solid transparent;
-      border-radius: 9px;
+      border: 0;
+      border-radius: var(--r-sm);
       padding: 10px 18px;
       font-family: inherit;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: filter .12s ease, transform .05s ease, box-shadow .12s ease;
+      transition: transform .12s ease, background-color .15s ease, opacity .12s ease;
     }
 
-    button:active {
-      transform: translateY(1px);
+    button:active:not(:disabled) {
+      transform: scale(.97);
     }
 
     button:disabled {
-      opacity: 0.5;
+      opacity: .5;
       cursor: not-allowed;
-      transform: none;
     }
 
     .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
+      background: var(--seal);
+      color: #fff;
     }
 
-    .btn-primary:not(:disabled):hover {
-      background: var(--primary-dark);
+    .btn-primary:hover:not(:disabled) {
+      background: var(--seal-strong);
     }
 
     .btn-success {
-      background: var(--success);
-      color: white;
+      background: var(--ok-ink);
+      color: #fff;
     }
 
-    .btn-success:not(:disabled):hover {
-      filter: brightness(0.92);
+    .btn-success:hover:not(:disabled) {
+      background: #0f4a29;
     }
 
     .btn-danger {
-      background: var(--danger);
-      color: white;
+      background: var(--bad-ink);
+      color: #fff;
     }
 
-    .btn-danger:not(:disabled):hover {
-      filter: brightness(0.92);
+    .btn-danger:hover:not(:disabled) {
+      background: #761b1b;
     }
 
     .btn-secondary {
-      background: #ffffff;
-      color: var(--navy);
-      border: 1px solid var(--border-strong);
+      background: var(--panel-sunken);
+      color: var(--ink-900);
+      border: 1px solid var(--rule-strong);
     }
 
-    .btn-secondary:not(:disabled):hover {
-      background: #f2f5f9;
-      border-color: var(--muted-2);
+    .btn-secondary:hover:not(:disabled) {
+      background: #eef1f5;
     }
 
     .msg {
       margin-top: 12px;
-      font-size: 13.5px;
+      font-size: 13px;
       min-height: 18px;
-      font-weight: 500;
     }
 
     .msg.ok {
-      color: var(--success);
+      color: var(--ok-ink);
     }
 
     .msg.err {
-      color: var(--danger);
+      color: var(--bad-ink);
     }
 
     .table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      border: 1px solid var(--rule);
+      border-radius: var(--r-md);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 700px;
+      min-width: 720px;
+      font-size: 13.5px;
     }
 
     th,
     td {
       padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--rule);
       text-align: right;
       vertical-align: middle;
-      font-size: 14px;
+      font-variant-numeric: tabular-nums;
     }
 
     th {
-      background: #f7f9fc;
-      font-weight: 700;
+      background: var(--panel-sunken);
+      font-weight: 600;
       font-size: 12.5px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .3px;
-      white-space: nowrap;
+      color: var(--ink-700);
     }
 
     tbody tr:last-child td {
-      border-bottom: none;
+      border-bottom: 0;
     }
 
-    tr:hover td {
-      background: #f8fafc;
+    tbody tr:hover td {
+      background: var(--panel-sunken);
     }
 
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 11px;
+      gap: 6px;
+      padding: 4px 10px;
       border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       border: 1px solid transparent;
     }
 
+    .status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      flex: 0 0 auto;
+    }
+
     .status-allowed {
-      background: var(--success-bg);
-      color: var(--success);
-      border-color: #c9ecd8;
+      background: var(--ok-bg);
+      color: var(--ok-ink);
+      border-color: var(--ok-rule);
     }
 
     .status-blocked {
-      background: var(--danger-bg);
-      color: var(--danger);
-      border-color: #f4cfcf;
+      background: var(--bad-bg);
+      color: var(--bad-ink);
+      border-color: var(--bad-rule);
     }
 
     .status-new {
-      background: var(--warning-bg);
-      color: var(--warning);
-      border-color: #f6e2b8;
+      background: var(--pending-bg);
+      color: var(--pending-ink);
+      border-color: var(--pending-rule);
     }
 
     .empty {
       text-align: center;
       padding: 34px 10px;
-      color: var(--muted-2);
-      font-size: 14px;
+      color: var(--ink-500);
+      font-size: 13.5px;
     }
 
     .top-actions {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .counter {
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 12.5px;
+      color: var(--ink-500);
       margin-top: 2px;
+      font-variant-numeric: tabular-nums;
     }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(15, 24, 38, 0.55);
-      z-index: 9999;
+    /* Devices column (users table) */
+
+    .devices-cell {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .modal-box {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
-      padding: 22px 24px;
-      max-width: 880px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      box-shadow: 0 18px 50px rgba(15, 24, 38, 0.28);
-      border: 1px solid var(--border);
+    .devices-count {
+      font-size: 13px;
+      color: var(--ink-700);
+      font-variant-numeric: tabular-nums;
     }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
+    .devices-view-btn {
+      display: inline-flex;
       align-items: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 14px;
-      margin-bottom: 16px;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12.5px;
     }
 
-    .modal-close-btn {
-      background: transparent;
+    .devices-view-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Devices modal */
+
+    dialog#devicesModal {
       border: 0;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--muted);
-      padding: 4px 8px;
-      border-radius: 7px;
-      line-height: 1;
+      padding: 0;
+      width: min(560px, calc(100vw - 32px));
+      max-height: min(640px, calc(100vh - 64px));
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-modal);
+      background: var(--panel);
+      color: var(--ink-900);
+      font-family: inherit;
     }
 
-    .modal-close-btn:hover {
-      color: var(--text);
-      background: #f1f4f8;
+    dialog#devicesModal::backdrop {
+      background: rgba(16, 24, 38, .45);
     }
 
-    .device-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 13.5px;
-      color: var(--text);
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--rule);
     }
 
-    .device-chip .device-icon {
-      display: inline-flex;
+    .modal-head h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .modal-sub {
+      font-size: 12.5px;
+      color: var(--ink-500);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .modal-close {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 999px;
+      background: var(--panel-sunken);
+      color: var(--ink-700);
+      border: 1px solid var(--rule);
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      background: #eef2f8;
-      color: var(--navy);
-      flex: none;
     }
 
-    .device-chip .device-icon svg {
+    .modal-close svg {
       width: 15px;
       height: 15px;
     }
 
+    .modal-close:hover {
+      background: #eef1f5;
+    }
+
+    .modal-body {
+      padding: 18px 22px 22px;
+      overflow-y: auto;
+      max-height: calc(min(640px, calc(100vh - 64px)) - 78px);
+    }
+
+    .device-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .device-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--rule);
+      border-radius: var(--r-md);
+      background: var(--panel-sunken);
+    }
+
+    .device-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .device-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--panel);
+      border: 1px solid var(--rule-strong);
+      color: var(--seal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .device-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .device-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .device-type {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-900);
+    }
+
+    .device-browser {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--ink-500);
+    }
+
+    .device-browser svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .device-dates {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 12px;
+      color: var(--ink-500);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .device-dates b {
+      color: var(--ink-700);
+      font-weight: 500;
+    }
+
+    .device-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    /* Blocked users — collapsible sub-section */
+
+    .blocked-toggle-row {
+      margin-top: 16px;
+    }
+
+    .blocked-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      background: var(--panel-sunken);
+      color: var(--ink-700);
+      border: 1px solid var(--rule-strong);
+      border-radius: var(--r-sm);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .blocked-toggle:hover {
+      background: #eef1f5;
+    }
+
+    .blocked-toggle-chevron {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      transition: transform .15s ease;
+    }
+
+    .blocked-toggle.is-expanded .blocked-toggle-chevron {
+      transform: rotate(180deg);
+    }
+
+    .blocked-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--bad-bg);
+      color: var(--bad-ink);
+      font-size: 11.5px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #blockedTableWrap {
+      margin-top: 14px;
+    }
+
     @media (max-width: 800px) {
       .form-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .container {
@@ -388,30 +595,24 @@
         padding: 0 12px 30px;
       }
 
-      .header {
-        padding: 20px;
-      }
-
-      .header h1 {
-        font-size: 19px;
-      }
-
+      .header,
       .card {
-        border-radius: 12px;
+        border-radius: 14px;
         padding: 17px;
       }
+    }
 
-      .card h2 {
-        font-size: 15px;
+    @media (max-width: 560px) {
+      .form-grid {
+        grid-template-columns: 1fr;
       }
 
-      th, td {
-        font-size: 13px;
-        padding: 10px 10px;
+      .device-grid {
+        grid-template-columns: 1fr;
       }
 
-      .modal-box {
-        padding: 18px;
+      dialog#devicesModal {
+        width: calc(100vw - 24px);
       }
     }
   </style>
@@ -422,10 +623,18 @@
 <div class="container">
 
   <div class="header">
-    <h1>لوحة التحكم - المستخدمون</h1>
-    <p>
-      إدارة صلاحيات الدخول إلى نظام Cash
-    </p>
+    <div class="seal-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3.5 19 6.2v5.4c0 4.4-2.9 7.9-7 8.9-4.1-1-7-4.5-7-8.9V6.2Z"></path>
+        <path d="M9.2 12.2 11.4 14.4 15 10"></path>
+      </svg>
+    </div>
+    <div>
+      <h1>لوحة التحكم - المستخدمون</h1>
+      <p>
+        إدارة صلاحيات الدخول إلى نظام Cash
+      </p>
+    </div>
   </div>
 
   <!-- GitHub Settings -->
@@ -467,19 +676,7 @@
         <input
           id="token"
           type="password"
-          placeholder="أدخل Password"
-          autocomplete="off"
-        >
-      </div>
-
-      <div class="field">
-        <label for="maxDevices">الحد الأقصى للأجهزة</label>
-        <input
-          id="maxDevices"
-          type="number"
-          min="1"
-          max="10"
-          value="3"
+          placeholder="أدخل Admin Token"
         >
       </div>
 
@@ -504,15 +701,6 @@
         تحديث
       </button>
 
-      <button
-        class="btn-secondary"
-        id="saveLimitBtn"
-        onclick="saveMaxDevices()"
-        disabled
-      >
-        حفظ الحد الأقصى
-      </button>
-
     </div>
 
     <div id="connectionMsg" class="msg"></div>
@@ -527,7 +715,7 @@
       <div>
 
         <h2 style="margin-bottom:5px;">
-          قائمة المستخدمون
+          المستخدمون
         </h2>
 
         <div
@@ -583,29 +771,26 @@
 
     </div>
 
-  </div>
+    <div class="blocked-toggle-row">
 
-  <!-- Blocked Users -->
-  <div class="card">
-
-    <div class="top-actions">
-
-      <div>
-
-        <h2 style="margin-bottom:5px;">
-          قائمة الحظر
-        </h2>
-
-        <div
-          class="counter"
-          id="blockedUsersCounter"
-        ></div>
-
-      </div>
+      <button
+        type="button"
+        class="blocked-toggle"
+        id="blockedToggleBtn"
+        onclick="toggleBlockedList()"
+        aria-expanded="false"
+        aria-controls="blockedTableWrap"
+      >
+        <svg class="blocked-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+        <span id="blockedToggleLabel">إظهار قائمة الحظر</span>
+        <span class="blocked-count-badge" id="blockedCountBadge">0</span>
+      </button>
 
     </div>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="blockedTableWrap" hidden>
 
       <table>
 
@@ -628,7 +813,7 @@
               colspan="5"
               class="empty"
             >
-              قم بالاتصال أولاً.
+              لا يوجد مستخدمون محظورون حالياً.
             </td>
           </tr>
 
@@ -705,40 +890,20 @@
 
   </div>
 
-  <!-- Device Modal -->
-  <div id="deviceModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeDevicesModal()">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h2 id="modalTitle" style="margin:0;font-size:20px;">أجهزة المستخدم</h2>
-        <button type="button" class="modal-close-btn" onclick="closeDevicesModal()" title="إغلاق">✕</button>
-      </div>
-      <div id="modalDeviceMsg" class="msg" style="margin:8px 0;"></div>
-      <div class="table-wrap" style="margin-top:10px;">
-        <table>
-          <thead>
-            <tr>
-              <th>نوع الجهاز</th>
-              <th>المتصفح</th>
-              <th>تاريخ أول تسجيل</th>
-              <th>آخر نشاط</th>
-              <th>الحالة</th>
-              <th>الإجراء</th>
-            </tr>
-          </thead>
-          <tbody id="modalDevicesTableBody">
-            <tr>
-              <td colspan="6" class="empty">لا توجد أجهزة مسجلة.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div style="margin-top:18px;text-align:left;">
-        <button type="button" class="btn-secondary" onclick="closeDevicesModal()">إغلاق</button>
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<dialog id="devicesModal">
+  <div class="modal-head">
+    <div>
+      <h3 id="devicesModalTitle"></h3>
+      <div class="modal-sub" id="devicesModalSub"></div>
+    </div>
+    <button type="button" class="modal-close" onclick="closeDevicesModal()" aria-label="إغلاق">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+    </button>
+  </div>
+  <div class="modal-body" id="devicesModalBody"></div>
+</dialog>
 
 
 <script>
@@ -758,80 +923,27 @@
     repo: "",
     branch: "main",
     token: "",
-    maxDevices: 3,
 
     usersSha: null,
 
     users: {},
 
-    devicesSha: null,
-
-    devices: [],
-
     issues: [],
 
-    connected: false,
+    devicesSha: null,
 
-    selectedUserDevices: null
+    devices: {},
+
+    activeDeviceUser: null,
+
+    connected: false
 
   };
 
 
-  /* =========================================================
-     CONNECTION SETTINGS CACHE (NON-SENSITIVE ONLY)
-
-     Owner / Repository / Branch / max devices are cached in the
-     browser's localStorage so they survive a refresh or a new
-     visit. The Password (Admin Token) is intentionally NEVER
-     written here and must always be re-entered.
-  ========================================================= */
-
-  var CCACHE_KEY = "cashDashboard.connectionSettings";
-
-  function ccacheSave() {
-
-    try {
-
-      localStorage.setItem(
-
-        CCACHE_KEY,
-
-        JSON.stringify({
-          owner: $("owner") ? $("owner").value.trim() : "",
-          repo: $("repo") ? $("repo").value.trim() : "",
-          branch: $("branch") ? $("branch").value.trim() : "",
-          maxDevices: $("maxDevices") ? $("maxDevices").value : ""
-        })
-
-      );
-
-    } catch (e) {}
-
-  }
-
-  function ccacheLoad() {
-
-    try {
-
-      var raw = localStorage.getItem(CCACHE_KEY);
-
-      if (!raw) return;
-
-      var saved = safeJsonParse(raw);
-
-      if (!saved || typeof saved !== "object") return;
-
-      if (saved.owner && $("owner")) $("owner").value = saved.owner;
-
-      if (saved.repo && $("repo")) $("repo").value = saved.repo;
-
-      if (saved.branch && $("branch")) $("branch").value = saved.branch;
-
-      if (saved.maxDevices && $("maxDevices")) $("maxDevices").value = saved.maxDevices;
-
-    } catch (e) {}
-
-  }
+  // Display-only — must match MAX_DEVICES in access/access-gate.js, which is
+  // the one that actually enforces the limit at login time.
+  var MAX_DEVICES = 3;
 
 
   /* =========================================================
@@ -986,115 +1098,6 @@
   }
 
 
-  /* =========================================================
-     DEVICE / BROWSER VISUAL INDICATORS (display-only helpers)
-  ========================================================= */
-
-  var DEVICE_ICONS = {
-
-    mobile:
-      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/>' +
-        '<line x1="10.5" y1="18.2" x2="13.5" y2="18.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
-      '</svg>',
-
-    tablet:
-      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/>' +
-        '<line x1="11" y1="18" x2="13" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
-      '</svg>',
-
-    laptop:
-      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect x="4" y="4" width="16" height="11" rx="1.4" stroke="currentColor" stroke-width="1.6"/>' +
-        '<path d="M2.5 19.5h19l-1.4-2.6a1 1 0 0 0-.9-.5H4.8a1 1 0 0 0-.9.5L2.5 19.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
-      '</svg>',
-
-    desktop:
-      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect x="3" y="4" width="18" height="12" rx="1.4" stroke="currentColor" stroke-width="1.6"/>' +
-        '<line x1="9" y1="20" x2="15" y2="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
-        '<line x1="12" y1="16" x2="12" y2="20" stroke="currentColor" stroke-width="1.6"/>' +
-      '</svg>',
-
-    unknown:
-      '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>' +
-        '<path d="M9.6 9.6a2.4 2.4 0 1 1 3.4 2.2c-.8.4-1 .8-1 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
-        '<circle cx="12" cy="16.3" r="0.9" fill="currentColor"/>' +
-      '</svg>'
-
-  };
-
-  var BROWSER_COLORS = {
-    chrome: "#1a73e8",
-    firefox: "#ff7139",
-    edge: "#0f8fd6",
-    safari: "#0aa5e0",
-    opera: "#e8352d",
-    samsung: "#1074c4",
-    unknown: "#94a3b8"
-  };
-
-  function matchKeyword(text, map) {
-
-    var value = String(text || "").toLowerCase();
-
-    var key;
-
-    for (key in map) {
-
-      if (key === "unknown") continue;
-
-      if (value.indexOf(key) !== -1) return key;
-
-    }
-
-    return "unknown";
-
-  }
-
-  function deviceChipHtml(rawType) {
-
-    var key = matchKeyword(rawType, DEVICE_ICONS);
-
-    var icon = DEVICE_ICONS[key];
-
-    var label = rawType ? escapeHtml(rawType) : "غير محدد";
-
-    return (
-      '<span class="device-chip">' +
-        '<span class="device-icon" title="' + escapeHtml(key) + '">' + icon + '</span>' +
-        '<span>' + label + '</span>' +
-      '</span>'
-    );
-
-  }
-
-  function browserChipHtml(rawBrowser) {
-
-    var key = matchKeyword(rawBrowser, BROWSER_COLORS);
-
-    var color = BROWSER_COLORS[key];
-
-    var initial = escapeHtml(
-      (String(rawBrowser || "؟").trim().charAt(0) || "؟").toUpperCase()
-    );
-
-    var label = rawBrowser ? escapeHtml(rawBrowser) : "غير محدد";
-
-    return (
-      '<span class="device-chip">' +
-        '<span class="device-icon" style="background:' + color + '1a;color:' + color + ';font-size:12px;font-weight:700;">' +
-          initial +
-        '</span>' +
-        '<span>' + label + '</span>' +
-      '</span>'
-    );
-
-  }
-
-
   function formatDate(value) {
 
     if (!value) return "-";
@@ -1110,14 +1113,15 @@
 
     return d.toLocaleString(
 
-      "ar-EG-u-nu-latn",
+      "ar-EG",
 
       {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
-        minute: "2-digit"
+        minute: "2-digit",
+        numberingSystem: "latn"
       }
 
     );
@@ -1187,9 +1191,6 @@
     state.token =
       $("token").value.trim();
 
-    state.maxDevices =
-      parseInt($("maxDevices") ? $("maxDevices").value : "3", 10) || 3;
-
 
     if (
       !state.owner ||
@@ -1222,13 +1223,13 @@
 
       .then(function () {
 
-        return loadDevices();
+        return loadIssues();
 
       })
 
       .then(function () {
 
-        return loadIssues();
+        return loadDevices();
 
       })
 
@@ -1236,20 +1237,12 @@
 
         state.connected = true;
 
-        ccacheSave();
-
 
         $("refreshBtn").disabled = false;
 
         $("refreshUsersBtn").disabled = false;
 
         $("refreshIssuesBtn").disabled = false;
-
-        if ($("saveLimitBtn")) {
-
-          $("saveLimitBtn").disabled = false;
-
-        }
 
 
         renderUsers();
@@ -1275,12 +1268,6 @@
         $("refreshUsersBtn").disabled = true;
 
         $("refreshIssuesBtn").disabled = true;
-
-        if ($("saveLimitBtn")) {
-
-          $("saveLimitBtn").disabled = true;
-
-        }
 
 
         setMsg(
@@ -1327,7 +1314,7 @@
 
 
   /* =========================================================
-     LOAD USERS (AUTHENTICATED)
+     LOAD USERS
   ========================================================= */
 
   function loadUsers() {
@@ -1436,7 +1423,14 @@
 
 
   /* =========================================================
-     LOAD DEVICES (AUTHENTICATED)
+     LOAD DEVICES
+
+     Reads devices.json with the same Admin Token used for
+     users.json. A missing file (404 — no device has ever
+     registered yet) is treated as an empty device list, not
+     an error. Any other failure is also swallowed so a
+     devices.json problem can never break loading/allowing/
+     blocking users.
   ========================================================= */
 
   function loadDevices() {
@@ -1470,103 +1464,73 @@
 
       if (r.status === 404) {
 
+        state.devices = {};
+
         state.devicesSha = null;
 
-        state.devices = [];
-
-        return [];
+        return state.devices;
 
       }
 
 
       if (!r.ok) {
 
-        return r.text()
-          .then(function (txt) {
+        state.devices = {};
 
-            throw new Error(
+        state.devicesSha = null;
 
-              "فشل تحميل devices.json: HTTP " +
-              r.status +
-              (
-                txt
-                  ? " - " + txt
-                  : ""
-              )
-
-            );
-
-          });
+        return state.devices;
 
       }
 
 
-      return r.json();
+      return r.json().then(function (data) {
 
-    })
+        if (!data || !data.content) {
 
-    .then(function (data) {
+          state.devices = {};
 
-      if (!data) return [];
+          state.devicesSha = null;
 
-
-      if (data.sha) {
-
-        state.devicesSha =
-          data.sha;
-
-      }
-
-
-      if (data.content) {
-
-        var decoded =
-          b64DecodeUtf8(
-            data.content
-          );
-
-
-        var parsed =
-          safeJsonParse(decoded);
-
-
-        if (
-          parsed &&
-          typeof parsed === "object" &&
-          !Array.isArray(parsed)
-        ) {
-
-          if (typeof parsed.maxDevices === "number") {
-
-            state.maxDevices = parsed.maxDevices;
-
-            if ($("maxDevices")) {
-
-              $("maxDevices").value = state.maxDevices;
-
-            }
-
-          }
-
-          state.devices =
-            Array.isArray(parsed.devices) ? parsed.devices : [];
-
-        } else if (Array.isArray(parsed)) {
-
-          state.devices = parsed;
-
-        } else {
-
-          state.devices = [];
+          return state.devices;
 
         }
 
-      } else {
 
-        state.devices = [];
+        state.devicesSha = data.sha;
 
-      }
 
+        var parsed =
+          safeJsonParse(
+            b64DecodeUtf8(data.content)
+          );
+
+
+        if (
+          !parsed ||
+          typeof parsed !== "object" ||
+          Array.isArray(parsed)
+        ) {
+
+          parsed = {};
+
+        }
+
+
+        state.devices = parsed;
+
+
+        return state.devices;
+
+      });
+
+    })
+
+    .catch(function () {
+
+      state.devices = {};
+
+      state.devicesSha = null;
 
       return state.devices;
 
@@ -1576,7 +1540,94 @@
 
 
   /* =========================================================
-     LOAD ISSUES (AUTHENTICATED)
+     DEVICE HELPERS (case-insensitive by username, like users.json)
+  ========================================================= */
+
+  function findUserKeyCI(obj, name) {
+
+    var target =
+      String(name || "").trim().toLowerCase();
+
+
+    var found = null;
+
+
+    Object.keys(obj || {})
+      .some(function (key) {
+
+        if (
+          String(key).trim().toLowerCase() ===
+          target
+        ) {
+
+          found = key;
+
+          return true;
+
+        }
+
+
+        return false;
+
+      });
+
+
+    return found;
+
+  }
+
+
+  function getUserDevices(username) {
+
+    var key =
+      findUserKeyCI(state.devices, username);
+
+
+    var devices =
+      key ? state.devices[key] : null;
+
+
+    return (
+      devices &&
+      typeof devices === "object"
+    )
+      ? devices
+      : {};
+
+  }
+
+
+  function countEnabledDevices(username) {
+
+    var devices =
+      getUserDevices(username);
+
+
+    var n = 0;
+
+
+    Object.keys(devices)
+      .forEach(function (id) {
+
+        if (
+          devices[id] &&
+          devices[id].enabled !== false
+        ) {
+
+          n++;
+
+        }
+
+      });
+
+
+    return n;
+
+  }
+
+
+  /* =========================================================
+     LOAD ISSUES
   ========================================================= */
 
   function loadIssues() {
@@ -1598,7 +1649,12 @@
 
         cache: "no-store",
 
-        headers: authHeaders()
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
 
       }
 
@@ -1660,637 +1716,6 @@
       return state.issues;
 
     });
-
-  }
-
-
-  /* =========================================================
-     USER DEVICES HELPER
-  ========================================================= */
-
-  function getUserDevices(username) {
-
-    var target =
-      String(username || "")
-        .trim()
-        .toLowerCase();
-
-
-    return (state.devices || []).filter(function (d) {
-
-      return (
-        String(d.username || "")
-          .trim()
-          .toLowerCase() ===
-        target
-      );
-
-    });
-
-  }
-
-
-  /* =========================================================
-     SAVE DEVICES LIST
-  ========================================================= */
-
-  function saveDevicesList(newDevices, message) {
-
-    var latestUrl =
-      api(
-        "/contents/devices.json?ref=" +
-        encodeURIComponent(state.branch) +
-        "&_=" +
-        Date.now()
-      );
-
-
-    return fetch(
-
-      latestUrl,
-
-      {
-
-        method: "GET",
-
-        cache: "no-store",
-
-        headers: authHeaders()
-
-      }
-
-    )
-
-    .then(function (r) {
-
-      if (r.status === 404) {
-
-        return {
-          sha: null
-        };
-
-      }
-
-
-      if (!r.ok) {
-
-        return r.text()
-          .then(function (txt) {
-
-            throw new Error(
-
-              "تعذر قراءة devices.json: HTTP " +
-              r.status +
-              (
-                txt
-                  ? " - " + txt
-                  : ""
-              )
-
-            );
-
-          });
-
-      }
-
-
-      return r.json();
-
-    })
-
-    .then(function (latest) {
-
-      var payload = {
-
-        maxDevices:
-          typeof state.maxDevices === "number" ? state.maxDevices : 3,
-
-        devices:
-          newDevices
-
-      };
-
-
-      var body = {
-
-        message:
-          message || "Update devices.json",
-
-        content:
-          b64EncodeUtf8(
-            JSON.stringify(
-              payload,
-              null,
-              2
-            )
-          ),
-
-        branch:
-          state.branch
-
-      };
-
-
-      if (latest && latest.sha) {
-
-        body.sha = latest.sha;
-
-      }
-
-
-      return fetch(
-
-        api("/contents/devices.json"),
-
-        {
-
-          method: "PUT",
-
-          headers: authHeaders({
-
-            "Content-Type":
-              "application/json"
-
-          }),
-
-          body:
-            JSON.stringify(body)
-
-        }
-
-      )
-
-      .then(function (r) {
-
-        if (!r.ok) {
-
-          return r.json()
-            .catch(function () {
-              return {};
-            })
-            .then(function (j) {
-
-              throw new Error(
-
-                j.message ||
-                (
-                  "فشل تحديث devices.json: HTTP " +
-                  r.status
-                )
-
-              );
-
-            });
-
-        }
-
-
-        return r.json();
-
-      })
-
-      .then(function (result) {
-
-        if (
-          result &&
-          result.content &&
-          result.content.sha
-        ) {
-
-          state.devicesSha =
-            result.content.sha;
-
-        }
-
-
-        state.devices =
-          newDevices;
-
-
-        return state.devices;
-
-      });
-
-    });
-
-  }
-
-
-  /* =========================================================
-     SAVE MAX DEVICES (ONE SHARED LIMIT)
-  ========================================================= */
-
-  window.saveMaxDevices = function () {
-
-    var inputVal =
-      parseInt($("maxDevices").value, 10);
-
-
-    if (isNaN(inputVal) || inputVal < 1) {
-
-      setMsg(
-        "connectionMsg",
-        "يرجى إدخال حد أقصى صحيح للأجهزة (1 على الأقل).",
-        "err"
-      );
-
-      return;
-
-    }
-
-
-    state.maxDevices = inputVal;
-
-
-    setMsg(
-      "connectionMsg",
-      "جارٍ حفظ الحد الأقصى للأجهزة...",
-      ""
-    );
-
-
-    var btn = $("saveLimitBtn");
-
-    if (btn) btn.disabled = true;
-
-
-    saveDevicesList(
-      state.devices,
-      "Update maxDevices: " + inputVal
-    )
-
-    .then(function () {
-
-      setMsg(
-        "connectionMsg",
-        "تم حفظ الحد الأقصى للأجهزة (" + inputVal + ") بنجاح.",
-        "ok"
-      );
-
-      ccacheSave();
-
-      renderUsers();
-
-      if (state.selectedUserDevices) {
-
-        renderUserDevicesModal(
-          state.selectedUserDevices
-        );
-
-      }
-
-    })
-
-    .catch(function (e) {
-
-      setMsg(
-        "connectionMsg",
-        "فشل حفظ الحد الأقصى للأجهزة: " + getErrorMessage(e),
-        "err"
-      );
-
-    })
-
-    .finally(function () {
-
-      if (btn) btn.disabled = false;
-
-    });
-
-  };
-
-
-  /* =========================================================
-     TOGGLE DEVICE STATUS (ENABLE / DISABLE)
-  ========================================================= */
-
-  window.toggleDeviceStatus = function (
-    username,
-    deviceId,
-    newStatus,
-    button
-  ) {
-
-    if (button) button.disabled = true;
-
-    var actionText =
-      newStatus === "disabled"
-        ? "تعطيل"
-        : "تفعيل";
-
-
-    setMsg(
-      "modalDeviceMsg",
-      "جارٍ " + actionText + " الجهاز...",
-      ""
-    );
-
-
-    var targetUser =
-      String(username || "")
-        .trim()
-        .toLowerCase();
-
-
-    var updated =
-      (state.devices || []).map(function (d) {
-
-        if (
-          String(d.deviceId) === String(deviceId) &&
-          String(d.username || "").trim().toLowerCase() === targetUser
-        ) {
-
-          var copy = Object.assign({}, d);
-
-          copy.status = newStatus;
-
-          copy.enabled = (newStatus === "enabled");
-
-          return copy;
-
-        }
-
-        return d;
-
-      });
-
-
-    saveDevicesList(
-      updated,
-      (newStatus === "disabled" ? "Disable device: " : "Enable device: ") +
-        username + " (" + deviceId + ")"
-    )
-
-    .then(function () {
-
-      setMsg(
-        "modalDeviceMsg",
-        "تم " + actionText + " الجهاز بنجاح.",
-        "ok"
-      );
-
-      renderUsers();
-
-      renderUserDevicesModal(username);
-
-    })
-
-    .catch(function (e) {
-
-      setMsg(
-        "modalDeviceMsg",
-        "فشل " + actionText + ": " + getErrorMessage(e),
-        "err"
-      );
-
-      if (button) button.disabled = false;
-
-    });
-
-  };
-
-
-  /* =========================================================
-     REMOVE DEVICE
-  ========================================================= */
-
-  window.removeDevice = function (
-    username,
-    deviceId,
-    button
-  ) {
-
-    if (!confirm("هل أنت متأكد من حذف هذا الجهاز؟")) return;
-
-    if (button) button.disabled = true;
-
-
-    setMsg(
-      "modalDeviceMsg",
-      "جارٍ حذف الجهاز...",
-      ""
-    );
-
-
-    var targetUser =
-      String(username || "")
-        .trim()
-        .toLowerCase();
-
-
-    var updated =
-      (state.devices || []).filter(function (d) {
-
-        return !(
-          String(d.deviceId) === String(deviceId) &&
-          String(d.username || "").trim().toLowerCase() === targetUser
-        );
-
-      });
-
-
-    saveDevicesList(
-      updated,
-      "Remove device: " + username + " (" + deviceId + ")"
-    )
-
-    .then(function () {
-
-      setMsg(
-        "modalDeviceMsg",
-        "تم حذف الجهاز بنجاح.",
-        "ok"
-      );
-
-      renderUsers();
-
-      renderUserDevicesModal(username);
-
-    })
-
-    .catch(function (e) {
-
-      setMsg(
-        "modalDeviceMsg",
-        "فشل حذف الجهاز: " + getErrorMessage(e),
-        "err"
-      );
-
-      if (button) button.disabled = false;
-
-    });
-
-  };
-
-
-  /* =========================================================
-     DEVICE MODAL UI
-     Loads latest devices.json before opening/rendering
-  ========================================================= */
-
-  window.openDevicesModal = function (username) {
-
-    state.selectedUserDevices = username;
-
-    $("deviceModal").style.display = "flex";
-
-    setMsg(
-      "modalDeviceMsg",
-      "جارٍ تحميل أحدث بيانات الأجهزة...",
-      ""
-    );
-
-    renderUserDevicesModal(username);
-
-
-    loadDevices()
-
-      .then(function () {
-
-        setMsg("modalDeviceMsg", "", "");
-
-        renderUsers();
-
-        renderUserDevicesModal(username);
-
-      })
-
-      .catch(function (e) {
-
-        setMsg(
-          "modalDeviceMsg",
-          "فشل تحديث بيانات الأجهزة: " + getErrorMessage(e),
-          "err"
-        );
-
-      });
-
-  };
-
-
-  window.closeDevicesModal = function () {
-
-    $("deviceModal").style.display = "none";
-
-    state.selectedUserDevices = null;
-
-  };
-
-
-  function renderUserDevicesModal(username) {
-
-    var title = $("modalTitle");
-
-    var tbody = $("modalDevicesTableBody");
-
-    var devs =
-      getUserDevices(username).slice();
-
-
-    /*
-     * Sort by latest lastSeen first.
-     */
-
-    devs.sort(function (a, b) {
-
-      var tA =
-        a.lastSeen ? new Date(a.lastSeen).getTime() : 0;
-
-      var tB =
-        b.lastSeen ? new Date(b.lastSeen).getTime() : 0;
-
-      return tB - tA;
-
-    });
-
-
-    if (title) {
-
-      title.textContent =
-        "أجهزة المستخدم: " +
-        username +
-        " (الأجهزة: " +
-        devs.length +
-        " / " +
-        (state.maxDevices || 3) +
-        ")";
-
-    }
-
-
-    if (!devs.length) {
-
-      tbody.innerHTML =
-        '<tr>' +
-          '<td colspan="6" class="empty">' +
-            'لا توجد أجهزة مسجلة لهذا المستخدم حتى الآن.' +
-          '</td>' +
-        '</tr>';
-
-      return;
-
-    }
-
-
-    tbody.innerHTML = devs.map(function (dev) {
-
-      var isDisabled =
-        (dev.status === "disabled" || dev.enabled === false);
-
-
-      var statusHtml = isDisabled
-        ? '<span class="status status-blocked">معطّل</span>'
-        : '<span class="status status-allowed">مفعّل</span>';
-
-
-      var toggleBtn = isDisabled
-        ? '<button class="btn-success" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
-            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'enabled\', this)">تفعيل</button>'
-        : '<button class="btn-danger" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
-            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'disabled\', this)">تعطيل</button>';
-
-
-      var removeBtn =
-        '<button class="btn-secondary" style="padding:6px 10px;font-size:13px;color:#dc2626;" onclick="removeDevice(' +
-          escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', this)">حذف</button>';
-
-
-      return (
-
-        '<tr>' +
-
-          '<td>' +
-            deviceChipHtml(dev.deviceType) +
-          '</td>' +
-
-          '<td>' +
-            browserChipHtml(dev.browser) +
-          '</td>' +
-
-          '<td>' +
-            escapeHtml(formatDate(dev.firstSeen)) +
-          '</td>' +
-
-          '<td>' +
-            escapeHtml(formatDate(dev.lastSeen)) +
-          '</td>' +
-
-          '<td>' +
-            statusHtml +
-          '</td>' +
-
-          '<td>' +
-            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-              toggleBtn +
-              removeBtn +
-            '</div>' +
-          '</td>' +
-
-        '</tr>'
-
-      );
-
-    }).join("");
 
   }
 
@@ -2359,8 +1784,11 @@
   /* =========================================================
      SAVE USER STATUS
      
-     This changes ONLY the existing user's status and preserves
-     every other existing field exactly.
+     This is the main permission function.
+     
+     It ALWAYS reads the latest users.json first,
+     finds the exact existing username ignoring case,
+     changes ONLY the status, then PUTs the file.
   ========================================================= */
 
   function saveUserStatus(
@@ -2416,7 +1844,12 @@
 
         cache: "no-store",
 
-        headers: authHeaders()
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
 
       }
 
@@ -2485,7 +1918,15 @@
 
 
       /*
-       * Find the REAL existing key (case-insensitive).
+       * Find the REAL existing key.
+       *
+       * This prevents:
+       *
+       * Fady.Adel
+       *
+       * from becoming:
+       *
+       * fady.adel
        */
 
       var actualKey = null;
@@ -2536,43 +1977,25 @@
           : null;
 
 
+      var oldNormalized =
+        normalizeUserRecord(
+          oldRecord
+        );
+
+
       /*
        * ONLY CHANGE STATUS.
-       * Preserve all other existing fields exactly.
        */
 
-      if (
-        oldRecord &&
-        typeof oldRecord === "object" &&
-        !Array.isArray(oldRecord)
-      ) {
+      latestUsers[actualKey] = {
 
-        latestUsers[actualKey] =
-          Object.assign({}, oldRecord, {
+        status: status,
 
-            status: status
+        createdAt:
+          oldNormalized.createdAt ||
+          new Date().toISOString()
 
-          });
-
-      } else if (typeof oldRecord === "string") {
-
-        latestUsers[actualKey] = {
-
-          status: status
-
-        };
-
-      } else {
-
-        latestUsers[actualKey] = {
-
-          status: status,
-
-          createdAt: new Date().toISOString()
-
-        };
-
-      }
+      };
 
 
       var body = {
@@ -2734,7 +2157,12 @@
 
         cache: "no-store",
 
-        headers: authHeaders()
+        headers: {
+
+          "Accept":
+            "application/vnd.github+json"
+
+        }
 
       }
 
@@ -2929,7 +2357,564 @@
 
 
   /* =========================================================
+     SAVE DEVICE ENABLED
+
+     Same pattern as saveUserStatus(): re-reads the latest
+     devices.json, finds the username key case-insensitively,
+     flips ONLY that one device's "enabled" flag, and writes
+     the file back with the correct sha. Never touches
+     users.json or the allow/block logic.
+  ========================================================= */
+
+  function saveDeviceEnabled(
+    username,
+    deviceId,
+    enabled
+  ) {
+
+    username =
+      String(username || "").trim();
+
+    deviceId =
+      String(deviceId || "").trim();
+
+
+    if (!username || !deviceId) {
+
+      return Promise.reject(
+        new Error(
+          "بيانات الجهاز غير صحيحة."
+        )
+      );
+
+    }
+
+
+    var latestUrl =
+      api(
+        "/contents/devices.json?ref=" +
+        encodeURIComponent(state.branch) +
+        "&_=" +
+        Date.now()
+      );
+
+
+    return fetch(
+
+      latestUrl,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: authHeaders()
+
+      }
+
+    )
+
+    .then(function (r) {
+
+      if (r.status === 404) {
+
+        return { sha: null, data: {} };
+
+      }
+
+
+      if (!r.ok) {
+
+        return r.text()
+          .then(function (txt) {
+
+            throw new Error(
+
+              "تعذر قراءة devices.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
+
+      }
+
+
+      return r.json().then(function (j) {
+
+        var parsed =
+          safeJsonParse(
+            b64DecodeUtf8(j.content)
+          );
+
+
+        if (
+          !parsed ||
+          typeof parsed !== "object" ||
+          Array.isArray(parsed)
+        ) {
+
+          parsed = {};
+
+        }
+
+
+        return { sha: j.sha, data: parsed };
+
+      });
+
+    })
+
+    .then(function (latest) {
+
+      var data = latest.data;
+
+
+      var userKey =
+        findUserKeyCI(data, username);
+
+
+      if (
+        !userKey ||
+        !data[userKey] ||
+        !data[userKey][deviceId]
+      ) {
+
+        throw new Error(
+          "الجهاز غير موجود."
+        );
+
+      }
+
+
+      data[userKey][deviceId].enabled =
+        enabled;
+
+
+      var body = {
+
+        message:
+          (
+            enabled
+              ? "Enable device: "
+              : "Disable device: "
+          ) +
+          userKey +
+          " / " +
+          deviceId,
+
+        content:
+          b64EncodeUtf8(
+            JSON.stringify(
+              data,
+              null,
+              2
+            )
+          ),
+
+        branch:
+          state.branch
+
+      };
+
+
+      if (latest.sha) {
+
+        body.sha = latest.sha;
+
+      }
+
+
+      return fetch(
+
+        api("/contents/devices.json"),
+
+        {
+
+          method: "PUT",
+
+          headers: authHeaders({
+
+            "Content-Type":
+              "application/json"
+
+          }),
+
+          body:
+            JSON.stringify(body)
+
+        }
+
+      )
+
+      .then(function (r) {
+
+        if (!r.ok) {
+
+          return r.json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+
+              throw new Error(
+
+                j.message ||
+                (
+                  "فشل تحديث devices.json: HTTP " +
+                  r.status
+                )
+
+              );
+
+            });
+
+        }
+
+
+        return r.json();
+
+      })
+
+      .then(function (result) {
+
+        state.devices = data;
+
+
+        if (
+          result &&
+          result.content &&
+          result.content.sha
+        ) {
+
+          state.devicesSha =
+            result.content.sha;
+
+        }
+
+
+        return true;
+
+      });
+
+    });
+
+  }
+
+
+  window.setDeviceEnabled = function (
+    username,
+    deviceId,
+    enabled,
+    button
+  ) {
+
+    if (button) {
+
+      button.disabled = true;
+
+    }
+
+
+    setMsg(
+      "usersMsg",
+      enabled
+        ? "جارٍ تفعيل الجهاز..."
+        : "جارٍ تعطيل الجهاز...",
+      ""
+    );
+
+
+    saveDeviceEnabled(
+      username,
+      deviceId,
+      enabled
+    )
+
+    .then(function () {
+
+      setMsg(
+        "usersMsg",
+        enabled
+          ? "تم تفعيل الجهاز."
+          : "تم تعطيل الجهاز.",
+        "ok"
+      );
+
+
+      renderUsers();
+
+
+      if (
+        state.activeDeviceUser &&
+        String(state.activeDeviceUser)
+          .trim()
+          .toLowerCase() ===
+          String(username)
+            .trim()
+            .toLowerCase()
+      ) {
+
+        $("devicesModalSub").textContent =
+          "الأجهزة: " +
+          countEnabledDevices(username) +
+          " / " +
+          MAX_DEVICES;
+
+        $("devicesModalBody").innerHTML =
+          renderDeviceCards(username);
+
+      }
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "usersMsg",
+        "فشل تحديث حالة الجهاز: " +
+          getErrorMessage(e),
+        "err"
+      );
+
+
+      if (button) {
+
+        button.disabled = false;
+
+      }
+
+    });
+
+  };
+
+
+  /* =========================================================
+     DEVICES MODAL
+  ========================================================= */
+
+  window.toggleDevicesView = function (
+    username
+  ) {
+
+    state.activeDeviceUser =
+      username;
+
+
+    $("devicesModalTitle").textContent =
+      username;
+
+    $("devicesModalSub").textContent =
+      "الأجهزة: " +
+      countEnabledDevices(username) +
+      " / " +
+      MAX_DEVICES;
+
+    $("devicesModalBody").innerHTML =
+      renderDeviceCards(username);
+
+
+    var dialogEl =
+      $("devicesModal");
+
+    if (
+      dialogEl &&
+      typeof dialogEl.showModal ===
+        "function"
+    ) {
+
+      dialogEl.showModal();
+
+    }
+
+  };
+
+
+  window.closeDevicesModal = function () {
+
+    var dialogEl =
+      $("devicesModal");
+
+    if (
+      dialogEl &&
+      typeof dialogEl.close ===
+        "function"
+    ) {
+
+      dialogEl.close();
+
+    }
+
+  };
+
+
+  (function initDevicesModal() {
+
+    var dialogEl =
+      $("devicesModal");
+
+    if (!dialogEl) return;
+
+
+    dialogEl.addEventListener(
+      "click",
+      function (e) {
+
+        if (e.target === dialogEl) {
+
+          dialogEl.close();
+
+        }
+
+      }
+    );
+
+
+    dialogEl.addEventListener(
+      "close",
+      function () {
+
+        state.activeDeviceUser =
+          null;
+
+      }
+    );
+
+  })();
+
+
+  /* =========================================================
+     DEVICE / BROWSER ICONS
+
+     Small monochrome (currentColor) glyphs — no external icon
+     library. Named devices/browsers get a recognizable
+     silhouette; anything else falls back to a generic mark.
+  ========================================================= */
+
+  function deviceTypeIconSvg(type) {
+
+    if (type === "Mobile") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+          '<rect x="7" y="2.5" width="10" height="19" rx="2.4"></rect>' +
+          '<line x1="10.3" y1="18.3" x2="13.7" y2="18.3"></line>' +
+        '</svg>'
+      );
+
+    }
+
+
+    if (type === "Tablet") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+          '<rect x="4" y="3" width="16" height="18" rx="2.2"></rect>' +
+          '<line x1="10.5" y1="18.2" x2="13.5" y2="18.2"></line>' +
+        '</svg>'
+      );
+
+    }
+
+
+    return (
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="3" y="4" width="18" height="12" rx="1.8"></rect>' +
+        '<line x1="8.5" y1="20" x2="15.5" y2="20"></line>' +
+        '<line x1="12" y1="16" x2="12" y2="20"></line>' +
+      '</svg>'
+    );
+
+  }
+
+
+  function browserIconSvg(browser) {
+
+    if (browser === "Chrome") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+          '<circle cx="12" cy="12" r="9"></circle>' +
+          '<circle cx="12" cy="12" r="3.2"></circle>' +
+          '<line x1="12" y1="3" x2="12" y2="8.8" stroke-linecap="round"></line>' +
+          '<line x1="5.2" y1="16.5" x2="10" y2="13.8" stroke-linecap="round"></line>' +
+          '<line x1="18.8" y1="16.5" x2="14" y2="13.8" stroke-linecap="round"></line>' +
+        '</svg>'
+      );
+
+    }
+
+
+    if (browser === "Firefox") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">' +
+          '<path d="M12 3.5c3.6 0 6.6 2.2 7.8 5.4.5 1.3.7 2.7.5 4-.5 3.4-3.4 6.1-6.9 6.4-3.9.3-7.4-2.3-8.2-6-.4-1.7 0-3.5 1-5"></path>' +
+          '<path d="M9 8.2c1.6-.4 3.4.4 4 2 .5 1.3.1 2.8-1 3.7"></path>' +
+        '</svg>'
+      );
+
+    }
+
+
+    if (browser === "Edge") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M4 14c1-4.5 4.4-7.5 8.8-7.5 3.6 0 6.2 2 6.9 4.6"></path>' +
+          '<path d="M4.5 12.5c.2 4 3.4 7 7.6 7 3 0 5.6-1.3 7-3.6"></path>' +
+          '<path d="M19.7 11c-1.8-.6-4 .1-4.8 2-.8 1.8.1 3.4 1.6 4"></path>' +
+        '</svg>'
+      );
+
+    }
+
+
+    if (browser === "Safari") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+          '<circle cx="12" cy="12" r="9"></circle>' +
+          '<path d="M15.5 8.5 10.8 10.8 8.5 15.5 13.2 13.2Z" stroke-linejoin="round"></path>' +
+        '</svg>'
+      );
+
+    }
+
+
+    if (browser === "Opera") {
+
+      return (
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+          '<ellipse cx="12" cy="12" rx="6" ry="9"></ellipse>' +
+        '</svg>'
+      );
+
+    }
+
+
+    return (
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="3" y="4.5" width="18" height="15" rx="2"></rect>' +
+        '<line x1="3" y1="8.5" x2="21" y2="8.5"></line>' +
+      '</svg>'
+    );
+
+  }
+
+
+  /* =========================================================
      ALLOW USER
+     
+     BLOCKED -> ALLOWED
+     
+     This function does NOT depend on an Issue.
   ========================================================= */
 
   window.allowUser = function (
@@ -2971,12 +2956,27 @@
     );
 
 
+    /*
+     * IMPORTANT:
+     *
+     * First and ONLY important operation:
+     *
+     * users.json
+     *
+     * blocked -> allowed
+     */
+
     saveUserStatus(
       username,
       "allowed"
     )
 
     .then(function () {
+
+      /*
+       * Verify that GitHub really contains
+       * status = allowed.
+       */
 
       return verifyUserStatus(
         username,
@@ -2986,6 +2986,13 @@
     })
 
     .then(function () {
+
+      /*
+       * Permission is now confirmed.
+       *
+       * If there is an Issue, close it.
+       * Failure here must NOT undo permission.
+       */
 
       var issue = null;
 
@@ -3025,6 +3032,11 @@
         )
         .catch(function () {
 
+          /*
+           * Ignore Issue close failure.
+           * User permission has already succeeded.
+           */
+
           return null;
 
         });
@@ -3038,6 +3050,11 @@
 
     .then(function () {
 
+      /*
+       * Render immediately from the confirmed
+       * users.json state.
+       */
+
       renderUsers();
 
 
@@ -3049,6 +3066,13 @@
         "ok"
       );
 
+
+      /*
+       * Refresh Issues only.
+       *
+       * Do NOT let a refresh failure cancel
+       * the successful permission operation.
+       */
 
       return loadIssues()
         .then(function () {
@@ -3219,6 +3243,178 @@
      RENDER USERS
   ========================================================= */
 
+  function buildUserRow(username, item) {
+
+    var record =
+      item.record;
+
+
+    var status =
+      record.status ||
+      "allowed";
+
+
+    var statusHtml = "";
+
+    var actionHtml = "";
+
+
+    /* ALLOWED */
+
+    if (status === "allowed") {
+
+      statusHtml =
+        '<span class="status status-allowed">' +
+          'مسموح' +
+        '</span>';
+
+
+      actionHtml =
+        '<button class="btn-danger" ' +
+          'onclick="blockUser(' +
+            escapeJs(username) +
+            ', null, this)">' +
+          'حظر' +
+        '</button>';
+
+    }
+
+
+    /* BLOCKED */
+
+    else if (
+      status === "blocked"
+    ) {
+
+      statusHtml =
+        '<span class="status status-blocked">' +
+          'محظور' +
+        '</span>';
+
+
+      actionHtml =
+        '<button class="btn-success" ' +
+          'onclick="allowUser(' +
+            escapeJs(username) +
+            ', null, this)">' +
+          'سماح' +
+        '</button>';
+
+    }
+
+
+    /* NEW */
+
+    else {
+
+      statusHtml =
+        '<span class="status status-new">' +
+          'جديد - غير مُراجع' +
+        '</span>';
+
+
+      var issueNumber =
+        item.issue
+          ? item.issue.number
+          : "";
+
+
+      actionHtml =
+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
+
+          '<button class="btn-success" ' +
+            'onclick="allowUser(' +
+              escapeJs(username) +
+              ',' +
+              JSON.stringify(issueNumber) +
+              ', this)">' +
+            'سماح' +
+          '</button>' +
+
+          '<button class="btn-danger" ' +
+            'onclick="blockUser(' +
+              escapeJs(username) +
+              ',' +
+              JSON.stringify(issueNumber) +
+              ', this)">' +
+            'حظر' +
+          '</button>' +
+
+        '</div>';
+
+    }
+
+
+    var date =
+      item.issue &&
+      item.issue.created_at
+
+        ? formatDate(
+            item.issue.created_at
+          )
+
+        : record.createdAt
+
+          ? formatDate(
+              record.createdAt
+            )
+
+          : "-";
+
+
+    var devicesHtml =
+      '<div class="devices-cell">' +
+        '<span class="devices-count">' +
+          'الأجهزة: ' +
+          countEnabledDevices(username) +
+          ' / ' +
+          MAX_DEVICES +
+        '</span>' +
+        '<button class="btn-secondary devices-view-btn" ' +
+          'onclick="toggleDevicesView(' +
+            escapeJs(username) +
+            ')">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12Z"></path>' +
+            '<circle cx="12" cy="12" r="3"></circle>' +
+          '</svg>' +
+          '<span>عرض</span>' +
+        '</button>' +
+      '</div>';
+
+
+    return (
+
+      '<tr>' +
+
+        '<td>' +
+          escapeHtml(username) +
+        '</td>' +
+
+        '<td>' +
+          statusHtml +
+        '</td>' +
+
+        '<td>' +
+          devicesHtml +
+        '</td>' +
+
+        '<td>' +
+          escapeHtml(date) +
+        '</td>' +
+
+        '<td>' +
+          actionHtml +
+        '</td>' +
+
+      '</tr>'
+
+    );
+
+  }
+
+
   function renderUsers() {
 
     var body =
@@ -3332,177 +3528,73 @@
         });
 
 
-    var allowedNames =
-      names.filter(function (username) {
+    /* Split into the main (non-blocked) list and the
+       collapsible blocked-users list, so a growing block
+       list never lengthens the main dashboard view. */
 
-        var record =
-          merged[username].record;
+    var visibleNames = [];
 
-        var status =
-          record.status ||
-          "allowed";
-
-        return status === "allowed";
-
-      });
+    var blockedNames = [];
 
 
-    var blockedNames =
-      names.filter(function (username) {
+    names.forEach(function (username) {
 
-        var record =
-          merged[username].record;
-
-        return record.status === "blocked";
-
-      });
-
-
-    if ($("usersCounter")) {
-
-      $("usersCounter").textContent =
-        "إجمالي المستخدمين المسموح لهم: " +
-        allowedNames.length;
-
-    }
-
-
-    if ($("blockedUsersCounter")) {
-
-      $("blockedUsersCounter").textContent =
-        "إجمالي المستخدمين المحظورين: " +
-        blockedNames.length;
-
-    }
-
-
-    function renderRow(username) {
-
-      var item =
-        merged[username];
-
-      var record =
-        item.record;
-
-      var status =
-        record.status ||
+      var st =
+        merged[username].record.status ||
         "allowed";
 
-      var statusHtml = "";
-      var actionHtml = "";
+      if (st === "blocked") {
 
-      if (status === "allowed") {
-
-        statusHtml =
-          '<span class="status status-allowed">' +
-            'مسموح' +
-          '</span>';
-
-        actionHtml =
-          '<button class="btn-danger" ' +
-            'onclick="blockUser(' +
-              escapeJs(username) +
-              ', null, this)">' +
-            'حظر' +
-          '</button>';
-
-      } else if (status === "blocked") {
-
-        statusHtml =
-          '<span class="status status-blocked">' +
-            'محظور' +
-          '</span>';
-
-        actionHtml =
-          '<button class="btn-success" ' +
-            'onclick="allowUser(' +
-              escapeJs(username) +
-              ', null, this)">' +
-            'السماح' +
-          '</button>';
-
-      }
-
-      var userDevs =
-        getUserDevices(username);
-
-      var deviceCountText =
-        "الأجهزة: " +
-        userDevs.length +
-        " / " +
-        (state.maxDevices || 3);
-
-      var deviceCellHtml =
-        '<td>' +
-          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
-            '<span style="font-weight:bold;font-size:14px;">' +
-              escapeHtml(deviceCountText) +
-            '</span>' +
-            '<button class="btn-secondary" style="padding:4px 9px;font-size:12px;border-radius:7px;" onclick="openDevicesModal(' +
-              escapeJs(username) +
-            ')">' +
-              'عرض الأجهزة' +
-            '</button>' +
-          '</div>' +
-        '</td>';
-
-      var date =
-        item.issue &&
-        item.issue.created_at
-          ? formatDate(item.issue.created_at)
-          : record.createdAt
-            ? formatDate(record.createdAt)
-            : "-";
-
-      return (
-        '<tr>' +
-          '<td>' +
-            escapeHtml(username) +
-          '</td>' +
-          '<td>' +
-            statusHtml +
-          '</td>' +
-          deviceCellHtml +
-          '<td>' +
-            escapeHtml(date) +
-          '</td>' +
-          '<td>' +
-            actionHtml +
-          '</td>' +
-        '</tr>'
-      );
-
-    }
-
-
-    /* Render Allowed Users */
-
-    if (body) {
-
-      if (!allowedNames.length) {
-
-        body.innerHTML =
-          '<tr>' +
-            '<td colspan="5" class="empty">' +
-              'لا يوجد مستخدمون مسموح لهم حالياً.' +
-            '</td>' +
-          '</tr>';
+        blockedNames.push(username);
 
       } else {
 
-        body.innerHTML =
-          allowedNames.map(function (u) {
-
-            return renderRow(u);
-
-          }).join("");
+        visibleNames.push(username);
 
       }
+
+    });
+
+
+    $("usersCounter").textContent =
+      "إجمالي المستخدمين الظاهرين: " +
+      visibleNames.length;
+
+
+    if (!visibleNames.length) {
+
+      body.innerHTML =
+        '<tr>' +
+          '<td colspan="5" class="empty">' +
+            'لا يوجد مستخدمون حتى الآن.' +
+          '</td>' +
+        '</tr>';
+
+    } else {
+
+      body.innerHTML =
+        visibleNames.map(function (username) {
+
+          return buildUserRow(
+            username,
+            merged[username]
+          );
+
+        }).join("");
 
     }
 
 
-    /* Render Blocked Users */
+    var blockedCountBadge =
+      $("blockedCountBadge");
+
+    if (blockedCountBadge) {
+
+      blockedCountBadge.textContent =
+        String(blockedNames.length);
+
+    }
+
 
     if (blockedBody) {
 
@@ -3518,15 +3610,196 @@
       } else {
 
         blockedBody.innerHTML =
-          blockedNames.map(function (u) {
+          blockedNames.map(function (username) {
 
-            return renderRow(u);
+            return buildUserRow(
+              username,
+              merged[username]
+            );
 
           }).join("");
 
       }
 
     }
+
+  }
+
+
+  /* =========================================================
+     BLOCKED USERS — COLLAPSE / EXPAND
+
+     Purely a UI show/hide toggle: it never re-fetches or
+     re-computes data. renderUsers() keeps the blocked table's
+     rows up to date regardless of whether it is shown, so
+     opening it never needs a refresh first.
+  ========================================================= */
+
+  window.toggleBlockedList = function () {
+
+    var wrap =
+      $("blockedTableWrap");
+
+    var btn =
+      $("blockedToggleBtn");
+
+    var label =
+      $("blockedToggleLabel");
+
+    if (!wrap || !btn || !label) return;
+
+
+    var expanding =
+      !!wrap.hidden;
+
+
+    wrap.hidden = !expanding;
+
+
+    if (expanding) {
+
+      label.textContent =
+        "إخفاء قائمة الحظر";
+
+      btn.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      btn.classList.add(
+        "is-expanded"
+      );
+
+    } else {
+
+      label.textContent =
+        "إظهار قائمة الحظر";
+
+      btn.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      btn.classList.remove(
+        "is-expanded"
+      );
+
+    }
+
+  };
+
+
+  /* =========================================================
+     RENDER DEVICE CARDS
+
+     Builds the card grid shown inside the devices modal for
+     one username: every device on record (case-insensitive)
+     with a device-type icon, browser icon + name, first/last
+     seen, a status chip, and an enable/disable action.
+  ========================================================= */
+
+  function renderDeviceCards(username) {
+
+    var devices =
+      getUserDevices(username);
+
+
+    var ids =
+      Object.keys(devices);
+
+
+    if (!ids.length) {
+
+      return (
+        '<div class="empty">' +
+          'لا توجد أجهزة مسجلة لهذا المستخدم.' +
+        '</div>'
+      );
+
+    }
+
+
+    return (
+
+      '<div class="device-grid">' +
+
+        ids.map(function (id) {
+
+          var d =
+            devices[id] || {};
+
+
+          var enabled =
+            d.enabled !== false;
+
+
+          var pillHtml =
+            enabled
+              ? '<span class="status status-allowed">مفعّل</span>'
+              : '<span class="status status-blocked">معطّل</span>';
+
+
+          var btnHtml =
+            enabled
+              ? '<button class="btn-danger" onclick="setDeviceEnabled(' +
+                  escapeJs(username) +
+                  ',' +
+                  escapeJs(id) +
+                  ', false, this)">تعطيل</button>'
+              : '<button class="btn-success" onclick="setDeviceEnabled(' +
+                  escapeJs(username) +
+                  ',' +
+                  escapeJs(id) +
+                  ', true, this)">تفعيل</button>';
+
+
+          return (
+
+            '<div class="device-card">' +
+
+              '<div class="device-card-top">' +
+
+                '<div class="device-icon">' +
+                  deviceTypeIconSvg(d.deviceType) +
+                '</div>' +
+
+                '<div class="device-meta">' +
+                  '<div class="device-type">' +
+                    escapeHtml(d.deviceType || "-") +
+                  '</div>' +
+                  '<div class="device-browser">' +
+                    browserIconSvg(d.browser) +
+                    '<span>' +
+                      escapeHtml(d.browser || "-") +
+                    '</span>' +
+                  '</div>' +
+                '</div>' +
+
+              '</div>' +
+
+              '<div class="device-dates">' +
+                '<div><b>أول ظهور:</b> ' +
+                  escapeHtml(formatDate(d.firstSeen)) +
+                '</div>' +
+                '<div><b>آخر ظهور:</b> ' +
+                  escapeHtml(formatDate(d.lastSeen)) +
+                '</div>' +
+              '</div>' +
+
+              '<div class="device-card-foot">' +
+                pillHtml +
+                btnHtml +
+              '</div>' +
+
+            '</div>'
+
+          );
+
+        }).join("") +
+
+      '</div>'
+
+    );
 
   }
 
@@ -3656,7 +3929,7 @@
 
     setMsg(
       "usersMsg",
-      "جارٍ تحديث المستخدمين والأجهزة...",
+      "جارٍ تحديث المستخدمين...",
       ""
     );
 
@@ -3679,13 +3952,13 @@
 
       .then(function () {
 
-        return loadDevices();
+        return loadIssues();
 
       })
 
       .then(function () {
 
-        return loadIssues();
+        return loadDevices();
 
       })
 
@@ -3697,18 +3970,10 @@
           state.issues
         );
 
-        if (state.selectedUserDevices) {
-
-          renderUserDevicesModal(
-            state.selectedUserDevices
-          );
-
-        }
-
 
         setMsg(
           "usersMsg",
-          "تم تحديث المستخدمين والأجهزة.",
+          "تم تحديث المستخدمين.",
           "ok"
         );
 
@@ -3752,16 +4017,9 @@
   };
 
 
-  /* =========================================================
-     INIT — restore cached connection settings (never the token)
-  ========================================================= */
-
-  ccacheLoad();
-
-
 })();
 
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f150c09a084b31',t:'MTc5MDA4MDE2OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
