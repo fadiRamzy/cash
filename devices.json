@@ -230,6 +230,16 @@
       "lastSeen": "2026-09-23T08:28:56.006Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mina.adel@cash-eg.org",
+      "deviceId": "b89a2bba-e2e3-4340-92c8-fe5965dc8231",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T08:29:39.093Z",
+      "lastSeen": "2026-09-23T08:29:39.093Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
