@@ -268,8 +268,8 @@
       "browser": "Chrome",
       "firstSeen": "2026-09-23T09:00:38.111Z",
       "lastSeen": "2026-09-23T09:00:38.111Z",
-      "status": "enabled",
-      "enabled": true
+      "status": "disabled",
+      "enabled": false
     }
   ]
 }
