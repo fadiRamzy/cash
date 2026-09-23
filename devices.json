@@ -320,6 +320,16 @@
       "lastSeen": "2026-09-23T09:16:07.984Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "bmakram725@gmail.com",
+      "deviceId": "50af6bce-9844-4c9c-9611-f3fd11b8e770",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T09:47:45.373Z",
+      "lastSeen": "2026-09-23T09:47:45.373Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
