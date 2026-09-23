@@ -250,6 +250,16 @@
       "lastSeen": "2026-09-23T08:51:00.136Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "peter boushra",
+      "deviceId": "330a13b4-2748-472b-bec4-c78c934178e4",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T08:58:39.033Z",
+      "lastSeen": "2026-09-23T08:58:39.033Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
