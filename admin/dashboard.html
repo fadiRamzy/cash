@@ -154,7 +154,8 @@ button, input { font-family: inherit; }
   box-shadow: var(--shadow);
 }
 
-.card-blocked { position: relative; }
+.card-blocked,
+.card-users { position: relative; }
 
 .section-head,
 .top-actions {
@@ -168,7 +169,15 @@ button, input { font-family: inherit; }
 .section-head { margin-bottom: 16px; align-items: flex-start; }
 .top-actions { margin-bottom: 14px; }
 
-.card-blocked .top-actions { margin-bottom: 0; }
+.card-blocked .top-actions,
+.card-users .top-actions { margin-bottom: 0; }
+
+.users-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
 .section-title-wrap {
   display: flex;
@@ -762,7 +771,13 @@ tbody tr:last-child td { border-bottom: none; }
   line-height: 1.45;
   overflow-wrap: anywhere;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
 }
+
+#modalTitle > span { display: block; }
 
 .modal-close-btn {
   width: 32px;
@@ -1238,7 +1253,9 @@ tbody tr:last-child td { border-bottom: none; }
   </div>
 
   <!-- Users -->
-  <div class="card">
+  <div class="card card-users">
+
+    <input type="checkbox" id="usersListToggle" class="collapse-input" aria-controls="usersPanel">
 
     <div class="top-actions">
       <div class="section-title-wrap">
@@ -1254,34 +1271,45 @@ tbody tr:last-child td { border-bottom: none; }
         </div>
       </div>
 
-      <button type="button" class="btn-secondary" onclick="refreshAll()" id="refreshUsersBtn" disabled>
-        <svg class="btn-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M20 4.8V9h-4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        تحديث المستخدمين
-      </button>
+      <div class="users-head-actions">
+        <button type="button" class="btn-secondary" onclick="refreshAll()" id="refreshUsersBtn" disabled>
+          <svg class="btn-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M20 4.8V9h-4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          تحديث المستخدمين
+        </button>
+        <label for="usersListToggle" class="collapse-toggle">
+          <span class="when-closed">عرض القائمة</span>
+          <span class="when-open">إخفاء القائمة</span>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+      </div>
     </div>
 
     <div id="usersMsg" class="msg" aria-live="polite"></div>
 
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>اسم المستخدم</th>
-            <th>الحالة</th>
-            <th>الأجهزة</th>
-            <th>تاريخ الإضافة / الدخول</th>
-            <th>الإجراء</th>
-          </tr>
-        </thead>
-        <tbody id="usersTableBody">
-          <tr>
-            <td colspan="5" class="empty">قم بالاتصال أولاً.</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="collapse-panel" id="usersPanel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>اسم المستخدم</th>
+              <th>الحالة</th>
+              <th>الأجهزة</th>
+              <th>تاريخ الإضافة / الدخول</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr>
+              <td colspan="5" class="empty">قم بالاتصال أولاً.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
@@ -1771,6 +1799,56 @@ tbody tr:last-child td { border-bottom: none; }
         '<span>' + label + '</span>' +
       '</span>'
     );
+
+  }
+
+
+  function formatActivity(value) {
+
+    if (!value) return "-";
+
+    var raw = String(value).trim();
+
+    var d = new Date(value);
+
+    if (isNaN(d.getTime())) return raw;
+
+    function pad(n) {
+
+      n = String(n);
+
+      return n.length < 2 ? "0" + n : n;
+
+    }
+
+    var dateText =
+      pad(d.getDate()) + "/" +
+      pad(d.getMonth() + 1) + "/" +
+      d.getFullYear();
+
+    var dateOnly =
+      /^\d{4}-\d{2}-\d{2}$/.test(raw) ||
+      /^\d{1,2}[\/.-]\d{1,2}[\/.-]\d{4}$/.test(raw);
+
+    if (dateOnly) return dateText;
+
+    var hasClock = /(?:T|\s)\d{1,2}:\d{2}/.test(raw);
+
+    var numericStamp = /^\d{10,13}$/.test(raw);
+
+    if (!hasClock && !numericStamp) return dateText;
+
+    var timeText =
+      pad(d.getHours()) + ":" +
+      pad(d.getMinutes());
+
+    if (numericStamp || /(?:T|\s)\d{1,2}:\d{2}:\d{2}/.test(raw)) {
+
+      timeText += ":" + pad(d.getSeconds());
+
+    }
+
+    return dateText + " " + timeText;
 
   }
 
@@ -2886,15 +2964,16 @@ tbody tr:last-child td { border-bottom: none; }
 
     if (title) {
 
-      title.textContent =
-        "أجهزة المستخدم: " +
-        username +
-        " (الأجهزة: " +
-        "\u2066" +
-        devs.length +
-        " / " +
-        (state.maxDevices || 3) +
-        "\u2069)";
+      title.innerHTML =
+        "<span>أجهزة المستخدم:</span>" +
+        "<span dir=\"ltr\">" + escapeHtml(username) + "</span>" +
+        "<span>الأجهزة: " +
+          "\u2066" +
+          devs.length +
+          " / " +
+          (state.maxDevices || 3) +
+          "\u2069" +
+        "</span>";
 
     }
 
@@ -2963,7 +3042,7 @@ tbody tr:last-child td { border-bottom: none; }
                 '</div>' +
                 '<div class="device-card-field">' +
                   '<span class="device-k">آخر نشاط</span>' +
-                  '<span class="device-v">' + escapeHtml(formatDate(dev.lastSeen)) + '</span>' +
+                  '<span class="device-v" dir="ltr">' + escapeHtml(formatActivity(dev.lastSeen)) + '</span>' +
                 '</div>' +
                 '<div class="device-card-actions">' +
                   '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
@@ -4453,5 +4532,5 @@ tbody tr:last-child td { border-bottom: none; }
 
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f150c09a084b31',t:'MTc5MDA4MDE2OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3fc3278a8239d99',t:'MTc5MDE5NDI3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f150c09a084b31',t:'MTc5MDA4MDE2OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
