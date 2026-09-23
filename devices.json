@@ -620,6 +620,16 @@
       "lastSeen": "2026-09-23T13:17:45.779Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "عماد محمد محمد مصطفى",
+      "deviceId": "6bb7074c-8fed-4799-9f64-e5231f6c0f52",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T13:18:31.386Z",
+      "lastSeen": "2026-09-23T13:18:31.386Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
