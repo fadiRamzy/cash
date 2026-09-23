@@ -1,709 +1,1239 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar-EG-u-nu-latn" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f6f8">
   <title>Cash - Access Control Dashboard</title>
 
   <style>
-    :root {
-      --ink-900: #101826;
-      --ink-700: #3c4a5e;
-      --ink-500: #6b7686;
-      --ink-300: #a1a9b6;
-
-      --paper: #eef1f5;
-      --panel: #ffffff;
-      --panel-sunken: #f6f8fa;
-
-      --rule: rgba(16, 24, 38, .09);
-      --rule-strong: rgba(16, 24, 38, .16);
-      --focus-ring: rgba(28, 63, 110, .35);
-
-      --seal: #1c3f6e;
-      --seal-strong: #14304f;
-      --seal-soft: #e7edf5;
-      --seal-ink: #ffffff;
-
-      --ok-ink: #155d34;
-      --ok-bg: #e3f3ea;
-      --ok-rule: #bfe0cc;
-
-      --bad-ink: #8f2323;
-      --bad-bg: #fbe9e8;
-      --bad-rule: #eec7c5;
-
-      --pending-ink: #8a5a10;
-      --pending-bg: #fbf1de;
-      --pending-rule: #edd7ab;
-
-      --r-sm: 8px;
-      --r-md: 12px;
-      --r-lg: 18px;
-
-      --shadow-card: 0 1px 2px rgba(16, 24, 38, .04), 0 8px 22px rgba(16, 24, 38, .06);
-      --shadow-modal: 0 24px 60px rgba(16, 24, 38, .30);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink-900);
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--seal);
-      outline-offset: 2px;
-      border-radius: var(--r-sm);
-    }
-
-    .container {
-      max-width: 1180px;
-      margin: 32px auto;
-      padding: 0 20px 48px;
-    }
-
-    .header {
-      background: var(--panel);
-      border: 1px solid var(--rule);
-      border-radius: var(--r-lg);
-      padding: 22px 26px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header .seal-mark {
-      flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--seal);
-      color: var(--seal-ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header .seal-mark svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .header h1 {
-      margin: 0 0 3px;
-      font-size: 21px;
-      font-weight: 600;
-      letter-spacing: -.01em;
-    }
-
-    .header p {
-      margin: 0;
-      color: var(--ink-500);
-      font-size: 13px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--rule);
-      border-radius: var(--r-lg);
-      padding: 24px 26px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .card h2 {
-      margin: 0 0 18px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .field label {
-      font-weight: 500;
-      font-size: 12.5px;
-      color: var(--ink-700);
-    }
-
-    .field input {
-      width: 100%;
-      border: 1px solid var(--rule-strong);
-      background: var(--panel-sunken);
-      border-radius: var(--r-sm);
-      padding: 10px 12px;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--ink-900);
-      outline: none;
-      transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
-    }
-
-    .field input::placeholder {
-      color: var(--ink-300);
-    }
-
-    .field input:focus {
-      border-color: var(--seal);
-      background: var(--panel);
-      box-shadow: 0 0 0 3px var(--focus-ring);
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    button {
-      border: 0;
-      border-radius: var(--r-sm);
-      padding: 10px 18px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform .12s ease, background-color .15s ease, opacity .12s ease;
-    }
-
-    button:active:not(:disabled) {
-      transform: scale(.97);
-    }
-
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .btn-primary {
-      background: var(--seal);
-      color: #fff;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      background: var(--seal-strong);
-    }
-
-    .btn-success {
-      background: var(--ok-ink);
-      color: #fff;
-    }
-
-    .btn-success:hover:not(:disabled) {
-      background: #0f4a29;
-    }
-
-    .btn-danger {
-      background: var(--bad-ink);
-      color: #fff;
-    }
-
-    .btn-danger:hover:not(:disabled) {
-      background: #761b1b;
-    }
-
-    .btn-secondary {
-      background: var(--panel-sunken);
-      color: var(--ink-900);
-      border: 1px solid var(--rule-strong);
-    }
-
-    .btn-secondary:hover:not(:disabled) {
-      background: #eef1f5;
-    }
-
-    .msg {
-      margin-top: 12px;
-      font-size: 13px;
-      min-height: 18px;
-    }
-
-    .msg.ok {
-      color: var(--ok-ink);
-    }
-
-    .msg.err {
-      color: var(--bad-ink);
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--rule);
-      border-radius: var(--r-md);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 720px;
-      font-size: 13.5px;
-    }
-
-    th,
-    td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--rule);
-      text-align: right;
-      vertical-align: middle;
-      font-variant-numeric: tabular-nums;
-    }
-
-    th {
-      background: var(--panel-sunken);
-      font-weight: 600;
-      font-size: 12.5px;
-      color: var(--ink-700);
-    }
-
-    tbody tr:last-child td {
-      border-bottom: 0;
-    }
-
-    tbody tr:hover td {
-      background: var(--panel-sunken);
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid transparent;
-    }
-
-    .status::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
-      flex: 0 0 auto;
-    }
-
-    .status-allowed {
-      background: var(--ok-bg);
-      color: var(--ok-ink);
-      border-color: var(--ok-rule);
-    }
-
-    .status-blocked {
-      background: var(--bad-bg);
-      color: var(--bad-ink);
-      border-color: var(--bad-rule);
-    }
-
-    .status-new {
-      background: var(--pending-bg);
-      color: var(--pending-ink);
-      border-color: var(--pending-rule);
-    }
-
-    .empty {
-      text-align: center;
-      padding: 34px 10px;
-      color: var(--ink-500);
-      font-size: 13.5px;
-    }
-
-    .top-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .counter {
-      font-size: 12.5px;
-      color: var(--ink-500);
-      margin-top: 2px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* Devices column (users table) */
-
-    .devices-cell {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .devices-count {
-      font-size: 13px;
-      color: var(--ink-700);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .devices-view-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      font-size: 12.5px;
-    }
-
-    .devices-view-btn svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    /* Devices modal */
-
-    dialog#devicesModal {
-      border: 0;
-      padding: 0;
-      width: min(560px, calc(100vw - 32px));
-      max-height: min(640px, calc(100vh - 64px));
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-modal);
-      background: var(--panel);
-      color: var(--ink-900);
-      font-family: inherit;
-    }
-
-    dialog#devicesModal::backdrop {
-      background: rgba(16, 24, 38, .45);
-    }
-
-    .modal-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 20px 22px 16px;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .modal-head h3 {
-      margin: 0 0 4px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .modal-sub {
-      font-size: 12.5px;
-      color: var(--ink-500);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .modal-close {
-      flex: 0 0 auto;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      border-radius: 999px;
-      background: var(--panel-sunken);
-      color: var(--ink-700);
-      border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close svg {
-      width: 15px;
-      height: 15px;
-    }
-
-    .modal-close:hover {
-      background: #eef1f5;
-    }
-
-    .modal-body {
-      padding: 18px 22px 22px;
-      overflow-y: auto;
-      max-height: calc(min(640px, calc(100vh - 64px)) - 78px);
-    }
-
-    .device-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .device-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 14px;
-      border: 1px solid var(--rule);
-      border-radius: var(--r-md);
-      background: var(--panel-sunken);
-    }
-
-    .device-card-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .device-icon {
-      flex: 0 0 auto;
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: var(--panel);
-      border: 1px solid var(--rule-strong);
-      color: var(--seal);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .device-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .device-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .device-type {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--ink-900);
-    }
-
-    .device-browser {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--ink-500);
-    }
-
-    .device-browser svg {
-      width: 13px;
-      height: 13px;
-    }
-
-    .device-dates {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      font-size: 12px;
-      color: var(--ink-500);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .device-dates b {
-      color: var(--ink-700);
-      font-weight: 500;
-    }
-
-    .device-card-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 2px;
-    }
-
-    /* Blocked users — collapsible sub-section */
-
-    .blocked-toggle-row {
-      margin-top: 16px;
-    }
-
-    .blocked-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 9px 14px;
-      background: var(--panel-sunken);
-      color: var(--ink-700);
-      border: 1px solid var(--rule-strong);
-      border-radius: var(--r-sm);
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .blocked-toggle:hover {
-      background: #eef1f5;
-    }
-
-    .blocked-toggle-chevron {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 auto;
-      transition: transform .15s ease;
-    }
-
-    .blocked-toggle.is-expanded .blocked-toggle-chevron {
-      transform: rotate(180deg);
-    }
-
-    .blocked-count-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background: var(--bad-bg);
-      color: var(--bad-ink);
-      font-size: 11.5px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-    }
-
-    #blockedTableWrap {
-      margin-top: 14px;
-    }
-
-    @media (max-width: 800px) {
-      .form-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .container {
-        margin-top: 15px;
-        padding: 0 12px 30px;
-      }
-
-      .header,
-      .card {
-        border-radius: 14px;
-        padding: 17px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .device-grid {
-        grid-template-columns: 1fr;
-      }
-
-      dialog#devicesModal {
-        width: calc(100vw - 24px);
-      }
-    }
+:root {
+  color-scheme: light;
+  --navy: #0e2744;
+  --ink: #162433;
+  --text: #1c2b3a;
+  --secondary: #3e5166;
+  --muted: #5c6d80;
+  --faint: #7d8b9c;
+  --line: #e5ebf1;
+  --line-strong: #d3dde7;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --sunken: #f7f9fb;
+  --primary: #1a4f91;
+  --primary-hover: #153f74;
+  --primary-soft: #e8f1fa;
+  --success: #0d7a45;
+  --success-hover: #0b663a;
+  --success-bg: #e8f6ee;
+  --success-line: #c5e6d4;
+  --danger: #b42318;
+  --danger-hover: #912018;
+  --danger-bg: #fdecec;
+  --danger-line: #f3d0cd;
+  --warning: #8a5a08;
+  --warning-bg: #fdf6e8;
+  --warning-line: #f0e0bc;
+  --shadow: 0 1px 2px rgba(14, 39, 68, 0.045);
+  --focus: 0 0 0 3px rgba(26, 79, 145, 0.16);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+html, body {
+  max-width: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, "Segoe UI", Tahoma, "Noto Naskh Arabic", "Noto Sans Arabic", "Geeza Pro", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, p { margin: 0; }
+
+button, input { font-family: inherit; }
+
+::selection {
+  background: #d7e6f6;
+  color: var(--navy);
+}
+
+.appbar {
+  background: #fff;
+  border-top: 3px solid var(--navy);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 2px rgba(14, 39, 68, 0.04);
+}
+
+.appbar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--navy);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  flex: none;
+  font-family: system-ui, "Segoe UI", sans-serif;
+}
+
+.brand-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.appbar h1 {
+  margin-top: 1px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.appbar-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  text-align: start;
+  max-width: 320px;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 24px 48px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+
+.card-blocked { position: relative; }
+
+.section-head,
+.top-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.section-head { margin-bottom: 16px; align-items: flex-start; }
+.top-actions { margin-bottom: 14px; }
+
+.card-blocked .top-actions { margin-bottom: 0; }
+
+.section-title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 220px;
+}
+
+.section-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.section-icon svg { width: 18px; height: 18px; display: block; }
+.section-icon-ok { background: var(--success-bg); color: var(--success); }
+.section-icon-danger { background: var(--danger-bg); color: var(--danger); }
+.section-icon-warn { background: var(--warning-bg); color: var(--warning); }
+
+.card h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.35;
+}
+
+.section-note,
+.field-hint,
+.limit-hint {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.section-note { margin-top: 3px; }
+.field-hint { margin-top: 6px; font-size: 12px; }
+
+.counter {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 500;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+#blockedUsersCounter {
+  color: #8d2f2a;
+  font-weight: 700;
+}
+
+.config-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 272px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.group-label,
+.limit-kicker {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.limit-kicker {
+  color: var(--primary);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--secondary);
+  line-height: 1.3;
+}
+
+.field input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 0 12px;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.field input::placeholder { color: #9aa6b4; }
+
+.field input:hover { border-color: #b7c4d2; }
+
+.field input:focus {
+  border-color: var(--primary);
+  box-shadow: var(--focus);
+}
+
+#owner, #repo, #branch {
+  direction: ltr;
+  text-align: left;
+}
+
+label[for="owner"],
+label[for="repo"],
+label[for="branch"] {
+  direction: ltr;
+  text-align: left;
+}
+
+#token {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237d8b9c' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='9.5' rx='1.8'/%3E%3Cpath d='M8 10.5V8a4 4 0 0 1 8 0v2.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 16px 16px;
+  padding-right: 36px;
+}
+
+.limit-panel {
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--navy);
+  border-radius: 10px;
+  padding: 14px;
+  min-width: 0;
+}
+
+.limit-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.limit-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#maxDevices {
+  width: 92px;
+  flex: none;
+  direction: ltr;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  padding: 0 8px;
+  background: #fff;
+}
+
+#saveLimitBtn { width: 100%; }
+
+.limit-unit {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.limit-hint { margin: 10px 0 0; }
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 7px 13px;
+  min-height: 36px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+
+button:focus-visible,
+.collapse-toggle:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+input:focus { outline: none; }
+
+button:active:not(:disabled) { filter: brightness(0.97); }
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: none;
+}
+
+button.btn-secondary:disabled {
+  opacity: 1;
+  background: #f4f7fa;
+  color: #7d8b9c;
+  border-color: #d5dee8;
+}
+
+.btn-primary { background: var(--primary); color: #fff; min-height: 38px; padding: 8px 16px; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover:not(:disabled) { background: var(--success-hover); }
+
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover:not(:disabled) { background: var(--danger-hover); }
+
+.btn-secondary {
+  background: #fff;
+  color: var(--navy);
+  border-color: var(--line-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #f5f8fb;
+  border-color: #c3ceda;
+}
+
+button.btn-secondary[style*="color"] {
+  border-color: #f0d4d2;
+  color: #b42318;
+}
+
+button.btn-secondary[style*="color"]:hover:not(:disabled) {
+  background: #fdf6f6;
+  border-color: #e4b8b4;
+}
+
+.btn-ico {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  display: block;
+}
+
+td button,
+td .btn-secondary,
+td .btn-success,
+td .btn-danger {
+  min-height: 30px;
+  font-size: 12.5px;
+}
+
+.msg {
+  margin: 0;
+  min-height: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.msg:empty { display: none; }
+
+.msg:not(:empty) {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  color: var(--secondary);
+}
+
+.msg:not(:empty)::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+  opacity: 0.75;
+}
+
+.msg.ok:not(:empty) {
+  background: var(--success-bg);
+  border-color: var(--success-line);
+  color: var(--success);
+}
+
+.msg.err:not(:empty) {
+  background: var(--danger-bg);
+  border-color: var(--danger-line);
+  color: var(--danger);
+}
+
+.table-wrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 0;
+}
+
+th, td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  vertical-align: middle;
+  font-size: 13.5px;
+}
+
+th {
+  background: #f7f9fb;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  border-bottom-color: var(--line-strong);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+.data-table tbody tr:hover td { background: #f8fafc; }
+
+.data-table td:first-child {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.data-table td.empty,
+.data-table td[colspan] {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.data-table td:nth-child(4),
+#issuesTableBody td:nth-child(2) {
+  color: var(--secondary);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+#issuesTableBody td:nth-child(3) {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: right;
+  font-weight: 700;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+#usersTableBody td:nth-child(3) span,
+#blockedUsersTableBody td:nth-child(3) span {
+  color: var(--navy);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.empty {
+  text-align: center;
+  padding: 32px 12px;
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.45;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.status-allowed {
+  background: var(--success-bg);
+  color: var(--success);
+  border-color: var(--success-line);
+}
+
+.status-blocked {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger-line);
+}
+
+.status-new {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border-color: var(--warning-line);
+}
+
+.device-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.device-chip .device-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #eef3f8;
+  color: var(--navy);
+  border: 1px solid #e4ebf3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.device-chip .device-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.device-chip .device-icon.browser-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(14, 39, 68, 0.08);
+}
+
+.device-chip .device-icon.browser-mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.device-chip .device-icon[title="unknown"] {
+  background: transparent;
+  border: 0;
+}
+
+.device-chip > span:last-child {
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.collapse-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.collapse-panel { display: none; }
+
+.collapse-input:checked ~ .collapse-panel {
+  display: block;
+  margin-top: 14px;
+}
+
+.collapse-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  color: var(--navy);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapse-toggle:hover { background: #f5f8fb; border-color: #c3ceda; }
+
+.collapse-toggle .when-open { display: none; }
+
+.collapse-input:checked ~ .top-actions .when-open { display: inline; }
+.collapse-input:checked ~ .top-actions .when-closed { display: none; }
+
+.collapse-toggle .chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform .15s ease;
+}
+
+.collapse-input:checked ~ .top-actions .chevron { transform: rotate(180deg); }
+
+.collapse-input:focus-visible + .top-actions .collapse-toggle {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 39, 68, 0.46);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 16px 14px;
+  max-width: 760px;
+  width: 100%;
+  max-height: min(86vh, 820px);
+  overflow: auto;
+  box-shadow: 0 18px 48px rgba(14, 39, 68, 0.18);
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+#modalTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1;
+  flex: none;
+}
+
+.modal-close-btn:hover {
+  background: #f4f7fa;
+  color: var(--navy);
+}
+
+#deviceModal .table-wrap {
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+}
+
+#deviceModal table { border-collapse: collapse; }
+
+#deviceModal thead { display: none; }
+
+#deviceModal td {
+  border: 0;
+  background: transparent;
+  padding: 0 0 10px;
+}
+
+#deviceModal tr:hover td { background: transparent; }
+
+#deviceModal tr:last-child td { padding-bottom: 0; }
+
+#deviceModal td.empty {
+  display: block;
+  text-align: center;
+  padding: 28px 12px;
+  color: var(--muted);
+  font-weight: 500;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  background: var(--sunken);
+}
+
+.device-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.device-card:has(.status-blocked) {
+  background: #fffafa;
+  border-color: #f0d9d7;
+}
+
+.device-card:has(.status-allowed) {
+  border-color: var(--line);
+}
+
+.device-card-top,
+.device-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 18px;
+  flex-wrap: wrap;
+}
+
+.device-card-meta {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  align-items: flex-end;
+}
+
+.device-card:has(.status-blocked) .device-card-meta {
+  border-top-color: #f3e0de;
+}
+
+.device-card-identity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.device-card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.device-card-meta .device-card-field { min-width: 148px; }
+
+.device-k {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.3;
+}
+
+.device-v {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.device-card-status { flex: none; }
+
+.device-card-actions { margin-inline-start: auto; }
+
+.device-card .device-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.device-card .device-icon svg { width: 17px; height: 17px; }
+
+.device-card .browser-mark,
+.device-card .browser-mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.modal-footer { margin-top: 14px; }
+
+@media (max-width: 860px) {
+  .config-layout { grid-template-columns: 1fr; }
+
+  .appbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .appbar-desc { text-align: start; max-width: none; }
+
+  .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .data-table,
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .data-table { min-width: 0; }
+  .data-table thead { display: none; }
+
+  .data-table tr {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding: 4px 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .data-table tbody tr:hover td { background: transparent; }
+
+  .data-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f0f3f6;
+    text-align: left;
+    white-space: normal;
+    font-weight: 500;
+    color: var(--text);
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .data-table td:nth-child(1) {
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .data-table td:last-child { border-bottom: 0; }
+
+  .data-table td::before {
+    content: "";
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    flex: none;
+  }
+
+  #usersTableBody td:nth-child(1)::before,
+  #blockedUsersTableBody td:nth-child(1)::before,
+  #issuesTableBody td:nth-child(1)::before { content: "اسم المستخدم"; }
+
+  #usersTableBody td:nth-child(2)::before,
+  #blockedUsersTableBody td:nth-child(2)::before { content: "الحالة"; }
+
+  #usersTableBody td:nth-child(3)::before,
+  #blockedUsersTableBody td:nth-child(3)::before { content: "الأجهزة"; }
+
+  #usersTableBody td:nth-child(4)::before,
+  #blockedUsersTableBody td:nth-child(4)::before,
+  #issuesTableBody td:nth-child(2)::before { content: "التاريخ"; }
+
+  #usersTableBody td:nth-child(5)::before,
+  #blockedUsersTableBody td:nth-child(5)::before,
+  #issuesTableBody td:nth-child(4)::before { content: "الإجراء"; }
+
+  #issuesTableBody td:nth-child(3)::before { content: "رقم Issue"; }
+
+  #issuesTableBody td:nth-child(3) { text-align: left; }
+
+  .data-table td.empty,
+  .data-table td[colspan] {
+    display: block;
+    text-align: center;
+    border-bottom: 0;
+    padding: 20px 8px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  #usersTableBody td.empty::before,
+  #usersTableBody td[colspan]::before,
+  #blockedUsersTableBody td.empty::before,
+  #blockedUsersTableBody td[colspan]::before,
+  #issuesTableBody td.empty::before,
+  #issuesTableBody td[colspan]::before,
+  .data-table td.empty::before,
+  .data-table td[colspan]::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .data-table tr:has(td.empty),
+  .data-table tr:has(td[colspan]) {
+    background: transparent;
+    border-style: dashed;
+    box-shadow: none;
+  }
+
+  .data-table td:nth-child(3),
+  .data-table td:last-child {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .data-table td:nth-child(3) > div,
+  .data-table td:last-child > div {
+    width: 100%;
+  }
+
+  .data-table td:last-child > div {
+    display: flex;
+    gap: 8px;
+  }
+
+  .data-table td:last-child button {
+    width: 100%;
+    flex: none;
+    min-height: 38px;
+  }
+
+  .data-table td:last-child > div button {
+    width: auto;
+    flex: 1 1 0;
+  }
+
+  .data-table td:nth-child(3) button {
+    min-height: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .appbar-inner,
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .appbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .appbar h1 { font-size: 16px; }
+  .appbar-desc { text-align: right; }
+
+  .container { padding-top: 14px; padding-bottom: 32px; }
+
+  .card { padding: 14px; border-radius: 12px; }
+
+  .form-grid { grid-template-columns: 1fr; }
+
+  .actions { display: grid; grid-template-columns: 1fr; }
+  .actions button { width: 100%; }
+  .actions .btn-primary { grid-column: auto; }
+
+  .limit-row { flex-direction: column; align-items: stretch; }
+  .limit-stepper { width: 100%; }
+  #maxDevices { flex: 1; width: auto; }
+  #saveLimitBtn { width: 100%; }
+
+  .top-actions > button,
+  .top-actions > .collapse-toggle { align-self: flex-start; }
+
+  .field input { font-size: 16px; }
+
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-box {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+    border-bottom: 0;
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .device-card-top,
+  .device-card-meta,
+  .device-card-identity {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .device-card-meta { align-items: stretch; }
+  .device-card-meta .device-card-field { min-width: 0; }
+
+  .device-card-actions {
+    margin-inline-start: 0;
+    width: 100%;
+  }
+
+  .device-card-actions > div { width: 100%; }
+
+  .device-card-actions button {
+    flex: 1 1 0;
+    min-height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+  }
+}
+
   </style>
 </head>
 
 <body>
 
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">C</div>
+      <div>
+        <div class="brand-kicker">Cash</div>
+        <h1>لوحة التحكم - المستخدمون</h1>
+      </div>
+    </div>
+    <p class="appbar-desc">إدارة صلاحيات الدخول إلى نظام Cash</p>
+  </div>
+</header>
+
 <div class="container">
 
-  <div class="header">
-    <div class="seal-mark">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3.5 19 6.2v5.4c0 4.4-2.9 7.9-7 8.9-4.1-1-7-4.5-7-8.9V6.2Z"></path>
-        <path d="M9.2 12.2 11.4 14.4 15 10"></path>
-      </svg>
-    </div>
-    <div>
-      <h1>لوحة التحكم - المستخدمون</h1>
-      <p>
-        إدارة صلاحيات الدخول إلى نظام Cash
-      </p>
-    </div>
-  </div>
-
-  <!-- GitHub Settings -->
+  <!-- Connection settings -->
   <div class="card">
 
-    <h2>إعدادات الاتصال</h2>
+    <div class="section-head">
+      <div class="section-title-wrap">
+        <span class="section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 8V5.5M16 8V5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6.5 8h11v3.2a5.5 5.5 0 0 1-11 0V8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M12 16.7V20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <h2>إعدادات الاتصال</h2>
+          <p class="section-note">أدخل بيانات المستودع لإدارة الصلاحيات، ثم حدّد الحد الأقصى للأجهزة.</p>
+        </div>
+      </div>
+    </div>
 
-    <div class="form-grid">
+    <div class="config-layout">
 
-      <div class="field">
-        <label for="owner">Owner</label>
-        <input
-          id="owner"
-          type="text"
-          placeholder="fadiRamzy"
-        >
+      <div class="config-fields">
+        <span class="group-label">بيانات المستودع</span>
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="owner">Owner</label>
+            <input id="owner" type="text" lang="en" placeholder="fadiRamzy">
+          </div>
+
+          <div class="field">
+            <label for="repo">Repository</label>
+            <input id="repo" type="text" lang="en" placeholder="cash">
+          </div>
+
+          <div class="field">
+            <label for="branch">Branch</label>
+            <input id="branch" type="text" lang="en" value="main">
+          </div>
+
+          <div class="field">
+            <label for="token">Password</label>
+            <input id="token" type="password" placeholder="أدخل Password" autocomplete="off" aria-describedby="tokenHint">
+            <p class="field-hint" id="tokenHint">لا يتم حفظ كلمة المرور في هذا المتصفح.</p>
+          </div>
+
+        </div>
       </div>
 
-      <div class="field">
-        <label for="repo">Repository</label>
-        <input
-          id="repo"
-          type="text"
-          placeholder="cash"
-        >
-      </div>
-
-      <div class="field">
-        <label for="branch">Branch</label>
-        <input
-          id="branch"
-          type="text"
-          value="main"
-        >
-      </div>
-
-      <div class="field">
-        <label for="token">Password</label>
-        <input
-          id="token"
-          type="password"
-          placeholder="أدخل Admin Token"
-        >
+      <div class="limit-panel">
+        <span class="limit-kicker">سياسة الأجهزة</span>
+        <div class="field">
+          <label for="maxDevices">الحد الأقصى للأجهزة</label>
+          <div class="limit-row">
+            <div class="limit-stepper">
+              <input id="maxDevices" type="number" lang="en" inputmode="numeric" min="1" max="10" value="3" aria-describedby="maxDevicesHint">
+              <span class="limit-unit">جهاز</span>
+            </div>
+            <button type="button" class="btn-secondary" id="saveLimitBtn" onclick="saveMaxDevices()" disabled>حفظ الحد الأقصى</button>
+          </div>
+        </div>
+        <p class="limit-hint" id="maxDevicesHint">حد واحد مشترك لكل المستخدمين. يتاح الحفظ بعد الاتصال.</p>
       </div>
 
     </div>
 
     <div class="actions">
-
-      <button
-        class="btn-primary"
-        id="connectBtn"
-        onclick="connectGitHub()"
-      >
-        اتصال
-      </button>
-
-      <button
-        class="btn-secondary"
-        id="refreshBtn"
-        onclick="refreshAll()"
-        disabled
-      >
+      <button type="button" class="btn-primary" id="connectBtn" onclick="connectGitHub()">اتصال</button>
+      <button type="button" class="btn-secondary" id="refreshBtn" onclick="refreshAll()" disabled>
+        <svg class="btn-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 4.8V9h-4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         تحديث
       </button>
-
     </div>
 
-    <div id="connectionMsg" class="msg"></div>
+    <div id="connectionMsg" class="msg" aria-live="polite"></div>
 
   </div>
 
@@ -711,39 +1241,33 @@
   <div class="card">
 
     <div class="top-actions">
-
-      <div>
-
-        <h2 style="margin-bottom:5px;">
-          المستخدمون
-        </h2>
-
-        <div
-          class="counter"
-          id="usersCounter"
-        ></div>
-
+      <div class="section-title-wrap">
+        <span class="section-icon section-icon-ok" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="3.1" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M5.6 19.2c1.1-2.9 3.4-4.3 6.4-4.3s5.3 1.4 6.4 4.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <h2>قائمة المستخدمون</h2>
+          <div class="counter" id="usersCounter">إجمالي المستخدمين المسموح لهم: 0</div>
+        </div>
       </div>
 
-      <button
-        class="btn-secondary"
-        onclick="refreshAll()"
-        id="refreshUsersBtn"
-        disabled
-      >
-        ↻ تحديث المستخدمين
+      <button type="button" class="btn-secondary" onclick="refreshAll()" id="refreshUsersBtn" disabled>
+        <svg class="btn-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 4.8V9h-4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        تحديث المستخدمين
       </button>
-
     </div>
 
-    <div id="usersMsg" class="msg"></div>
+    <div id="usersMsg" class="msg" aria-live="polite"></div>
 
     <div class="table-wrap">
-
-      <table>
-
+      <table class="data-table">
         <thead>
-
           <tr>
             <th>اسم المستخدم</th>
             <th>الحالة</th>
@@ -751,76 +1275,64 @@
             <th>تاريخ الإضافة / الدخول</th>
             <th>الإجراء</th>
           </tr>
-
         </thead>
-
         <tbody id="usersTableBody">
-
           <tr>
-            <td
-              colspan="5"
-              class="empty"
-            >
-              قم بالاتصال أولاً.
-            </td>
+            <td colspan="5" class="empty">قم بالاتصال أولاً.</td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
 
-    <div class="blocked-toggle-row">
+  </div>
 
-      <button
-        type="button"
-        class="blocked-toggle"
-        id="blockedToggleBtn"
-        onclick="toggleBlockedList()"
-        aria-expanded="false"
-        aria-controls="blockedTableWrap"
-      >
-        <svg class="blocked-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
+  <!-- Blocked Users -->
+  <div class="card card-blocked">
+
+    <input type="checkbox" id="blockedListToggle" class="collapse-input" aria-controls="blockedUsersPanel">
+
+    <div class="top-actions">
+      <div class="section-title-wrap">
+        <span class="section-icon section-icon-danger" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M7.8 7.8l8.4 8.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <h2>قائمة الحظر</h2>
+          <div class="counter" id="blockedUsersCounter">إجمالي المستخدمين المحظورين: 0</div>
+        </div>
+      </div>
+
+      <label for="blockedListToggle" class="collapse-toggle">
+        <span class="when-closed">عرض القائمة</span>
+        <span class="when-open">إخفاء القائمة</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span id="blockedToggleLabel">إظهار قائمة الحظر</span>
-        <span class="blocked-count-badge" id="blockedCountBadge">0</span>
-      </button>
-
+      </label>
     </div>
 
-    <div class="table-wrap" id="blockedTableWrap" hidden>
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>اسم المستخدم</th>
-            <th>الحالة</th>
-            <th>الأجهزة</th>
-            <th>تاريخ الإضافة / الدخول</th>
-            <th>الإجراء</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="blockedUsersTableBody">
-
-          <tr>
-            <td
-              colspan="5"
-              class="empty"
-            >
-              لا يوجد مستخدمون محظورون حالياً.
-            </td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
+    <div class="collapse-panel" id="blockedUsersPanel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>اسم المستخدم</th>
+              <th>الحالة</th>
+              <th>الأجهزة</th>
+              <th>تاريخ الإضافة / الدخول</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="blockedUsersTableBody">
+            <tr>
+              <td colspan="5" class="empty">قم بالاتصال أولاً.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
@@ -829,81 +1341,84 @@
   <div class="card">
 
     <div class="top-actions">
-
-      <div>
-
-        <h2 style="margin-bottom:5px;">
-          محاولات الدخول الجديدة
-        </h2>
-
-        <div
-          class="counter"
-          id="issuesCounter"
-        ></div>
-
+      <div class="section-title-wrap">
+        <span class="section-icon section-icon-warn" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4.5 7.2h15v10.4a1.4 1.4 0 0 1-1.4 1.4H5.9a1.4 1.4 0 0 1-1.4-1.4V7.2z" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M4.5 7.2l7.5 5.8 7.5-5.8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div>
+          <h2>محاولات الدخول الجديدة</h2>
+          <div class="counter" id="issuesCounter">محاولات الدخول المفتوحة: 0</div>
+        </div>
       </div>
 
-      <button
-        class="btn-secondary"
-        onclick="refreshAll()"
-        id="refreshIssuesBtn"
-        disabled
-      >
-        ↻ تحديث
+      <button type="button" class="btn-secondary" onclick="refreshAll()" id="refreshIssuesBtn" disabled>
+        <svg class="btn-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M20 4.8V9h-4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        تحديث
       </button>
-
     </div>
 
-    <div id="issuesMsg" class="msg"></div>
+    <div id="issuesMsg" class="msg" aria-live="polite"></div>
 
     <div class="table-wrap">
-
-      <table>
-
+      <table class="data-table">
         <thead>
-
           <tr>
             <th>اسم المستخدم</th>
             <th>التاريخ</th>
             <th>رقم Issue</th>
             <th>الإجراء</th>
           </tr>
-
         </thead>
-
         <tbody id="issuesTableBody">
-
           <tr>
-            <td
-              colspan="4"
-              class="empty"
-            >
-              لا توجد بيانات.
-            </td>
+            <td colspan="4" class="empty">لا توجد بيانات.</td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
 
+  </div>
+
+  <!-- Device Modal -->
+  <div id="deviceModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeDevicesModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalTitle">أجهزة المستخدم</h2>
+        <button type="button" class="modal-close-btn" onclick="closeDevicesModal()" title="إغلاق" aria-label="إغلاق">✕</button>
+      </div>
+      <div id="modalDeviceMsg" class="msg" style="margin:8px 0;" aria-live="polite"></div>
+      <div class="table-wrap" style="margin-top:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>نوع الجهاز</th>
+              <th>المتصفح</th>
+              <th>تاريخ أول تسجيل</th>
+              <th>آخر نشاط</th>
+              <th>الحالة</th>
+              <th>الإجراء</th>
+            </tr>
+          </thead>
+          <tbody id="modalDevicesTableBody">
+            <tr>
+              <td colspan="6" class="empty">لا توجد أجهزة مسجلة.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer" style="margin-top:18px;text-align:left;">
+        <button type="button" class="btn-secondary" onclick="closeDevicesModal()">إغلاق</button>
+      </div>
+    </div>
   </div>
 
 </div>
-
-<dialog id="devicesModal">
-  <div class="modal-head">
-    <div>
-      <h3 id="devicesModalTitle"></h3>
-      <div class="modal-sub" id="devicesModalSub"></div>
-    </div>
-    <button type="button" class="modal-close" onclick="closeDevicesModal()" aria-label="إغلاق">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
-    </button>
-  </div>
-  <div class="modal-body" id="devicesModalBody"></div>
-</dialog>
 
 
 <script>
@@ -923,27 +1438,80 @@
     repo: "",
     branch: "main",
     token: "",
+    maxDevices: 3,
 
     usersSha: null,
 
     users: {},
 
-    issues: [],
-
     devicesSha: null,
 
-    devices: {},
+    devices: [],
 
-    activeDeviceUser: null,
+    issues: [],
 
-    connected: false
+    connected: false,
+
+    selectedUserDevices: null
 
   };
 
 
-  // Display-only — must match MAX_DEVICES in access/access-gate.js, which is
-  // the one that actually enforces the limit at login time.
-  var MAX_DEVICES = 3;
+  /* =========================================================
+     CONNECTION SETTINGS CACHE (NON-SENSITIVE ONLY)
+
+     Owner / Repository / Branch / max devices are cached in the
+     browser's localStorage so they survive a refresh or a new
+     visit. The Password (Admin Token) is intentionally NEVER
+     written here and must always be re-entered.
+  ========================================================= */
+
+  var CCACHE_KEY = "cashDashboard.connectionSettings";
+
+  function ccacheSave() {
+
+    try {
+
+      localStorage.setItem(
+
+        CCACHE_KEY,
+
+        JSON.stringify({
+          owner: $("owner") ? $("owner").value.trim() : "",
+          repo: $("repo") ? $("repo").value.trim() : "",
+          branch: $("branch") ? $("branch").value.trim() : "",
+          maxDevices: $("maxDevices") ? $("maxDevices").value : ""
+        })
+
+      );
+
+    } catch (e) {}
+
+  }
+
+  function ccacheLoad() {
+
+    try {
+
+      var raw = localStorage.getItem(CCACHE_KEY);
+
+      if (!raw) return;
+
+      var saved = safeJsonParse(raw);
+
+      if (!saved || typeof saved !== "object") return;
+
+      if (saved.owner && $("owner")) $("owner").value = saved.owner;
+
+      if (saved.repo && $("repo")) $("repo").value = saved.repo;
+
+      if (saved.branch && $("branch")) $("branch").value = saved.branch;
+
+      if (saved.maxDevices && $("maxDevices")) $("maxDevices").value = saved.maxDevices;
+
+    } catch (e) {}
+
+  }
 
 
   /* =========================================================
@@ -1098,6 +1666,115 @@
   }
 
 
+  /* =========================================================
+     DEVICE / BROWSER VISUAL INDICATORS (display-only helpers)
+  ========================================================= */
+
+  var DEVICE_ICONS = {
+
+    mobile:
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+        '<path fill="currentColor" d="M8.2 2.2h7.6A2.2 2.2 0 0 1 18 4.4v15.2a2.2 2.2 0 0 1-2.2 2.2H8.2A2.2 2.2 0 0 1 6 19.6V4.4a2.2 2.2 0 0 1 2.2-2.2Zm.3 1.7a.7.7 0 0 0-.7.7v12.1h8.4V4.6a.7.7 0 0 0-.7-.7H8.5Zm2.2 14.6h2.6a.75.75 0 0 1 0 1.5h-2.6a.75.75 0 0 1 0-1.5Z"/>' +
+      '</svg>',
+
+    tablet:
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+        '<path fill="currentColor" d="M6 3.2h12A2.2 2.2 0 0 1 20.2 5.4v13.2A2.2 2.2 0 0 1 18 20.8H6a2.2 2.2 0 0 1-2.2-2.2V5.4A2.2 2.2 0 0 1 6 3.2Zm.4 1.6a.6.6 0 0 0-.6.6v11.4h12.4V5.4a.6.6 0 0 0-.6-.6H6.4Zm4.3 13.3h2.6a.7.7 0 0 1 0 1.4h-2.6a.7.7 0 0 1 0-1.4Z"/>' +
+      '</svg>',
+
+    laptop:
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+        '<path fill="currentColor" d="M5 4.2h14A1.6 1.6 0 0 1 20.6 5.8v8.2H3.4V5.8A1.6 1.6 0 0 1 5 4.2Zm-2.7 11.2h19.4l.8 2.1a1.3 1.3 0 0 1-1.2 1.8H2.7a1.3 1.3 0 0 1-1.2-1.8l.8-2.1Z"/>' +
+        '<path fill="#fff" d="M5.2 6h13.6v6.6H5.2z"/>' +
+      '</svg>',
+
+    desktop:
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+        '<path fill="currentColor" d="M4 3.4h16A1.8 1.8 0 0 1 21.8 5.2v9.2A1.8 1.8 0 0 1 20 16.2H4a1.8 1.8 0 0 1-1.8-1.8V5.2A1.8 1.8 0 0 1 4 3.4Zm6.2 14.2h3.6v2.1h2.2a.8.8 0 0 1 0 1.6H8a.8.8 0 0 1 0-1.6h2.2v-2.1Z"/>' +
+        '<path fill="#fff" d="M4.2 5.2h15.6v8.2H4.2z"/>' +
+      '</svg>',
+
+    unknown:
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+        '<circle cx="12" cy="12" r="9" fill="currentColor"/>' +
+        '<path fill="#fff" d="M11.05 7.7h1.7c1.25 0 2.15.8 2.15 1.9 0 .9-.45 1.45-1.2 1.8l-.45.2v1.25h-1.55V11.6l.75-.35c.45-.2.65-.5.65-.9 0-.45-.35-.75-.9-.75-.55 0-.9.3-1 .85H9.5c.15-1.3 1.05-2.15 2.35-2.15h-.8Zm.15 6.7h1.6v1.6h-1.6z"/>' +
+      '</svg>'
+
+  };
+
+  var BROWSER_COLORS = {
+    chrome: "#1a73e8",
+    firefox: "#ff7139",
+    edge: "#0f8fd6",
+    safari: "#0aa5e0",
+    opera: "#e8352d",
+    samsung: "#1074c4",
+    unknown: "#94a3b8"
+  };
+
+  function matchKeyword(text, map) {
+
+    var value = String(text || "").toLowerCase();
+
+    var key;
+
+    for (key in map) {
+
+      if (key === "unknown") continue;
+
+      if (value.indexOf(key) !== -1) return key;
+
+    }
+
+    return "unknown";
+
+  }
+
+  function deviceChipHtml(rawType) {
+
+    var key = matchKeyword(rawType, DEVICE_ICONS);
+
+    var icon = DEVICE_ICONS[key];
+
+    var label = rawType ? escapeHtml(rawType) : "غير محدد";
+
+    return (
+      '<span class="device-chip">' +
+        '<span class="device-icon" title="' + escapeHtml(key) + '">' + icon + '</span>' +
+        '<span>' + label + '</span>' +
+      '</span>'
+    );
+
+  }
+
+  var BROWSER_ICONS = {
+    chrome: '<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="#fff" d="M128.003 199.216c39.335 0 71.221-31.888 71.221-71.223S167.338 56.77 128.003 56.77S56.78 88.658 56.78 127.993s31.887 71.223 71.222 71.223"/><path fill="#229342" d="M35.89 92.997Q27.92 79.192 17.154 64.02a127.98 127.98 0 0 0 110.857 191.981q17.671-24.785 23.996-35.74q12.148-21.042 31.423-60.251v-.015a63.993 63.993 0 0 1-110.857.017Q46.395 111.19 35.89 92.998"/><path fill="#fbc116" d="M128.008 255.996A127.97 127.97 0 0 0 256 127.997A128 128 0 0 0 238.837 64q-36.372-3.585-53.686-3.585q-19.632 0-57.152 3.585l-.014.01a63.99 63.99 0 0 1 55.444 31.987a63.99 63.99 0 0 1-.001 64.01z"/><path fill="#1a73e8" d="M128.003 178.677c27.984 0 50.669-22.685 50.669-50.67s-22.685-50.67-50.67-50.67c-27.983 0-50.669 22.686-50.669 50.67s22.686 50.67 50.67 50.67"/><path fill="#e33b2e" d="M128.003 64.004H238.84a127.973 127.973 0 0 0-221.685.015l55.419 95.99l.015.008a63.993 63.993 0 0 1 55.415-96.014z"/></svg>',
+    firefox: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FF7139"/><path fill="#fff" d="M6.85 6.74q.015 0 0 0M21.28 8.6c-.43-1.05-1.32-2.18-2.01-2.54c.56 1.11.89 2.22 1.02 3.04v.02c-1.13-2.82-3.05-3.96-4.62-6.44c-.08-.12-.17-.25-.24-.38c-.04-.07-.07-.14-.11-.21c-.06-.13-.12-.26-.15-.4c0-.01-.01-.02-.02-.02h-.03c-2.22 1.3-3.15 3.59-3.38 5.04c-.69.04-1.37.21-1.99.51c-.12.05-.17.19-.13.31c.05.14.21.21.34.15c.54-.26 1.14-.41 1.74-.45h.05c.08-.01.17-.01.25-.01c.5-.01.97.06 1.44.2l.06.02c.1.02.17.06.25.06c.05.04.11.06.16.08l.14.06c.07.03.14.06.2.09c.03.02.06.03.09.05c.07.04.16.07.2.11c.04.02.08.05.12.07c.73.45 1.34 1.07 1.75 1.81c-.53-.37-1.49-.74-2.41-.58c3.6 1.81 2.63 8-2.36 7.76c-.44-.01-.88-.1-1.3-.25c-.1-.03-.2-.07-.29-.12c-.05-.02-.12-.05-.17-.08c-1.23-.63-2.24-1.82-2.38-3.27c0 0 .5-1.73 3.33-1.73c.31 0 1.17-.86 1.2-1.1c0-.09-1.74-.78-2.42-1.45c-.37-.36-.54-.53-.69-.66c-.08-.07-.17-.13-.26-.19a4.63 4.63 0 0 1-.03-2.45C7.6 6.12 6.8 6.86 6.22 7.5c-.4-.5-.37-2.15-.35-2.5c-.01 0-.3.16-.33.18c-.35.25-.68.53-.98.82c-.35.37-.66.74-.94 1.14c-.62.91-1.12 1.95-1.34 3.04c0 .01-.1.41-.17.92l-.03.23c-.02.17-.04.32-.08.58v.41c0 5.53 4.5 10.01 10 10.01c4.97 0 9.08-3.59 9.88-8.33c.02-.11.03-.24.05-.37c.2-1.72-.02-3.52-.65-5.03"/></svg>',
+    edge: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#0078D4"/><path fill="#fff" d="M10.86 15.37c-.69-.77-1.16-1.69-1.31-2.72c-.3.46-.55.96-.73 1.5c-.92 2.75.68 6.18 3.4 7.18c2.34.78 4.97-.61 6.7-2.13c.26-.35 2.31-2.16 1.29-2.36c-3.02 1.55-7.02 1.11-9.35-1.47m.6-5.81c1.04-.01.04-.43-.39-.75c-1.04-.57-2.26-.85-3.44-.85C3.78 8 .995 10.41 2.3 14.4c.94 3.88 4.31 7 8.29 7.5c-2.05-1.29-3.29-3.71-3.29-6.12c.08-2.53 1.64-5.5 4.16-6.22M2.78 8.24C5.82 6 10.66 6.18 13.28 9c1.02 1.11 1.72 3 .79 4.37c-1.74 1.88 3.08 2.13 4.11 1.85c3.74-.72 4.73-5.07 2.95-8.07c-1.7-3.4-5.47-5.18-9.17-5.15c-4.06-.07-7.71 2.5-9.18 6.24"/></svg>',
+    safari: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1BA3E0"/><circle cx="12" cy="12" r="8.15" fill="#fff"/><path stroke="#C5D0DA" stroke-width="0.7" stroke-linecap="round" d="M12 4.55v1.2M12 18.25v1.2M4.55 12h1.2M18.25 12h1.2"/><polygon fill="#E23D32" points="16.2,6.4 12.45,12.15 10.95,10.85"/><polygon fill="#2C2C2C" points="7.8,17.6 11.55,11.85 13.05,13.15"/><circle cx="12" cy="12" r="0.7" fill="#fff" stroke="#8AA0B2" stroke-width="0.3"/></svg>',
+    opera: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#FF1B2D"/><path fill="#fff" d="M13.2 5.2c-2.3 0-4.2 2.9-4.2 6.8s1.9 6.8 4.2 6.8 4.2-2.9 4.2-6.8-1.9-6.8-4.2-6.8zm0 1.6c1.3 0 2.4 2.2 2.4 5.2s-1.1 5.2-2.4 5.2-2.4-2.2-2.4-5.2 1.1-5.2 2.4-5.2z"/></svg>',
+    samsung: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#1428A0"/><path fill="#fff" fill-rule="evenodd" d="M12 6.4a5.6 5.6 0 1 0 .01 11.2A5.6 5.6 0 0 0 12 6.4zm0 1.9a3.7 3.7 0 1 1 0 7.4 3.7 3.7 0 0 1 0-7.4z"/><path fill="#6EB6FF" d="M16.7 4.8c1.5.8 2.7 2 3.4 3.5-1-.7-1.9-1.6-2.3-2.7-.4-.3-.7-.5-1.1-.8z"/><path fill="#6EB6FF" d="M7.3 19.2c-1.5-.8-2.7-2-3.4-3.5 1 .7 1.9 1.6 2.3 2.7.4.3.7.5 1.1.8z"/></svg>',
+    unknown: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E7EDF3"/><path fill="#5C6B80" d="M11.15 6.1h1.7v11.8h-1.7zM6.1 11.15h11.8v1.7H6.1z"/><ellipse cx="12" cy="12" rx="3.1" ry="6.1" fill="none" stroke="#5C6B80" stroke-width="1.3"/></svg>'
+  };
+
+  function browserChipHtml(rawBrowser) {
+
+    var key = matchKeyword(rawBrowser, BROWSER_COLORS);
+
+    var icon = BROWSER_ICONS[key] || BROWSER_ICONS.unknown;
+
+    var label = rawBrowser ? escapeHtml(rawBrowser) : "غير محدد";
+
+    return (
+      '<span class="device-chip">' +
+        '<span class="device-icon browser-mark">' + icon + '</span>' +
+        '<span>' + label + '</span>' +
+      '</span>'
+    );
+
+  }
+
+
   function formatDate(value) {
 
     if (!value) return "-";
@@ -1113,15 +1790,14 @@
 
     return d.toLocaleString(
 
-      "ar-EG",
+      "ar-EG-u-nu-latn",
 
       {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
-        minute: "2-digit",
-        numberingSystem: "latn"
+        minute: "2-digit"
       }
 
     );
@@ -1191,6 +1867,9 @@
     state.token =
       $("token").value.trim();
 
+    state.maxDevices =
+      parseInt($("maxDevices") ? $("maxDevices").value : "3", 10) || 3;
+
 
     if (
       !state.owner ||
@@ -1200,7 +1879,7 @@
 
       setMsg(
         "connectionMsg",
-        "من فضلك أدخل Owner و Repository و Admin Token.",
+        "من فضلك أدخل Owner و Repository و Password.",
         "err"
       );
 
@@ -1223,13 +1902,13 @@
 
       .then(function () {
 
-        return loadIssues();
+        return loadDevices();
 
       })
 
       .then(function () {
 
-        return loadDevices();
+        return loadIssues();
 
       })
 
@@ -1237,12 +1916,20 @@
 
         state.connected = true;
 
+        ccacheSave();
+
 
         $("refreshBtn").disabled = false;
 
         $("refreshUsersBtn").disabled = false;
 
         $("refreshIssuesBtn").disabled = false;
+
+        if ($("saveLimitBtn")) {
+
+          $("saveLimitBtn").disabled = false;
+
+        }
 
 
         renderUsers();
@@ -1268,6 +1955,12 @@
         $("refreshUsersBtn").disabled = true;
 
         $("refreshIssuesBtn").disabled = true;
+
+        if ($("saveLimitBtn")) {
+
+          $("saveLimitBtn").disabled = true;
+
+        }
 
 
         setMsg(
@@ -1314,7 +2007,7 @@
 
 
   /* =========================================================
-     LOAD USERS
+     LOAD USERS (AUTHENTICATED)
   ========================================================= */
 
   function loadUsers() {
@@ -1423,14 +2116,7 @@
 
 
   /* =========================================================
-     LOAD DEVICES
-
-     Reads devices.json with the same Admin Token used for
-     users.json. A missing file (404 — no device has ever
-     registered yet) is treated as an empty device list, not
-     an error. Any other failure is also swallowed so a
-     devices.json problem can never break loading/allowing/
-     blocking users.
+     LOAD DEVICES (AUTHENTICATED)
   ========================================================= */
 
   function loadDevices() {
@@ -1464,73 +2150,103 @@
 
       if (r.status === 404) {
 
-        state.devices = {};
-
         state.devicesSha = null;
 
-        return state.devices;
+        state.devices = [];
+
+        return [];
 
       }
 
 
       if (!r.ok) {
 
-        state.devices = {};
+        return r.text()
+          .then(function (txt) {
 
-        state.devicesSha = null;
+            throw new Error(
 
-        return state.devices;
+              "فشل تحميل devices.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
 
       }
 
 
-      return r.json().then(function (data) {
-
-        if (!data || !data.content) {
-
-          state.devices = {};
-
-          state.devicesSha = null;
-
-          return state.devices;
-
-        }
-
-
-        state.devicesSha = data.sha;
-
-
-        var parsed =
-          safeJsonParse(
-            b64DecodeUtf8(data.content)
-          );
-
-
-        if (
-          !parsed ||
-          typeof parsed !== "object" ||
-          Array.isArray(parsed)
-        ) {
-
-          parsed = {};
-
-        }
-
-
-        state.devices = parsed;
-
-
-        return state.devices;
-
-      });
+      return r.json();
 
     })
 
-    .catch(function () {
+    .then(function (data) {
 
-      state.devices = {};
+      if (!data) return [];
 
-      state.devicesSha = null;
+
+      if (data.sha) {
+
+        state.devicesSha =
+          data.sha;
+
+      }
+
+
+      if (data.content) {
+
+        var decoded =
+          b64DecodeUtf8(
+            data.content
+          );
+
+
+        var parsed =
+          safeJsonParse(decoded);
+
+
+        if (
+          parsed &&
+          typeof parsed === "object" &&
+          !Array.isArray(parsed)
+        ) {
+
+          if (typeof parsed.maxDevices === "number") {
+
+            state.maxDevices = parsed.maxDevices;
+
+            if ($("maxDevices")) {
+
+              $("maxDevices").value = state.maxDevices;
+
+            }
+
+          }
+
+          state.devices =
+            Array.isArray(parsed.devices) ? parsed.devices : [];
+
+        } else if (Array.isArray(parsed)) {
+
+          state.devices = parsed;
+
+        } else {
+
+          state.devices = [];
+
+        }
+
+      } else {
+
+        state.devices = [];
+
+      }
+
 
       return state.devices;
 
@@ -1540,94 +2256,7 @@
 
 
   /* =========================================================
-     DEVICE HELPERS (case-insensitive by username, like users.json)
-  ========================================================= */
-
-  function findUserKeyCI(obj, name) {
-
-    var target =
-      String(name || "").trim().toLowerCase();
-
-
-    var found = null;
-
-
-    Object.keys(obj || {})
-      .some(function (key) {
-
-        if (
-          String(key).trim().toLowerCase() ===
-          target
-        ) {
-
-          found = key;
-
-          return true;
-
-        }
-
-
-        return false;
-
-      });
-
-
-    return found;
-
-  }
-
-
-  function getUserDevices(username) {
-
-    var key =
-      findUserKeyCI(state.devices, username);
-
-
-    var devices =
-      key ? state.devices[key] : null;
-
-
-    return (
-      devices &&
-      typeof devices === "object"
-    )
-      ? devices
-      : {};
-
-  }
-
-
-  function countEnabledDevices(username) {
-
-    var devices =
-      getUserDevices(username);
-
-
-    var n = 0;
-
-
-    Object.keys(devices)
-      .forEach(function (id) {
-
-        if (
-          devices[id] &&
-          devices[id].enabled !== false
-        ) {
-
-          n++;
-
-        }
-
-      });
-
-
-    return n;
-
-  }
-
-
-  /* =========================================================
-     LOAD ISSUES
+     LOAD ISSUES (AUTHENTICATED)
   ========================================================= */
 
   function loadIssues() {
@@ -1649,12 +2278,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -1716,6 +2340,645 @@
       return state.issues;
 
     });
+
+  }
+
+
+  /* =========================================================
+     USER DEVICES HELPER
+  ========================================================= */
+
+  function getUserDevices(username) {
+
+    var target =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    return (state.devices || []).filter(function (d) {
+
+      return (
+        String(d.username || "")
+          .trim()
+          .toLowerCase() ===
+        target
+      );
+
+    });
+
+  }
+
+
+  /* =========================================================
+     SAVE DEVICES LIST
+  ========================================================= */
+
+  function saveDevicesList(newDevices, message) {
+
+    var latestUrl =
+      api(
+        "/contents/devices.json?ref=" +
+        encodeURIComponent(state.branch) +
+        "&_=" +
+        Date.now()
+      );
+
+
+    return fetch(
+
+      latestUrl,
+
+      {
+
+        method: "GET",
+
+        cache: "no-store",
+
+        headers: authHeaders()
+
+      }
+
+    )
+
+    .then(function (r) {
+
+      if (r.status === 404) {
+
+        return {
+          sha: null
+        };
+
+      }
+
+
+      if (!r.ok) {
+
+        return r.text()
+          .then(function (txt) {
+
+            throw new Error(
+
+              "تعذر قراءة devices.json: HTTP " +
+              r.status +
+              (
+                txt
+                  ? " - " + txt
+                  : ""
+              )
+
+            );
+
+          });
+
+      }
+
+
+      return r.json();
+
+    })
+
+    .then(function (latest) {
+
+      var payload = {
+
+        maxDevices:
+          typeof state.maxDevices === "number" ? state.maxDevices : 3,
+
+        devices:
+          newDevices
+
+      };
+
+
+      var body = {
+
+        message:
+          message || "Update devices.json",
+
+        content:
+          b64EncodeUtf8(
+            JSON.stringify(
+              payload,
+              null,
+              2
+            )
+          ),
+
+        branch:
+          state.branch
+
+      };
+
+
+      if (latest && latest.sha) {
+
+        body.sha = latest.sha;
+
+      }
+
+
+      return fetch(
+
+        api("/contents/devices.json"),
+
+        {
+
+          method: "PUT",
+
+          headers: authHeaders({
+
+            "Content-Type":
+              "application/json"
+
+          }),
+
+          body:
+            JSON.stringify(body)
+
+        }
+
+      )
+
+      .then(function (r) {
+
+        if (!r.ok) {
+
+          return r.json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+
+              throw new Error(
+
+                j.message ||
+                (
+                  "فشل تحديث devices.json: HTTP " +
+                  r.status
+                )
+
+              );
+
+            });
+
+        }
+
+
+        return r.json();
+
+      })
+
+      .then(function (result) {
+
+        if (
+          result &&
+          result.content &&
+          result.content.sha
+        ) {
+
+          state.devicesSha =
+            result.content.sha;
+
+        }
+
+
+        state.devices =
+          newDevices;
+
+
+        return state.devices;
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================================================
+     SAVE MAX DEVICES (ONE SHARED LIMIT)
+  ========================================================= */
+
+  window.saveMaxDevices = function () {
+
+    var inputVal =
+      parseInt($("maxDevices").value, 10);
+
+
+    if (isNaN(inputVal) || inputVal < 1) {
+
+      setMsg(
+        "connectionMsg",
+        "يرجى إدخال حد أقصى صحيح للأجهزة (1 على الأقل).",
+        "err"
+      );
+
+      return;
+
+    }
+
+
+    state.maxDevices = inputVal;
+
+
+    setMsg(
+      "connectionMsg",
+      "جارٍ حفظ الحد الأقصى للأجهزة...",
+      ""
+    );
+
+
+    var btn = $("saveLimitBtn");
+
+    if (btn) btn.disabled = true;
+
+
+    saveDevicesList(
+      state.devices,
+      "Update maxDevices: " + inputVal
+    )
+
+    .then(function () {
+
+      setMsg(
+        "connectionMsg",
+        "تم حفظ الحد الأقصى للأجهزة (" + inputVal + ") بنجاح.",
+        "ok"
+      );
+
+      ccacheSave();
+
+      renderUsers();
+
+      if (state.selectedUserDevices) {
+
+        renderUserDevicesModal(
+          state.selectedUserDevices
+        );
+
+      }
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "connectionMsg",
+        "فشل حفظ الحد الأقصى للأجهزة: " + getErrorMessage(e),
+        "err"
+      );
+
+    })
+
+    .finally(function () {
+
+      if (btn) btn.disabled = false;
+
+    });
+
+  };
+
+
+  /* =========================================================
+     TOGGLE DEVICE STATUS (ENABLE / DISABLE)
+  ========================================================= */
+
+  window.toggleDeviceStatus = function (
+    username,
+    deviceId,
+    newStatus,
+    button
+  ) {
+
+    if (button) button.disabled = true;
+
+    var actionText =
+      newStatus === "disabled"
+        ? "تعطيل"
+        : "تفعيل";
+
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ " + actionText + " الجهاز...",
+      ""
+    );
+
+
+    var targetUser =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    var updated =
+      (state.devices || []).map(function (d) {
+
+        if (
+          String(d.deviceId) === String(deviceId) &&
+          String(d.username || "").trim().toLowerCase() === targetUser
+        ) {
+
+          var copy = Object.assign({}, d);
+
+          copy.status = newStatus;
+
+          copy.enabled = (newStatus === "enabled");
+
+          return copy;
+
+        }
+
+        return d;
+
+      });
+
+
+    saveDevicesList(
+      updated,
+      (newStatus === "disabled" ? "Disable device: " : "Enable device: ") +
+        username + " (" + deviceId + ")"
+    )
+
+    .then(function () {
+
+      setMsg(
+        "modalDeviceMsg",
+        "تم " + actionText + " الجهاز بنجاح.",
+        "ok"
+      );
+
+      renderUsers();
+
+      renderUserDevicesModal(username);
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "modalDeviceMsg",
+        "فشل " + actionText + ": " + getErrorMessage(e),
+        "err"
+      );
+
+      if (button) button.disabled = false;
+
+    });
+
+  };
+
+
+  /* =========================================================
+     REMOVE DEVICE
+  ========================================================= */
+
+  window.removeDevice = function (
+    username,
+    deviceId,
+    button
+  ) {
+
+    if (!confirm("هل أنت متأكد من حذف هذا الجهاز؟")) return;
+
+    if (button) button.disabled = true;
+
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ حذف الجهاز...",
+      ""
+    );
+
+
+    var targetUser =
+      String(username || "")
+        .trim()
+        .toLowerCase();
+
+
+    var updated =
+      (state.devices || []).filter(function (d) {
+
+        return !(
+          String(d.deviceId) === String(deviceId) &&
+          String(d.username || "").trim().toLowerCase() === targetUser
+        );
+
+      });
+
+
+    saveDevicesList(
+      updated,
+      "Remove device: " + username + " (" + deviceId + ")"
+    )
+
+    .then(function () {
+
+      setMsg(
+        "modalDeviceMsg",
+        "تم حذف الجهاز بنجاح.",
+        "ok"
+      );
+
+      renderUsers();
+
+      renderUserDevicesModal(username);
+
+    })
+
+    .catch(function (e) {
+
+      setMsg(
+        "modalDeviceMsg",
+        "فشل حذف الجهاز: " + getErrorMessage(e),
+        "err"
+      );
+
+      if (button) button.disabled = false;
+
+    });
+
+  };
+
+
+  /* =========================================================
+     DEVICE MODAL UI
+     Loads latest devices.json before opening/rendering
+  ========================================================= */
+
+  window.openDevicesModal = function (username) {
+
+    state.selectedUserDevices = username;
+
+    $("deviceModal").style.display = "flex";
+
+    setMsg(
+      "modalDeviceMsg",
+      "جارٍ تحميل أحدث بيانات الأجهزة...",
+      ""
+    );
+
+    renderUserDevicesModal(username);
+
+
+    loadDevices()
+
+      .then(function () {
+
+        setMsg("modalDeviceMsg", "", "");
+
+        renderUsers();
+
+        renderUserDevicesModal(username);
+
+      })
+
+      .catch(function (e) {
+
+        setMsg(
+          "modalDeviceMsg",
+          "فشل تحديث بيانات الأجهزة: " + getErrorMessage(e),
+          "err"
+        );
+
+      });
+
+  };
+
+
+  window.closeDevicesModal = function () {
+
+    $("deviceModal").style.display = "none";
+
+    state.selectedUserDevices = null;
+
+  };
+
+
+  function renderUserDevicesModal(username) {
+
+    var title = $("modalTitle");
+
+    var tbody = $("modalDevicesTableBody");
+
+    var devs =
+      getUserDevices(username).slice();
+
+
+    /*
+     * Sort by latest lastSeen first.
+     */
+
+    devs.sort(function (a, b) {
+
+      var tA =
+        a.lastSeen ? new Date(a.lastSeen).getTime() : 0;
+
+      var tB =
+        b.lastSeen ? new Date(b.lastSeen).getTime() : 0;
+
+      return tB - tA;
+
+    });
+
+
+    if (title) {
+
+      title.textContent =
+        "أجهزة المستخدم: " +
+        username +
+        " (الأجهزة: " +
+        "\u2066" +
+        devs.length +
+        " / " +
+        (state.maxDevices || 3) +
+        "\u2069)";
+
+    }
+
+
+    if (!devs.length) {
+
+      tbody.innerHTML =
+        '<tr>' +
+          '<td colspan="6" class="empty">' +
+            'لا توجد أجهزة مسجلة لهذا المستخدم حتى الآن.' +
+          '</td>' +
+        '</tr>';
+
+      return;
+
+    }
+
+
+    tbody.innerHTML = devs.map(function (dev) {
+
+      var isDisabled =
+        (dev.status === "disabled" || dev.enabled === false);
+
+
+      var statusHtml = isDisabled
+        ? '<span class="status status-blocked">معطّل</span>'
+        : '<span class="status status-allowed">مفعّل</span>';
+
+
+      var toggleBtn = isDisabled
+        ? '<button class="btn-success" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
+            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'enabled\', this)">تفعيل</button>'
+        : '<button class="btn-danger" style="padding:6px 12px;font-size:13px;" onclick="toggleDeviceStatus(' +
+            escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', \'disabled\', this)">تعطيل</button>';
+
+
+      var removeBtn =
+        '<button class="btn-secondary" style="padding:6px 10px;font-size:13px;color:#dc2626;" onclick="removeDevice(' +
+          escapeJs(username) + ',' + escapeJs(dev.deviceId) + ', this)">حذف</button>';
+
+
+      return (
+
+        '<tr class="device-row">' +
+          '<td colspan="6" class="device-card-cell">' +
+            '<div class="device-card">' +
+              '<div class="device-card-top">' +
+                '<div class="device-card-identity">' +
+                  '<div class="device-card-field">' +
+                    '<span class="device-k">نوع الجهاز</span>' +
+                    deviceChipHtml(dev.deviceType) +
+                  '</div>' +
+                  '<div class="device-card-field">' +
+                    '<span class="device-k">المتصفح</span>' +
+                    browserChipHtml(dev.browser) +
+                  '</div>' +
+                '</div>' +
+                '<div class="device-card-status">' +
+                  statusHtml +
+                '</div>' +
+              '</div>' +
+              '<div class="device-card-meta">' +
+                '<div class="device-card-field">' +
+                  '<span class="device-k">تاريخ أول تسجيل</span>' +
+                  '<span class="device-v">' + escapeHtml(formatDate(dev.firstSeen)) + '</span>' +
+                '</div>' +
+                '<div class="device-card-field">' +
+                  '<span class="device-k">آخر نشاط</span>' +
+                  '<span class="device-v">' + escapeHtml(formatDate(dev.lastSeen)) + '</span>' +
+                '</div>' +
+                '<div class="device-card-actions">' +
+                  '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+                    toggleBtn +
+                    removeBtn +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</td>' +
+        '</tr>'
+
+      );
+
+    }).join("");
 
   }
 
@@ -1784,11 +3047,8 @@
   /* =========================================================
      SAVE USER STATUS
      
-     This is the main permission function.
-     
-     It ALWAYS reads the latest users.json first,
-     finds the exact existing username ignoring case,
-     changes ONLY the status, then PUTs the file.
+     This changes ONLY the existing user's status and preserves
+     every other existing field exactly.
   ========================================================= */
 
   function saveUserStatus(
@@ -1844,12 +3104,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -1918,15 +3173,7 @@
 
 
       /*
-       * Find the REAL existing key.
-       *
-       * This prevents:
-       *
-       * Fady.Adel
-       *
-       * from becoming:
-       *
-       * fady.adel
+       * Find the REAL existing key (case-insensitive).
        */
 
       var actualKey = null;
@@ -1977,25 +3224,43 @@
           : null;
 
 
-      var oldNormalized =
-        normalizeUserRecord(
-          oldRecord
-        );
-
-
       /*
        * ONLY CHANGE STATUS.
+       * Preserve all other existing fields exactly.
        */
 
-      latestUsers[actualKey] = {
+      if (
+        oldRecord &&
+        typeof oldRecord === "object" &&
+        !Array.isArray(oldRecord)
+      ) {
 
-        status: status,
+        latestUsers[actualKey] =
+          Object.assign({}, oldRecord, {
 
-        createdAt:
-          oldNormalized.createdAt ||
-          new Date().toISOString()
+            status: status
 
-      };
+          });
+
+      } else if (typeof oldRecord === "string") {
+
+        latestUsers[actualKey] = {
+
+          status: status
+
+        };
+
+      } else {
+
+        latestUsers[actualKey] = {
+
+          status: status,
+
+          createdAt: new Date().toISOString()
+
+        };
+
+      }
 
 
       var body = {
@@ -2157,12 +3422,7 @@
 
         cache: "no-store",
 
-        headers: {
-
-          "Accept":
-            "application/vnd.github+json"
-
-        }
+        headers: authHeaders()
 
       }
 
@@ -2357,564 +3617,7 @@
 
 
   /* =========================================================
-     SAVE DEVICE ENABLED
-
-     Same pattern as saveUserStatus(): re-reads the latest
-     devices.json, finds the username key case-insensitively,
-     flips ONLY that one device's "enabled" flag, and writes
-     the file back with the correct sha. Never touches
-     users.json or the allow/block logic.
-  ========================================================= */
-
-  function saveDeviceEnabled(
-    username,
-    deviceId,
-    enabled
-  ) {
-
-    username =
-      String(username || "").trim();
-
-    deviceId =
-      String(deviceId || "").trim();
-
-
-    if (!username || !deviceId) {
-
-      return Promise.reject(
-        new Error(
-          "بيانات الجهاز غير صحيحة."
-        )
-      );
-
-    }
-
-
-    var latestUrl =
-      api(
-        "/contents/devices.json?ref=" +
-        encodeURIComponent(state.branch) +
-        "&_=" +
-        Date.now()
-      );
-
-
-    return fetch(
-
-      latestUrl,
-
-      {
-
-        method: "GET",
-
-        cache: "no-store",
-
-        headers: authHeaders()
-
-      }
-
-    )
-
-    .then(function (r) {
-
-      if (r.status === 404) {
-
-        return { sha: null, data: {} };
-
-      }
-
-
-      if (!r.ok) {
-
-        return r.text()
-          .then(function (txt) {
-
-            throw new Error(
-
-              "تعذر قراءة devices.json: HTTP " +
-              r.status +
-              (
-                txt
-                  ? " - " + txt
-                  : ""
-              )
-
-            );
-
-          });
-
-      }
-
-
-      return r.json().then(function (j) {
-
-        var parsed =
-          safeJsonParse(
-            b64DecodeUtf8(j.content)
-          );
-
-
-        if (
-          !parsed ||
-          typeof parsed !== "object" ||
-          Array.isArray(parsed)
-        ) {
-
-          parsed = {};
-
-        }
-
-
-        return { sha: j.sha, data: parsed };
-
-      });
-
-    })
-
-    .then(function (latest) {
-
-      var data = latest.data;
-
-
-      var userKey =
-        findUserKeyCI(data, username);
-
-
-      if (
-        !userKey ||
-        !data[userKey] ||
-        !data[userKey][deviceId]
-      ) {
-
-        throw new Error(
-          "الجهاز غير موجود."
-        );
-
-      }
-
-
-      data[userKey][deviceId].enabled =
-        enabled;
-
-
-      var body = {
-
-        message:
-          (
-            enabled
-              ? "Enable device: "
-              : "Disable device: "
-          ) +
-          userKey +
-          " / " +
-          deviceId,
-
-        content:
-          b64EncodeUtf8(
-            JSON.stringify(
-              data,
-              null,
-              2
-            )
-          ),
-
-        branch:
-          state.branch
-
-      };
-
-
-      if (latest.sha) {
-
-        body.sha = latest.sha;
-
-      }
-
-
-      return fetch(
-
-        api("/contents/devices.json"),
-
-        {
-
-          method: "PUT",
-
-          headers: authHeaders({
-
-            "Content-Type":
-              "application/json"
-
-          }),
-
-          body:
-            JSON.stringify(body)
-
-        }
-
-      )
-
-      .then(function (r) {
-
-        if (!r.ok) {
-
-          return r.json()
-            .catch(function () {
-              return {};
-            })
-            .then(function (j) {
-
-              throw new Error(
-
-                j.message ||
-                (
-                  "فشل تحديث devices.json: HTTP " +
-                  r.status
-                )
-
-              );
-
-            });
-
-        }
-
-
-        return r.json();
-
-      })
-
-      .then(function (result) {
-
-        state.devices = data;
-
-
-        if (
-          result &&
-          result.content &&
-          result.content.sha
-        ) {
-
-          state.devicesSha =
-            result.content.sha;
-
-        }
-
-
-        return true;
-
-      });
-
-    });
-
-  }
-
-
-  window.setDeviceEnabled = function (
-    username,
-    deviceId,
-    enabled,
-    button
-  ) {
-
-    if (button) {
-
-      button.disabled = true;
-
-    }
-
-
-    setMsg(
-      "usersMsg",
-      enabled
-        ? "جارٍ تفعيل الجهاز..."
-        : "جارٍ تعطيل الجهاز...",
-      ""
-    );
-
-
-    saveDeviceEnabled(
-      username,
-      deviceId,
-      enabled
-    )
-
-    .then(function () {
-
-      setMsg(
-        "usersMsg",
-        enabled
-          ? "تم تفعيل الجهاز."
-          : "تم تعطيل الجهاز.",
-        "ok"
-      );
-
-
-      renderUsers();
-
-
-      if (
-        state.activeDeviceUser &&
-        String(state.activeDeviceUser)
-          .trim()
-          .toLowerCase() ===
-          String(username)
-            .trim()
-            .toLowerCase()
-      ) {
-
-        $("devicesModalSub").textContent =
-          "الأجهزة: " +
-          countEnabledDevices(username) +
-          " / " +
-          MAX_DEVICES;
-
-        $("devicesModalBody").innerHTML =
-          renderDeviceCards(username);
-
-      }
-
-    })
-
-    .catch(function (e) {
-
-      setMsg(
-        "usersMsg",
-        "فشل تحديث حالة الجهاز: " +
-          getErrorMessage(e),
-        "err"
-      );
-
-
-      if (button) {
-
-        button.disabled = false;
-
-      }
-
-    });
-
-  };
-
-
-  /* =========================================================
-     DEVICES MODAL
-  ========================================================= */
-
-  window.toggleDevicesView = function (
-    username
-  ) {
-
-    state.activeDeviceUser =
-      username;
-
-
-    $("devicesModalTitle").textContent =
-      username;
-
-    $("devicesModalSub").textContent =
-      "الأجهزة: " +
-      countEnabledDevices(username) +
-      " / " +
-      MAX_DEVICES;
-
-    $("devicesModalBody").innerHTML =
-      renderDeviceCards(username);
-
-
-    var dialogEl =
-      $("devicesModal");
-
-    if (
-      dialogEl &&
-      typeof dialogEl.showModal ===
-        "function"
-    ) {
-
-      dialogEl.showModal();
-
-    }
-
-  };
-
-
-  window.closeDevicesModal = function () {
-
-    var dialogEl =
-      $("devicesModal");
-
-    if (
-      dialogEl &&
-      typeof dialogEl.close ===
-        "function"
-    ) {
-
-      dialogEl.close();
-
-    }
-
-  };
-
-
-  (function initDevicesModal() {
-
-    var dialogEl =
-      $("devicesModal");
-
-    if (!dialogEl) return;
-
-
-    dialogEl.addEventListener(
-      "click",
-      function (e) {
-
-        if (e.target === dialogEl) {
-
-          dialogEl.close();
-
-        }
-
-      }
-    );
-
-
-    dialogEl.addEventListener(
-      "close",
-      function () {
-
-        state.activeDeviceUser =
-          null;
-
-      }
-    );
-
-  })();
-
-
-  /* =========================================================
-     DEVICE / BROWSER ICONS
-
-     Small monochrome (currentColor) glyphs — no external icon
-     library. Named devices/browsers get a recognizable
-     silhouette; anything else falls back to a generic mark.
-  ========================================================= */
-
-  function deviceTypeIconSvg(type) {
-
-    if (type === "Mobile") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
-          '<rect x="7" y="2.5" width="10" height="19" rx="2.4"></rect>' +
-          '<line x1="10.3" y1="18.3" x2="13.7" y2="18.3"></line>' +
-        '</svg>'
-      );
-
-    }
-
-
-    if (type === "Tablet") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
-          '<rect x="4" y="3" width="16" height="18" rx="2.2"></rect>' +
-          '<line x1="10.5" y1="18.2" x2="13.5" y2="18.2"></line>' +
-        '</svg>'
-      );
-
-    }
-
-
-    return (
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
-        '<rect x="3" y="4" width="18" height="12" rx="1.8"></rect>' +
-        '<line x1="8.5" y1="20" x2="15.5" y2="20"></line>' +
-        '<line x1="12" y1="16" x2="12" y2="20"></line>' +
-      '</svg>'
-    );
-
-  }
-
-
-  function browserIconSvg(browser) {
-
-    if (browser === "Chrome") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-          '<circle cx="12" cy="12" r="9"></circle>' +
-          '<circle cx="12" cy="12" r="3.2"></circle>' +
-          '<line x1="12" y1="3" x2="12" y2="8.8" stroke-linecap="round"></line>' +
-          '<line x1="5.2" y1="16.5" x2="10" y2="13.8" stroke-linecap="round"></line>' +
-          '<line x1="18.8" y1="16.5" x2="14" y2="13.8" stroke-linecap="round"></line>' +
-        '</svg>'
-      );
-
-    }
-
-
-    if (browser === "Firefox") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">' +
-          '<path d="M12 3.5c3.6 0 6.6 2.2 7.8 5.4.5 1.3.7 2.7.5 4-.5 3.4-3.4 6.1-6.9 6.4-3.9.3-7.4-2.3-8.2-6-.4-1.7 0-3.5 1-5"></path>' +
-          '<path d="M9 8.2c1.6-.4 3.4.4 4 2 .5 1.3.1 2.8-1 3.7"></path>' +
-        '</svg>'
-      );
-
-    }
-
-
-    if (browser === "Edge") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
-          '<path d="M4 14c1-4.5 4.4-7.5 8.8-7.5 3.6 0 6.2 2 6.9 4.6"></path>' +
-          '<path d="M4.5 12.5c.2 4 3.4 7 7.6 7 3 0 5.6-1.3 7-3.6"></path>' +
-          '<path d="M19.7 11c-1.8-.6-4 .1-4.8 2-.8 1.8.1 3.4 1.6 4"></path>' +
-        '</svg>'
-      );
-
-    }
-
-
-    if (browser === "Safari") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-          '<circle cx="12" cy="12" r="9"></circle>' +
-          '<path d="M15.5 8.5 10.8 10.8 8.5 15.5 13.2 13.2Z" stroke-linejoin="round"></path>' +
-        '</svg>'
-      );
-
-    }
-
-
-    if (browser === "Opera") {
-
-      return (
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
-          '<ellipse cx="12" cy="12" rx="6" ry="9"></ellipse>' +
-        '</svg>'
-      );
-
-    }
-
-
-    return (
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
-        '<rect x="3" y="4.5" width="18" height="15" rx="2"></rect>' +
-        '<line x1="3" y1="8.5" x2="21" y2="8.5"></line>' +
-      '</svg>'
-    );
-
-  }
-
-
-  /* =========================================================
      ALLOW USER
-     
-     BLOCKED -> ALLOWED
-     
-     This function does NOT depend on an Issue.
   ========================================================= */
 
   window.allowUser = function (
@@ -2956,27 +3659,12 @@
     );
 
 
-    /*
-     * IMPORTANT:
-     *
-     * First and ONLY important operation:
-     *
-     * users.json
-     *
-     * blocked -> allowed
-     */
-
     saveUserStatus(
       username,
       "allowed"
     )
 
     .then(function () {
-
-      /*
-       * Verify that GitHub really contains
-       * status = allowed.
-       */
 
       return verifyUserStatus(
         username,
@@ -2986,13 +3674,6 @@
     })
 
     .then(function () {
-
-      /*
-       * Permission is now confirmed.
-       *
-       * If there is an Issue, close it.
-       * Failure here must NOT undo permission.
-       */
 
       var issue = null;
 
@@ -3032,11 +3713,6 @@
         )
         .catch(function () {
 
-          /*
-           * Ignore Issue close failure.
-           * User permission has already succeeded.
-           */
-
           return null;
 
         });
@@ -3050,11 +3726,6 @@
 
     .then(function () {
 
-      /*
-       * Render immediately from the confirmed
-       * users.json state.
-       */
-
       renderUsers();
 
 
@@ -3066,13 +3737,6 @@
         "ok"
       );
 
-
-      /*
-       * Refresh Issues only.
-       *
-       * Do NOT let a refresh failure cancel
-       * the successful permission operation.
-       */
 
       return loadIssues()
         .then(function () {
@@ -3243,178 +3907,6 @@
      RENDER USERS
   ========================================================= */
 
-  function buildUserRow(username, item) {
-
-    var record =
-      item.record;
-
-
-    var status =
-      record.status ||
-      "allowed";
-
-
-    var statusHtml = "";
-
-    var actionHtml = "";
-
-
-    /* ALLOWED */
-
-    if (status === "allowed") {
-
-      statusHtml =
-        '<span class="status status-allowed">' +
-          'مسموح' +
-        '</span>';
-
-
-      actionHtml =
-        '<button class="btn-danger" ' +
-          'onclick="blockUser(' +
-            escapeJs(username) +
-            ', null, this)">' +
-          'حظر' +
-        '</button>';
-
-    }
-
-
-    /* BLOCKED */
-
-    else if (
-      status === "blocked"
-    ) {
-
-      statusHtml =
-        '<span class="status status-blocked">' +
-          'محظور' +
-        '</span>';
-
-
-      actionHtml =
-        '<button class="btn-success" ' +
-          'onclick="allowUser(' +
-            escapeJs(username) +
-            ', null, this)">' +
-          'سماح' +
-        '</button>';
-
-    }
-
-
-    /* NEW */
-
-    else {
-
-      statusHtml =
-        '<span class="status status-new">' +
-          'جديد - غير مُراجع' +
-        '</span>';
-
-
-      var issueNumber =
-        item.issue
-          ? item.issue.number
-          : "";
-
-
-      actionHtml =
-
-        '<div style="display:flex;gap:7px;flex-wrap:wrap;">' +
-
-          '<button class="btn-success" ' +
-            'onclick="allowUser(' +
-              escapeJs(username) +
-              ',' +
-              JSON.stringify(issueNumber) +
-              ', this)">' +
-            'سماح' +
-          '</button>' +
-
-          '<button class="btn-danger" ' +
-            'onclick="blockUser(' +
-              escapeJs(username) +
-              ',' +
-              JSON.stringify(issueNumber) +
-              ', this)">' +
-            'حظر' +
-          '</button>' +
-
-        '</div>';
-
-    }
-
-
-    var date =
-      item.issue &&
-      item.issue.created_at
-
-        ? formatDate(
-            item.issue.created_at
-          )
-
-        : record.createdAt
-
-          ? formatDate(
-              record.createdAt
-            )
-
-          : "-";
-
-
-    var devicesHtml =
-      '<div class="devices-cell">' +
-        '<span class="devices-count">' +
-          'الأجهزة: ' +
-          countEnabledDevices(username) +
-          ' / ' +
-          MAX_DEVICES +
-        '</span>' +
-        '<button class="btn-secondary devices-view-btn" ' +
-          'onclick="toggleDevicesView(' +
-            escapeJs(username) +
-            ')">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
-            '<path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12Z"></path>' +
-            '<circle cx="12" cy="12" r="3"></circle>' +
-          '</svg>' +
-          '<span>عرض</span>' +
-        '</button>' +
-      '</div>';
-
-
-    return (
-
-      '<tr>' +
-
-        '<td>' +
-          escapeHtml(username) +
-        '</td>' +
-
-        '<td>' +
-          statusHtml +
-        '</td>' +
-
-        '<td>' +
-          devicesHtml +
-        '</td>' +
-
-        '<td>' +
-          escapeHtml(date) +
-        '</td>' +
-
-        '<td>' +
-          actionHtml +
-        '</td>' +
-
-      '</tr>'
-
-    );
-
-  }
-
-
   function renderUsers() {
 
     var body =
@@ -3528,73 +4020,179 @@
         });
 
 
-    /* Split into the main (non-blocked) list and the
-       collapsible blocked-users list, so a growing block
-       list never lengthens the main dashboard view. */
+    var allowedNames =
+      names.filter(function (username) {
 
-    var visibleNames = [];
+        var record =
+          merged[username].record;
 
-    var blockedNames = [];
+        var status =
+          record.status ||
+          "allowed";
+
+        return status === "allowed";
+
+      });
 
 
-    names.forEach(function (username) {
+    var blockedNames =
+      names.filter(function (username) {
 
-      var st =
-        merged[username].record.status ||
+        var record =
+          merged[username].record;
+
+        return record.status === "blocked";
+
+      });
+
+
+    if ($("usersCounter")) {
+
+      $("usersCounter").textContent =
+        "إجمالي المستخدمين المسموح لهم: " +
+        allowedNames.length;
+
+    }
+
+
+    if ($("blockedUsersCounter")) {
+
+      $("blockedUsersCounter").textContent =
+        "إجمالي المستخدمين المحظورين: " +
+        blockedNames.length;
+
+    }
+
+
+    function renderRow(username) {
+
+      var item =
+        merged[username];
+
+      var record =
+        item.record;
+
+      var status =
+        record.status ||
         "allowed";
 
-      if (st === "blocked") {
+      var statusHtml = "";
+      var actionHtml = "";
 
-        blockedNames.push(username);
+      if (status === "allowed") {
 
-      } else {
+        statusHtml =
+          '<span class="status status-allowed">' +
+            'مسموح' +
+          '</span>';
 
-        visibleNames.push(username);
+        actionHtml =
+          '<button class="btn-danger" ' +
+            'onclick="blockUser(' +
+              escapeJs(username) +
+              ', null, this)">' +
+            'حظر' +
+          '</button>';
+
+      } else if (status === "blocked") {
+
+        statusHtml =
+          '<span class="status status-blocked">' +
+            'محظور' +
+          '</span>';
+
+        actionHtml =
+          '<button class="btn-success" ' +
+            'onclick="allowUser(' +
+              escapeJs(username) +
+              ', null, this)">' +
+            'السماح' +
+          '</button>';
 
       }
 
-    });
+      var userDevs =
+        getUserDevices(username);
 
+      var deviceCountText =
+        "الأجهزة: " +
+        "\u2066" +
+        userDevs.length +
+        " / " +
+        (state.maxDevices || 3) +
+        "\u2069";
 
-    $("usersCounter").textContent =
-      "إجمالي المستخدمين الظاهرين: " +
-      visibleNames.length;
+      var deviceCellHtml =
+        '<td>' +
+          '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+            '<span style="font-weight:bold;font-size:14px;">' +
+              escapeHtml(deviceCountText) +
+            '</span>' +
+            '<button class="btn-secondary" style="padding:4px 9px;font-size:12px;border-radius:7px;" onclick="openDevicesModal(' +
+              escapeJs(username) +
+            ')">' +
+              'عرض الأجهزة' +
+            '</button>' +
+          '</div>' +
+        '</td>';
 
+      var date =
+        item.issue &&
+        item.issue.created_at
+          ? formatDate(item.issue.created_at)
+          : record.createdAt
+            ? formatDate(record.createdAt)
+            : "-";
 
-    if (!visibleNames.length) {
-
-      body.innerHTML =
+      return (
         '<tr>' +
-          '<td colspan="5" class="empty">' +
-            'لا يوجد مستخدمون حتى الآن.' +
+          '<td>' +
+            escapeHtml(username) +
           '</td>' +
-        '</tr>';
+          '<td>' +
+            statusHtml +
+          '</td>' +
+          deviceCellHtml +
+          '<td>' +
+            escapeHtml(date) +
+          '</td>' +
+          '<td>' +
+            actionHtml +
+          '</td>' +
+        '</tr>'
+      );
 
-    } else {
+    }
 
-      body.innerHTML =
-        visibleNames.map(function (username) {
 
-          return buildUserRow(
-            username,
-            merged[username]
-          );
+    /* Render Allowed Users */
 
-        }).join("");
+    if (body) {
+
+      if (!allowedNames.length) {
+
+        body.innerHTML =
+          '<tr>' +
+            '<td colspan="5" class="empty">' +
+              'لا يوجد مستخدمون مسموح لهم حالياً.' +
+            '</td>' +
+          '</tr>';
+
+      } else {
+
+        body.innerHTML =
+          allowedNames.map(function (u) {
+
+            return renderRow(u);
+
+          }).join("");
+
+      }
 
     }
 
 
-    var blockedCountBadge =
-      $("blockedCountBadge");
-
-    if (blockedCountBadge) {
-
-      blockedCountBadge.textContent =
-        String(blockedNames.length);
-
-    }
-
+    /* Render Blocked Users */
 
     if (blockedBody) {
 
@@ -3610,196 +4208,15 @@
       } else {
 
         blockedBody.innerHTML =
-          blockedNames.map(function (username) {
+          blockedNames.map(function (u) {
 
-            return buildUserRow(
-              username,
-              merged[username]
-            );
+            return renderRow(u);
 
           }).join("");
 
       }
 
     }
-
-  }
-
-
-  /* =========================================================
-     BLOCKED USERS — COLLAPSE / EXPAND
-
-     Purely a UI show/hide toggle: it never re-fetches or
-     re-computes data. renderUsers() keeps the blocked table's
-     rows up to date regardless of whether it is shown, so
-     opening it never needs a refresh first.
-  ========================================================= */
-
-  window.toggleBlockedList = function () {
-
-    var wrap =
-      $("blockedTableWrap");
-
-    var btn =
-      $("blockedToggleBtn");
-
-    var label =
-      $("blockedToggleLabel");
-
-    if (!wrap || !btn || !label) return;
-
-
-    var expanding =
-      !!wrap.hidden;
-
-
-    wrap.hidden = !expanding;
-
-
-    if (expanding) {
-
-      label.textContent =
-        "إخفاء قائمة الحظر";
-
-      btn.setAttribute(
-        "aria-expanded",
-        "true"
-      );
-
-      btn.classList.add(
-        "is-expanded"
-      );
-
-    } else {
-
-      label.textContent =
-        "إظهار قائمة الحظر";
-
-      btn.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-      btn.classList.remove(
-        "is-expanded"
-      );
-
-    }
-
-  };
-
-
-  /* =========================================================
-     RENDER DEVICE CARDS
-
-     Builds the card grid shown inside the devices modal for
-     one username: every device on record (case-insensitive)
-     with a device-type icon, browser icon + name, first/last
-     seen, a status chip, and an enable/disable action.
-  ========================================================= */
-
-  function renderDeviceCards(username) {
-
-    var devices =
-      getUserDevices(username);
-
-
-    var ids =
-      Object.keys(devices);
-
-
-    if (!ids.length) {
-
-      return (
-        '<div class="empty">' +
-          'لا توجد أجهزة مسجلة لهذا المستخدم.' +
-        '</div>'
-      );
-
-    }
-
-
-    return (
-
-      '<div class="device-grid">' +
-
-        ids.map(function (id) {
-
-          var d =
-            devices[id] || {};
-
-
-          var enabled =
-            d.enabled !== false;
-
-
-          var pillHtml =
-            enabled
-              ? '<span class="status status-allowed">مفعّل</span>'
-              : '<span class="status status-blocked">معطّل</span>';
-
-
-          var btnHtml =
-            enabled
-              ? '<button class="btn-danger" onclick="setDeviceEnabled(' +
-                  escapeJs(username) +
-                  ',' +
-                  escapeJs(id) +
-                  ', false, this)">تعطيل</button>'
-              : '<button class="btn-success" onclick="setDeviceEnabled(' +
-                  escapeJs(username) +
-                  ',' +
-                  escapeJs(id) +
-                  ', true, this)">تفعيل</button>';
-
-
-          return (
-
-            '<div class="device-card">' +
-
-              '<div class="device-card-top">' +
-
-                '<div class="device-icon">' +
-                  deviceTypeIconSvg(d.deviceType) +
-                '</div>' +
-
-                '<div class="device-meta">' +
-                  '<div class="device-type">' +
-                    escapeHtml(d.deviceType || "-") +
-                  '</div>' +
-                  '<div class="device-browser">' +
-                    browserIconSvg(d.browser) +
-                    '<span>' +
-                      escapeHtml(d.browser || "-") +
-                    '</span>' +
-                  '</div>' +
-                '</div>' +
-
-              '</div>' +
-
-              '<div class="device-dates">' +
-                '<div><b>أول ظهور:</b> ' +
-                  escapeHtml(formatDate(d.firstSeen)) +
-                '</div>' +
-                '<div><b>آخر ظهور:</b> ' +
-                  escapeHtml(formatDate(d.lastSeen)) +
-                '</div>' +
-              '</div>' +
-
-              '<div class="device-card-foot">' +
-                pillHtml +
-                btnHtml +
-              '</div>' +
-
-            '</div>'
-
-          );
-
-        }).join("") +
-
-      '</div>'
-
-    );
 
   }
 
@@ -3929,7 +4346,7 @@
 
     setMsg(
       "usersMsg",
-      "جارٍ تحديث المستخدمين...",
+      "جارٍ تحديث المستخدمين والأجهزة...",
       ""
     );
 
@@ -3952,13 +4369,13 @@
 
       .then(function () {
 
-        return loadIssues();
+        return loadDevices();
 
       })
 
       .then(function () {
 
-        return loadDevices();
+        return loadIssues();
 
       })
 
@@ -3970,10 +4387,18 @@
           state.issues
         );
 
+        if (state.selectedUserDevices) {
+
+          renderUserDevicesModal(
+            state.selectedUserDevices
+          );
+
+        }
+
 
         setMsg(
           "usersMsg",
-          "تم تحديث المستخدمين.",
+          "تم تحديث المستخدمين والأجهزة.",
           "ok"
         );
 
@@ -4017,9 +4442,16 @@
   };
 
 
+  /* =========================================================
+     INIT — restore cached connection settings (never the token)
+  ========================================================= */
+
+  ccacheLoad();
+
+
 })();
 
 </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f150c09a084b31',t:'MTc5MDA4MDE2OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3fc3278a8239d99',t:'MTc5MDE5NDI3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
