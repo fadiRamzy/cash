@@ -400,6 +400,16 @@
       "lastSeen": "2026-09-23T10:34:26.178Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmedarafa0011@gmail.com",
+      "deviceId": "198c2336-49e8-4be4-a94b-bc8776634fcc",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T10:35:52.987Z",
+      "lastSeen": "2026-09-23T10:35:52.987Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
