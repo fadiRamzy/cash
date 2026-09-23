@@ -142,5 +142,9 @@
   "بيتر": {
     "status": "blocked",
     "createdAt": "2026-09-23T09:05:41.369Z"
+  },
+  "peter.boushra@cash-eg.org": {
+    "status": "allowed",
+    "createdAt": "2026-09-23T09:07:30.912Z"
   }
 }
