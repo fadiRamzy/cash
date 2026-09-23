@@ -530,6 +530,16 @@
       "lastSeen": "2026-09-23T12:26:14.953Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "aref_mohammedelsagheer@yahoo.com",
+      "deviceId": "f0a635af-f1dd-4a85-8bc6-692e75ee86af",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-23T12:29:35.414Z",
+      "lastSeen": "2026-09-23T12:29:35.414Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
