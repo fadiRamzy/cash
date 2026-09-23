@@ -9,6 +9,7 @@
 <link rel="icon" href="../assets/icons/icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
+
 <style>
   .tool-shell{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
   .tool-intro{color:var(--text-2);font-size:13.5px;margin-bottom:18px;max-width:820px}
@@ -102,20 +103,10 @@
   .timeline-delay-box{background:rgba(178,59,59,.07);border:1px solid rgba(178,59,59,.16);border-radius:8px;padding:6px 10px;margin-top:6px;font-size:12.5px;line-height:1.55;color:#8a3232;max-width:100%;box-sizing:border-box;word-break:break-word}
   .timeline-delay-title{font-weight:800;color:#b23b3b;margin-bottom:2px}
 
-  /* -------- recent history mini list inside tool -------- */
-  .history-mini{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-  .history-mini-item{
-    display:flex;justify-content:space-between;align-items:center;gap:10px;
-    background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-md);
-    padding:10px 14px;cursor:pointer;font-size:13px;
-  }
-  .history-mini-item:hover{border-color:var(--navy-700)}
-  .history-mini-item .meta{color:var(--text-3);font-size:11.5px}
-
   @media print{
     @page{ size: A4; margin: 14mm 12mm; }
     *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-    .topbar,.drop,.actions,.privacy-note,.tool-intro,#history-panel,.log,.diag-banner,footer{display:none!important}
+    .topbar,.drop,.actions,.privacy-note,.tool-intro,.log,.diag-banner,footer{display:none!important}
     body{background:#fff}
     .tool-shell{padding:0;max-width:none}
     #results{display:block!important;margin-top:0}
@@ -127,36 +118,48 @@
     .dash-section{page-break-inside:avoid;margin-bottom:18px}
     .timeline-item{break-inside:avoid;page-break-inside:avoid}
   }
+
   @media (max-width:640px){
     .tool-shell{padding:20px 14px 60px}
   }
 </style>
 </head>
+
 <body>
+
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
       <span class="brand-title">تحليل تقرير آيسكور</span>
       <span class="brand-sub">استخراج، تلخيص، وتصدير بيانات التقرير الائتماني — محليًا بالكامل</span>
     </div>
-    <div class="topbar-actions"><a href="../index.html" class="icon-btn" title="رجوع للنظام" aria-label="رجوع">↩</a></div>
+    <div class="topbar-actions">
+      <a href="../index.html" class="icon-btn" title="رجوع للنظام" aria-label="رجوع">↩</a>
+    </div>
   </div>
 </header>
 
 <div class="tool-shell">
+
   <p class="tool-intro">
     ارفع ملف تقرير آيسكور (PDF) لاستخراج بيانات العميل والتسهيلات والخط الزمني — التحليل يتم محليًا على جهازك فقط.
   </p>
 
   <div class="drop" id="drop">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+    </svg>
     <div>اسحب ملف تقرير آيسكور (PDF) هنا أو اضغط للاختيار</div>
     <input type="file" id="file-input" accept="application/pdf" style="display:none">
   </div>
 
   <div class="privacy-note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>لا يُرفع الملف لأي خادم، ولا يُخزَّن الـ PDF نفسه — فقط البيانات المستخلصة تُحفظ محليًا في متصفحك.</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>
+      <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>لا يُرفع الملف لأي خادم، ولا يُخزَّن الـ PDF نفسه — البيانات المستخلصة متاحة فقط أثناء استخدام الصفحة الحالية.</span>
   </div>
 
   <div class="actions">
@@ -165,66 +168,92 @@
   </div>
 
   <div class="log" id="log">في انتظار رفع ملف…</div>
+
   <div id="diag-banner-slot"></div>
 
   <div id="results">
 
     <section class="dash-section">
-      <div class="dash-head"><h2>بيانات العميل</h2></div>
+      <div class="dash-head">
+        <h2>بيانات العميل</h2>
+      </div>
       <div class="client-grid" id="client-grid"></div>
     </section>
 
     <section class="dash-section">
-      <div class="dash-head"><h2>ملخص المؤشرات الائتمانية</h2></div>
+      <div class="dash-head">
+        <h2>ملخص المؤشرات الائتمانية</h2>
+      </div>
       <div class="summary-grid" id="summary-grid"></div>
     </section>
 
     <section class="dash-section">
-      <div class="dash-head"><h2>جدول التسهيلات الائتمانية</h2><span class="hint" id="facilities-count-hint"></span></div>
+      <div class="dash-head">
+        <h2>جدول التسهيلات الائتمانية</h2>
+        <span class="hint" id="facilities-count-hint"></span>
+      </div>
+
       <div class="facilities-wrap">
         <table>
-          <thead><tr>
-            <th>#</th><th>الجهة</th><th>كود الجهة</th><th>نوع التسهيل</th>
-            <th>تاريخ المنح</th><th>المبلغ الممنوح</th><th>القسط</th>
-            <th>الحالة</th><th>أيام التأخير</th><th>المبلغ المتأخر</th><th>علاقة العميل</th>
-          </tr></thead>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الجهة</th>
+              <th>كود الجهة</th>
+              <th>نوع التسهيل</th>
+              <th>تاريخ المنح</th>
+              <th>المبلغ الممنوح</th>
+              <th>القسط</th>
+              <th>الحالة</th>
+              <th>أيام التأخير</th>
+              <th>المبلغ المتأخر</th>
+              <th>علاقة العميل</th>
+            </tr>
+          </thead>
           <tbody id="facilities-tbody"></tbody>
         </table>
       </div>
     </section>
 
     <section class="dash-section">
-      <div class="dash-head"><h2>الخط الزمني للعميل</h2></div>
+      <div class="dash-head">
+        <h2>الخط الزمني للعميل</h2>
+      </div>
       <div class="timeline" id="timeline-list"></div>
     </section>
+
   </div>
 
-  <section class="dash-section" id="history-panel" style="margin-top:34px">
-    <div class="dash-head"><h2>آخر الملفات التي تم تحليلها</h2></div>
-    <div class="history-mini" id="history-mini-list"></div>
-  </section>
 </div>
 
 <script src="../assets/vendor/pdfjs/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="../assets/js/iscore-parser.js"></script>
-<script src="../assets/js/history-db.js"></script>
+
 <script>
 if (typeof pdfjsLib !== "undefined") {
   pdfjsLib.GlobalWorkerOptions.workerSrc = "../assets/vendor/pdfjs/pdf.worker.min.js";
 }
 
 let codesLookup = null;
+
 async function getCodesLookup() {
   if (codesLookup) return codesLookup;
+
   try {
     const res = await fetch("../data/codes.json");
     const db = await res.json();
+
     codesLookup = new Map();
-    for (const r of db.records) codesLookup.set(IscoreParser.canon(r.code), r);
+
+    for (const r of db.records) {
+      codesLookup.set(IscoreParser.canon(r.code), r);
+    }
+
   } catch {
-    codesLookup = new Map(); // نتابع بدون ترجمة أكواد الجهات إن تعذر تحميلها
+    codesLookup = new Map();
   }
+
   return codesLookup;
 }
 
@@ -238,46 +267,105 @@ function statusColor(status) {
 const log = document.getElementById("log");
 const drop = document.getElementById("drop");
 const input = document.getElementById("file-input");
-let lastAnalysis = null; // { fileName, ...analyzeText() result }
 
-function print(msg) { log.textContent += "\n" + msg; log.scrollTop = log.scrollHeight; }
+/*
+ * IMPORTANT:
+ * lastAnalysis exists only in page memory.
+ * It is intentionally NOT stored in localStorage, sessionStorage,
+ * IndexedDB, cookies, or any other persistent browser storage.
+ *
+ * Therefore a browser refresh completely removes the current analysis.
+ */
+let lastAnalysis = null;
+
+function print(msg) {
+  log.textContent += "\n" + msg;
+  log.scrollTop = log.scrollHeight;
+}
 
 drop.addEventListener("click", () => input.click());
-drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("drag"); });
-drop.addEventListener("dragleave", () => drop.classList.remove("drag"));
-drop.addEventListener("drop", (e) => {
-  e.preventDefault(); drop.classList.remove("drag");
-  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+
+drop.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  drop.classList.add("drag");
 });
-input.addEventListener("change", () => { if (input.files[0]) handleFile(input.files[0]); });
+
+drop.addEventListener("dragleave", () => {
+  drop.classList.remove("drag");
+});
+
+drop.addEventListener("drop", (e) => {
+  e.preventDefault();
+  drop.classList.remove("drag");
+
+  if (e.dataTransfer.files[0]) {
+    handleFile(e.dataTransfer.files[0]);
+  }
+});
+
+input.addEventListener("change", () => {
+  if (input.files[0]) {
+    handleFile(input.files[0]);
+  }
+});
+
 document.getElementById("clear-btn").addEventListener("click", resetTool);
 
 function resetTool() {
   log.textContent = "في انتظار رفع ملف…";
+
   document.getElementById("results").style.display = "none";
+
   document.getElementById("diag-banner-slot").innerHTML = "";
+
   document.getElementById("export-excel-btn").disabled = true;
+
+  /*
+   * Clear only in-memory data.
+   * Nothing is persisted in the browser.
+   */
   lastAnalysis = null;
+
+  /*
+   * Clear the selected file from the file input as well.
+   */
+  input.value = "";
 }
 
 function showDiagnostics(diagnostics, detection) {
   const slot = document.getElementById("diag-banner-slot");
   const messages = [];
+
   if (!detection.recognized) {
-    messages.push("تعذر التعرف الكامل على تنسيق التقرير — سيتم عرض ما أمكن استخراجه فقط.");
+    messages.push(
+      "تعذر التعرف الكامل على تنسيق التقرير — سيتم عرض ما أمكن استخراجه فقط."
+    );
   }
+
   if (diagnostics && diagnostics.length) {
-    diagnostics.forEach((d) => messages.push(`${d.stage}: تعذر تحليل بعض بيانات الاستعلام`));
+    diagnostics.forEach((d) => {
+      messages.push(`${d.stage}: تعذر تحليل بعض بيانات الاستعلام`);
+    });
   }
-  if (!messages.length) { slot.innerHTML = ""; return; }
+
+  if (!messages.length) {
+    slot.innerHTML = "";
+    return;
+  }
+
   slot.innerHTML = `
     <div class="diag-banner">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:18px;height:18px"><path d="M12 9v4M12 17h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.7 3.86a2 2 0 0 0-3.4 0Z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:18px;height:18px">
+        <path d="M12 9v4M12 17h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.7 3.86a2 2 0 0 0-3.4 0Z"/>
+      </svg>
       <div>
         <b>تنبيه:</b> تعذر تحليل بعض بيانات الاستعلام في أجزاء من التقرير.
-        <ul>${messages.map((m) => `<li>${m}</li>`).join("")}</ul>
+        <ul>
+          ${messages.map((m) => `<li>${m}</li>`).join("")}
+        </ul>
       </div>
-    </div>`;
+    </div>
+  `;
 }
 
 function renderClientInfo(client) {
@@ -289,13 +377,19 @@ function renderClientInfo(client) {
     ["تاريخ الاستعلام", client.queryDate || "غير متاح"],
     ["التقييم الائتماني", client.score || "غير متاح"],
   ];
-  document.getElementById("client-grid").innerHTML = fields.map(([label, value]) => `
-    <div class="client-item"><div class="label">${label}</div><div class="value">${escapeHtml(String(value))}</div></div>
-  `).join("");
+
+  document.getElementById("client-grid").innerHTML =
+    fields.map(([label, value]) => `
+      <div class="client-item">
+        <div class="label">${label}</div>
+        <div class="value">${escapeHtml(String(value))}</div>
+      </div>
+    `).join("");
 }
 
 function renderCreditSummary(s) {
   const F = IscoreParser.fmtNumber;
+
   const cards = [
     ["إجمالي عدد التسهيلات", s.totalFacilities, false],
     ["التسهيلات السارية", s.activeFacilities, false],
@@ -307,300 +401,691 @@ function renderCreditSummary(s) {
     ["تسهيلات بها تأخير", s.delayedFacilitiesCount, s.delayedFacilitiesCount > 0],
     ["إجمالي المبالغ المتأخرة", F(s.totalOverdueAmount), s.totalOverdueAmount > 0],
   ];
-  document.getElementById("summary-grid").innerHTML = cards.map(([label, value, warn]) => `
-    <div class="summary-card ${warn ? "warn" : ""}"><div class="label">${label}</div><div class="value">${escapeHtml(String(value))}</div></div>
-  `).join("");
+
+  document.getElementById("summary-grid").innerHTML =
+    cards.map(([label, value, warn]) => `
+      <div class="summary-card ${warn ? "warn" : ""}">
+        <div class="label">${label}</div>
+        <div class="value">${escapeHtml(String(value))}</div>
+      </div>
+    `).join("");
 }
 
 function renderFacilities(facilities) {
-  document.getElementById("facilities-count-hint").textContent = `${facilities.length} تسهيل`;
-  document.getElementById("facilities-tbody").innerHTML = facilities.map((f) => `
-    <tr>
-      <td>${f.index}</td>
-      <td class="wrap-cell">${escapeHtml(f.name)}</td>
-      <td style="font-family:monospace">${escapeHtml(f.code)}</td>
-      <td class="wrap-cell">${escapeHtml(f.type)}</td>
-      <td><span style="color:var(--gold-500);font-weight:700">${escapeHtml(f.date)}</span></td>
-      <td>${escapeHtml(f.amount)}</td>
-      <td>${escapeHtml(f.installment)}</td>
-      <td><span class="badge-status" style="background:${statusColor(f.status)}">${escapeHtml(f.status)}</span></td>
-      <td>${escapeHtml(f.delayDays)}</td>
-      <td>${escapeHtml(f.overdueAmount)}</td>
-      <td class="wrap-cell">${escapeHtml(f.relationship)}</td>
-    </tr>`).join("") || `<tr><td colspan="11" style="padding:20px">لا توجد تسهيلات مستخرجة</td></tr>`;
+  document.getElementById("facilities-count-hint").textContent =
+    `${facilities.length} تسهيل`;
+
+  document.getElementById("facilities-tbody").innerHTML =
+    facilities.map((f) => `
+      <tr>
+        <td>${f.index}</td>
+
+        <td class="wrap-cell">
+          ${escapeHtml(f.name)}
+        </td>
+
+        <td style="font-family:monospace">
+          ${escapeHtml(f.code)}
+        </td>
+
+        <td class="wrap-cell">
+          ${escapeHtml(f.type)}
+        </td>
+
+        <td>
+          <span style="color:var(--gold-500);font-weight:700">
+            ${escapeHtml(f.date)}
+          </span>
+        </td>
+
+        <td>${escapeHtml(f.amount)}</td>
+
+        <td>${escapeHtml(f.installment)}</td>
+
+        <td>
+          <span class="badge-status" style="background:${statusColor(f.status)}">
+            ${escapeHtml(f.status)}
+          </span>
+        </td>
+
+        <td>${escapeHtml(f.delayDays)}</td>
+
+        <td>${escapeHtml(f.overdueAmount)}</td>
+
+        <td class="wrap-cell">
+          ${escapeHtml(f.relationship)}
+        </td>
+      </tr>
+    `).join("") ||
+    `
+      <tr>
+        <td colspan="11" style="padding:20px">
+          لا توجد تسهيلات مستخرجة
+        </td>
+      </tr>
+    `;
 }
 
 function renderTimeline(events, facilities) {
   const wrap = document.getElementById("timeline-list");
 
-  // نعيد بناء أحداث "منح التسهيل" مباشرة من بيانات التسهيلات المستخرجة (دون تعديل محرك التحليل)
-  // لعرض علاقة العميل بالتسهيل وحالته الفعلية بدلاً من عبارة "فتح تسهيل" العامة.
+  /*
+   * Rebuild "grant facility" events directly from extracted facilities.
+   * This does not modify the analysis engine.
+   */
   const grantEvents = (facilities || []).map((f) => {
-    // وجود سجل تسهيل واحد صالح يكفي لبناء حدث ضمن الخط الزمني، حتى لو تعذّر استخراج تاريخ منح
-    // قابل للتحويل لهذا التسهيل بالذات: نستخدم تاريخ الغلق كبديل زمني إن وُجد، وإلا نعرض الحدث في
-    // نهاية الترتيب الزمني دون تاريخ مختلق، بدلاً من إسقاطه بالكامل من الخط الزمني.
-    const d = IscoreParser.parseArabicDate(f.date) || IscoreParser.parseArabicDate(f.closeDate);
-    // نعرض معلومات التأخير فقط عندما تتوفر بيانات تأخير فعلية للتسهيل (مبلغ متأخر أكبر من صفر
-    // وعدد أيام تأخير فعلي)، بصرف النظر عن نص تصنيف التسهيل النصي
-    const overdueNum = IscoreParser.toNumber(f.overdueAmount);
-    const delayDaysNum = IscoreParser.toNumber(f.delayDays);
-    const hasDelay = overdueNum !== null && overdueNum > 0 && delayDaysNum !== null && delayDaysNum > 0;
+
+    const d =
+      IscoreParser.parseArabicDate(f.date) ||
+      IscoreParser.parseArabicDate(f.closeDate);
+
+    const overdueNum =
+      IscoreParser.toNumber(f.overdueAmount);
+
+    const delayDaysNum =
+      IscoreParser.toNumber(f.delayDays);
+
+    const hasDelay =
+      overdueNum !== null &&
+      overdueNum > 0 &&
+      delayDaysNum !== null &&
+      delayDaysNum > 0;
+
     return {
-      date: d ? d.toISOString().slice(0, 10) : "9999-99-99",
-      dateLabel: (f.date && f.date !== "غير متاح") ? f.date : ((f.closeDate && f.closeDate !== "غير متاح") ? f.closeDate : "غير متاح"),
+      date: d
+        ? d.toISOString().slice(0, 10)
+        : "9999-99-99",
+
+      dateLabel:
+        (f.date && f.date !== "غير متاح")
+          ? f.date
+          : ((f.closeDate && f.closeDate !== "غير متاح")
+              ? f.closeDate
+              : "غير متاح"),
+
       kind: "grant",
-      relationship: f.relationship && f.relationship !== "غير متاح" ? f.relationship : "العلاقة غير محددة بالتقرير",
-      institution: f.name && f.name !== "غير معروف" ? f.name : "جهة غير معروفة",
+
+      relationship:
+        f.relationship && f.relationship !== "غير متاح"
+          ? f.relationship
+          : "العلاقة غير محددة بالتقرير",
+
+      institution:
+        f.name && f.name !== "غير معروف"
+          ? f.name
+          : "جهة غير معروفة",
+
       status: f.status,
+
       facilityType: f.type,
-      amount: f.amount && f.amount !== "غير متاح" ? f.amount : null,
+
+      amount:
+        f.amount && f.amount !== "غير متاح"
+          ? f.amount
+          : null,
+
       hasDelay,
+
       delayDays: f.delayDays,
+
       overdueAmount: f.overdueAmount,
     };
+
   }).filter(Boolean);
 
-  const otherEvents = (events || []).filter((e) => e.type !== "منح تسهيل").map((e) => ({ ...e, kind: "other" }));
+  const otherEvents =
+    (events || [])
+      .filter((e) => e.type !== "منح تسهيل")
+      .map((e) => ({
+        ...e,
+        kind: "other"
+      }));
 
-  const merged = grantEvents.concat(otherEvents).sort((a, b) => a.date.localeCompare(b.date));
+  const merged =
+    grantEvents
+      .concat(otherEvents)
+      .sort((a, b) => a.date.localeCompare(b.date));
 
   if (!merged.length) {
-    wrap.innerHTML = `<div class="timeline-empty">لا تتوفر تواريخ كافية في التقرير لبناء خط زمني.</div>`;
+    wrap.innerHTML =
+      `<div class="timeline-empty">لا تتوفر تواريخ كافية في التقرير لبناء خط زمني.</div>`;
     return;
   }
 
-  wrap.innerHTML = merged.map((e) => {
-    if (e.kind === "grant") {
-      const statusCls = e.status === "ساري" ? "active" : e.status === "مغلق" ? "closed" : "other";
-      // فلترة أنواع التسهيلات غير الضرورية
-      const isGenericType = e.facilityType && (
-        e.facilityType.includes("أنشطة اقتصادية") ||
-        e.facilityType.includes("قرض شخصي") ||
-        e.facilityType.includes("نشاط اقتصادي")
-      );
-      const displayType = isGenericType ? "" : e.facilityType;
+  wrap.innerHTML =
+    merged.map((e) => {
+
+      if (e.kind === "grant") {
+
+        const statusCls =
+          e.status === "ساري"
+            ? "active"
+            : e.status === "مغلق"
+              ? "closed"
+              : "other";
+
+        const isGenericType =
+          e.facilityType &&
+          (
+            e.facilityType.includes("أنشطة اقتصادية") ||
+            e.facilityType.includes("قرض شخصي") ||
+            e.facilityType.includes("نشاط اقتصادي")
+          );
+
+        const displayType =
+          isGenericType
+            ? ""
+            : e.facilityType;
+
+        return `
+          <div class="timeline-item open">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-date">
+              ${escapeHtml(e.dateLabel)}
+            </div>
+
+            <div class="timeline-relationship">
+              ${escapeHtml(e.relationship)}
+
+              <span class="timeline-status ${statusCls}">
+                ${escapeHtml(e.status || "غير متاح")}
+              </span>
+            </div>
+
+            <div class="timeline-body">
+              <span class="timeline-institution">
+                ${escapeHtml(e.institution)}
+              </span>
+            </div>
+
+            ${
+              displayType
+                ? `<div class="timeline-detail">${escapeHtml(displayType)}</div>`
+                : ""
+            }
+
+            ${
+              e.amount
+                ? `<div class="timeline-amount">
+                    المبلغ الممنوح: ${escapeHtml(e.amount)}
+                   </div>`
+                : ""
+            }
+
+            ${
+              e.hasDelay
+                ? `
+                  <div class="timeline-delay-box">
+                    <div class="timeline-delay-title">
+                      التأخيرات
+                    </div>
+
+                    <div>
+                      قيمة التأخير:
+                      ${escapeHtml(e.overdueAmount)}
+                    </div>
+
+                    <div>
+                      عدد أيام التأخير:
+                      ${escapeHtml(e.delayDays)}
+                    </div>
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+        `;
+      }
+
+      const isDelay =
+        e.type === "تأخير سداد";
+
+      const cls =
+        e.type === "إغلاق تسهيل"
+          ? "close"
+          : e.severity === "warn"
+            ? "warn"
+            : "";
+
       return `
-      <div class="timeline-item open">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">${escapeHtml(e.dateLabel)}</div>
-        <div class="timeline-relationship">
-          ${escapeHtml(e.relationship)}
-          <span class="timeline-status ${statusCls}">${escapeHtml(e.status || "غير متاح")}</span>
+        <div class="timeline-item ${cls}">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-date">
+            ${escapeHtml(e.dateLabel)}
+          </div>
+
+          ${
+            isDelay
+              ? `
+                <div class="timeline-delay-badge">
+                  ${escapeHtml(e.title)}
+                  ${e.detail ? " — " + escapeHtml(e.detail) : ""}
+                </div>
+              `
+              : `
+                <div class="timeline-title">
+                  ${escapeHtml(e.title)}
+                </div>
+
+                ${
+                  e.detail
+                    ? `<div class="timeline-detail">
+                        ${escapeHtml(e.detail)}
+                       </div>`
+                    : ""
+                }
+              `
+          }
+
         </div>
-        <div class="timeline-body">
-          <span class="timeline-institution">${escapeHtml(e.institution)}</span>
-        </div>
-        ${displayType ? `<div class="timeline-detail">${escapeHtml(displayType)}</div>` : ""}
-        ${e.amount ? `<div class="timeline-amount">المبلغ الممنوح: ${escapeHtml(e.amount)}</div>` : ""}
-        ${e.hasDelay ? `<div class="timeline-delay-box">
-          <div class="timeline-delay-title">التأخيرات</div>
-          <div>قيمة التأخير: ${escapeHtml(e.overdueAmount)}</div>
-          <div>عدد أيام التأخير: ${escapeHtml(e.delayDays)}</div>
-        </div>` : ""}
-      </div>`;
-    }
-    const isDelay = e.type === "تأخير سداد";
-    const cls = e.type === "إغلاق تسهيل" ? "close" : e.severity === "warn" ? "warn" : "";
-    return `
-    <div class="timeline-item ${cls}">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">${escapeHtml(e.dateLabel)}</div>
-      ${isDelay
-        ? `<div class="timeline-delay-badge">${escapeHtml(e.title)}${e.detail ? " — " + escapeHtml(e.detail) : ""}</div>`
-        : `<div class="timeline-title">${escapeHtml(e.title)}</div>${e.detail ? `<div class="timeline-detail">${escapeHtml(e.detail)}</div>` : ""}`}
-    </div>`;
-  }).join("");
+      `;
+
+    }).join("");
 }
 
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  return String(str).replace(
+    /[&<>"']/g,
+    (c) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[c])
+  );
 }
 
 function renderAll(analysis) {
   renderClientInfo(analysis.client);
+
   renderCreditSummary(analysis.creditSummary);
+
   renderFacilities(analysis.facilities);
-  renderTimeline(analysis.timeline, analysis.facilities);
-  showDiagnostics(analysis.diagnostics, analysis.detection);
+
+  renderTimeline(
+    analysis.timeline,
+    analysis.facilities
+  );
+
+  showDiagnostics(
+    analysis.diagnostics,
+    analysis.detection
+  );
+
   document.getElementById("results").style.display = "block";
+
   document.getElementById("export-excel-btn").disabled = false;
 }
 
 async function handleFile(file) {
+
   resetTool();
-  log.textContent = `جارٍ قراءة الملف: ${file.name}`;
+
+  log.textContent =
+    `جارٍ قراءة الملف: ${file.name}`;
+
   try {
-    const lookup = await getCodesLookup();
-    const buf = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+
+    const lookup =
+      await getCodesLookup();
+
+    const buf =
+      await file.arrayBuffer();
+
+    const pdf =
+      await pdfjsLib
+        .getDocument({ data: buf })
+        .promise;
+
     let fullText = "";
+
     for (let i = 1; i <= pdf.numPages; i++) {
+
       try {
-        const page = await pdf.getPage(i);
-        const content = await page.getTextContent();
-        // نزيل ترويسة/تذييل الصفحة المتكررين (رقم التقرير، ترقيم الصفحات) قبل الدمج حتى تُقرأ
-        // السجلات الممتدة عبر فاصل صفحتين كنص متصل دون مقاطع دخيلة تكسر الحقول.
-        let pageText = content.items.map((it) => it.str).join(" ");
-        pageText = pageText
-          .replace(/Report Number\s*:\s*\S+/gi, " ")
-          .replace(/Page\s*\d+\s*of\s*\d+/gi, " ")
-          .replace(/رقم التقرير[^A-Za-z0-9]*[-A-Za-z0-9/]+/g, " ");
-        fullText += pageText + "\n";
+
+        const page =
+          await pdf.getPage(i);
+
+        const content =
+          await page.getTextContent();
+
+        /*
+         * Remove repeated page headers/footers before combining text.
+         */
+        let pageText =
+          content.items
+            .map((it) => it.str)
+            .join(" ");
+
+        pageText =
+          pageText
+            .replace(
+              /Report Number\s*:\s*\S+/gi,
+              " "
+            )
+            .replace(
+              /Page\s*\d+\s*of\s*\d+/gi,
+              " "
+            )
+            .replace(
+              /رقم التقرير[^A-Za-z0-9]*[-A-Za-z0-9/]+/g,
+              " "
+            );
+
+        fullText +=
+          pageText + "\n";
+
       } catch (pageErr) {
-        print(`تعذرت قراءة الصفحة ${i}: ${pageErr.message}`);
+
+        print(
+          `تعذرت قراءة الصفحة ${i}: ${pageErr.message}`
+        );
+
       }
     }
 
-    const analysis = await IscoreParser.analyzeText(fullText, lookup);
-    lastAnalysis = Object.assign({ fileName: file.name }, analysis);
+    const analysis =
+      await IscoreParser.analyzeText(
+        fullText,
+        lookup
+      );
 
-    print(`تنسيق التقرير المكتشف: ${analysis.detection.format === "unknown" ? "غير معروف" : analysis.detection.format}`);
-    print(`تم العثور على ${analysis.facilities.length} تسهيل/تسهيلات.`);
-    if (analysis.diagnostics.length) print(`تنبيهات أثناء الاستخراج: ${analysis.diagnostics.length}`);
+    /*
+     * IMPORTANT:
+     * Store analysis ONLY in JavaScript memory.
+     *
+     * No localStorage.
+     * No sessionStorage.
+     * No IndexedDB.
+     * No history database.
+     *
+     * Refreshing the page therefore removes it completely.
+     */
+    lastAnalysis =
+      Object.assign(
+        {
+          fileName: file.name
+        },
+        analysis
+      );
 
-    if (analysis.facilities.length === 0 && !analysis.detection.recognized) {
-      print("تعذر تحليل بعض بيانات الاستعلام: لم يتم التعرف على تنسيق الملف. جرّب مراجعته يدويًا.");
+    print(
+      `تنسيق التقرير المكتشف: ${
+        analysis.detection.format === "unknown"
+          ? "غير معروف"
+          : analysis.detection.format
+      }`
+    );
+
+    print(
+      `تم العثور على ${analysis.facilities.length} تسهيل/تسهيلات.`
+    );
+
+    if (analysis.diagnostics.length) {
+      print(
+        `تنبيهات أثناء الاستخراج: ${analysis.diagnostics.length}`
+      );
+    }
+
+    if (
+      analysis.facilities.length === 0 &&
+      !analysis.detection.recognized
+    ) {
+
+      print(
+        "تعذر تحليل بعض بيانات الاستعلام: لم يتم التعرف على تنسيق الملف. جرّب مراجعته يدويًا."
+      );
+
     }
 
     renderAll(analysis);
 
-    // حفظ في السجل المحلي (بدون تخزين ملف الـ PDF نفسه)
-    try {
-      await IscoreHistoryDB.addRecord({
-        fileName: file.name,
-        status: analysis.facilities.length ? (analysis.diagnostics.length ? "partial" : "ok") : "error",
-        client: analysis.client,
-        creditSummary: analysis.creditSummary,
-        facilities: analysis.facilities,
-        timeline: analysis.timeline,
-        diagnostics: analysis.diagnostics,
-        detectedFormat: analysis.detection.format,
-      });
-      print("تم حفظ نتائج التحليل محليًا في سجل هذا الجهاز.");
-    } catch (histErr) {
-      print("تعذر الحفظ في السجل المحلي: " + histErr.message);
-    }
-    await renderHistoryPanel();
   } catch (err) {
-    print("تعذر تحليل بعض بيانات الاستعلام: " + err.message);
+
+    print(
+      "تعذر تحليل بعض بيانات الاستعلام: " +
+      err.message
+    );
+
   }
 }
+
 
 /* ===================== تصدير Excel ===================== */
-document.getElementById("export-excel-btn").addEventListener("click", () => {
-  if (!lastAnalysis || typeof XLSX === "undefined") return;
-  try {
-    const wb = XLSX.utils.book_new();
 
-    const c = lastAnalysis.client, s = lastAnalysis.creditSummary;
-    const F = IscoreParser.fmtNumber;
-    const summarySheetData = [
-      ["ملخص الاستعلام"],
-      [],
-      ["اسم العميل", c.name || "غير متاح"],
-      ["الرقم القومي", c.nationalId || "غير متاح"],
-      ["تاريخ الميلاد", c.dob || "غير متاح"],
-      ["الأشغال", c.occupation || "غير متاح"],
-      ["تاريخ الاستعلام", c.queryDate || "غير متاح"],
-      ["التقييم الائتماني", c.score || "غير متاح"],
-      [],
-      ["إجمالي عدد التسهيلات", s.totalFacilities],
-      ["التسهيلات السارية", s.activeFacilities],
-      ["التسهيلات المغلقة", s.closedFacilities],
-      ["عدد الجهات المانحة", s.institutionsCount],
-      ["إجمالي المبالغ الممنوحة", F(s.totalCreditAmount)],
-      ["إجمالي الأرصدة المستحقة", F(s.totalOutstandingBalance)],
-      ["إجمالي الأقساط الشهرية", F(s.totalInstallments)],
-      ["تسهيلات بها تأخير", s.delayedFacilitiesCount],
-      ["إجمالي المبالغ المتأخرة", F(s.totalOverdueAmount)],
-      ["عدد الشيكات المرتدة", s.bouncedChecksCount !== null ? s.bouncedChecksCount : "غير متاح"],
-    ];
-    const ws1 = XLSX.utils.aoa_to_sheet(summarySheetData);
-    ws1["!cols"] = [{ wch: 28 }, { wch: 28 }];
-    XLSX.utils.book_append_sheet(wb, ws1, "ملخص الاستعلام");
+document
+  .getElementById("export-excel-btn")
+  .addEventListener("click", () => {
 
-    const facHeader = ["#", "الجهة", "كود الجهة", "نوع التسهيل", "تاريخ المنح", "المبلغ الممنوح", "الرصيد المستحق", "القسط", "الحالة", "أيام التأخير", "المبلغ المتأخر", "علاقة العميل"];
-    const facRows = lastAnalysis.facilities.map((f) => [
-      f.index, f.name, f.code, f.type, f.date, f.amount, f.outstandingBalance, f.installment, f.status, f.delayDays, f.overdueAmount, f.relationship,
-    ]);
-    const ws2 = XLSX.utils.aoa_to_sheet([facHeader, ...facRows]);
-    ws2["!cols"] = facHeader.map(() => ({ wch: 16 }));
-    XLSX.utils.book_append_sheet(wb, ws2, "التسهيلات");
-
-    const timelineHeader = ["التاريخ", "نوع الحدث", "الوصف", "تفاصيل"];
-    const timelineRows = lastAnalysis.timeline.map((e) => [e.dateLabel, e.type, e.title, e.detail || ""]);
-    const ws3 = XLSX.utils.aoa_to_sheet([timelineHeader, ...timelineRows]);
-    ws3["!cols"] = [{ wch: 16 }, { wch: 16 }, { wch: 40 }, { wch: 40 }];
-    XLSX.utils.book_append_sheet(wb, ws3, "الخط الزمني");
-
-    const safeName = (lastAnalysis.fileName || "تقرير").replace(/\.[^.]+$/, "");
-    XLSX.writeFile(wb, `تحليل-${safeName}.xlsx`);
-  } catch (err) {
-    print("تعذر تصدير ملف Excel: " + err.message);
-  }
-});
-
-/* ===================== سجل آخر الملفات (داخل صفحة الأداة) ===================== */
-async function renderHistoryPanel() {
-  const wrap = document.getElementById("history-mini-list");
-  try {
-    const items = await IscoreHistoryDB.getAll(8);
-    if (!items.length) {
-      wrap.innerHTML = `<span style="font-size:12.5px;color:var(--text-3)">لا توجد ملفات محللة سابقًا على هذا الجهاز</span>`;
+    /*
+     * Excel export works only from the current in-memory analysis.
+     */
+    if (
+      !lastAnalysis ||
+      typeof XLSX === "undefined"
+    ) {
       return;
     }
-    wrap.innerHTML = items.map((it) => `
-      <div class="history-mini-item" data-id="${escapeHtml(it.id)}">
-        <div>
-          <div>${escapeHtml(it.clientName || it.fileName)}</div>
-          <div class="meta">${escapeHtml(it.fileName)} · ${it.facilitiesCount} تسهيل · ${new Date(it.analyzedAt).toLocaleString("ar-EG-u-nu-latn")}</div>
-        </div>
-        <span class="badge-status" style="background:${it.status === "ok" ? "#1e8f5f" : it.status === "partial" ? "#c07a12" : "#b23b3b"}">
-          ${it.status === "ok" ? "مكتمل" : it.status === "partial" ? "جزئي" : "خطأ"}
-        </span>
-      </div>`).join("");
-    wrap.querySelectorAll(".history-mini-item").forEach((el) => {
-      el.addEventListener("click", () => openFromHistory(el.dataset.id));
-    });
-  } catch (err) {
-    wrap.innerHTML = `<span style="font-size:12.5px;color:var(--text-3)">تعذر تحميل السجل المحلي</span>`;
-  }
+
+    try {
+
+      const wb =
+        XLSX.utils.book_new();
+
+      const c =
+        lastAnalysis.client;
+
+      const s =
+        lastAnalysis.creditSummary;
+
+      const F =
+        IscoreParser.fmtNumber;
+
+      const summarySheetData = [
+
+        ["ملخص الاستعلام"],
+
+        [],
+
+        ["اسم العميل", c.name || "غير متاح"],
+
+        ["الرقم القومي", c.nationalId || "غير متاح"],
+
+        ["تاريخ الميلاد", c.dob || "غير متاح"],
+
+        ["الأشغال", c.occupation || "غير متاح"],
+
+        ["تاريخ الاستعلام", c.queryDate || "غير متاح"],
+
+        ["التقييم الائتماني", c.score || "غير متاح"],
+
+        [],
+
+        ["إجمالي عدد التسهيلات", s.totalFacilities],
+
+        ["التسهيلات السارية", s.activeFacilities],
+
+        ["التسهيلات المغلقة", s.closedFacilities],
+
+        ["عدد الجهات المانحة", s.institutionsCount],
+
+        ["إجمالي المبالغ الممنوحة", F(s.totalCreditAmount)],
+
+        ["إجمالي الأرصدة المستحقة", F(s.totalOutstandingBalance)],
+
+        ["إجمالي الأقساط الشهرية", F(s.totalInstallments)],
+
+        ["تسهيلات بها تأخير", s.delayedFacilitiesCount],
+
+        ["إجمالي المبالغ المتأخرة", F(s.totalOverdueAmount)],
+
+        [
+          "عدد الشيكات المرتدة",
+          s.bouncedChecksCount !== null
+            ? s.bouncedChecksCount
+            : "غير متاح"
+        ],
+
+      ];
+
+      const ws1 =
+        XLSX.utils.aoa_to_sheet(
+          summarySheetData
+        );
+
+      ws1["!cols"] = [
+        { wch: 28 },
+        { wch: 28 }
+      ];
+
+      XLSX.utils.book_append_sheet(
+        wb,
+        ws1,
+        "ملخص الاستعلام"
+      );
+
+
+      const facHeader = [
+        "#",
+        "الجهة",
+        "كود الجهة",
+        "نوع التسهيل",
+        "تاريخ المنح",
+        "المبلغ الممنوح",
+        "الرصيد المستحق",
+        "القسط",
+        "الحالة",
+        "أيام التأخير",
+        "المبلغ المتأخر",
+        "علاقة العميل"
+      ];
+
+      const facRows =
+        lastAnalysis.facilities.map((f) => [
+          f.index,
+          f.name,
+          f.code,
+          f.type,
+          f.date,
+          f.amount,
+          f.outstandingBalance,
+          f.installment,
+          f.status,
+          f.delayDays,
+          f.overdueAmount,
+          f.relationship
+        ]);
+
+      const ws2 =
+        XLSX.utils.aoa_to_sheet([
+          facHeader,
+          ...facRows
+        ]);
+
+      ws2["!cols"] =
+        facHeader.map(() => ({
+          wch: 16
+        }));
+
+      XLSX.utils.book_append_sheet(
+        wb,
+        ws2,
+        "التسهيلات"
+      );
+
+
+      const timelineHeader = [
+        "التاريخ",
+        "نوع الحدث",
+        "الوصف",
+        "تفاصيل"
+      ];
+
+      const timelineRows =
+        lastAnalysis.timeline.map((e) => [
+          e.dateLabel,
+          e.type,
+          e.title,
+          e.detail || ""
+        ]);
+
+      const ws3 =
+        XLSX.utils.aoa_to_sheet([
+          timelineHeader,
+          ...timelineRows
+        ]);
+
+      ws3["!cols"] = [
+        { wch: 16 },
+        { wch: 16 },
+        { wch: 40 },
+        { wch: 40 }
+      ];
+
+      XLSX.utils.book_append_sheet(
+        wb,
+        ws3,
+        "الخط الزمني"
+      );
+
+
+      const safeName =
+        (
+          lastAnalysis.fileName ||
+          "تقرير"
+        ).replace(
+          /\.[^.]+$/,
+          ""
+        );
+
+      XLSX.writeFile(
+        wb,
+        `تحليل-${safeName}.xlsx`
+      );
+
+    } catch (err) {
+
+      print(
+        "تعذر تصدير ملف Excel: " +
+        err.message
+      );
+
+    }
+
+  });
+
+
+/*
+ * IMPORTANT PRIVACY DESIGN:
+ *
+ * There is intentionally NO:
+ *
+ * - localStorage
+ * - sessionStorage
+ * - IndexedDB
+ * - cookies
+ * - IscoreHistoryDB
+ * - history-db.js
+ * - ?id=...
+ * - history restoration
+ *
+ * The current report exists only in JavaScript memory.
+ * A browser refresh destroys the data.
+ */
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("../service-worker.js")
+    .catch(() => {});
 }
 
-async function openFromHistory(id) {
-  try {
-    const rec = await IscoreHistoryDB.getById(id);
-    if (!rec) { print("تعذر العثور على هذا السجل."); return; }
-    resetTool();
-    log.textContent = `عرض نتائج محفوظة: ${rec.fileName}`;
-    const analysis = {
-      fileName: rec.fileName,
-      client: rec.client || {},
-      creditSummary: rec.creditSummary || {},
-      facilities: rec.facilities || [],
-      timeline: rec.timeline || [],
-      diagnostics: rec.diagnostics || [],
-      detection: { format: rec.detectedFormat || "unknown", recognized: !!rec.detectedFormat },
-    };
-    lastAnalysis = analysis;
-    renderAll(analysis);
-    window.scrollTo({ top: document.getElementById("results").offsetTop - 20, behavior: "smooth" });
-  } catch (err) {
-    print("تعذر فتح السجل المحفوظ: " + err.message);
-  }
-}
-
-/* ===================== تحميل مباشر من الرابط ?id=... ===================== */
-(async function initFromQuery() {
-  await renderHistoryPanel();
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
-  if (id) await openFromHistory(id);
-
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../service-worker.js").catch(() => {});
-  }
-})();
 </script>
+
 </body>
 </html>
