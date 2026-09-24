@@ -850,6 +850,16 @@
       "lastSeen": "2026-09-24T11:06:14.982Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mahmoudabogarara@gmail.com",
+      "deviceId": "108e91fc-b3de-4b3c-bd55-d60e0aced810",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T11:08:06.492Z",
+      "lastSeen": "2026-09-24T11:08:06.492Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
