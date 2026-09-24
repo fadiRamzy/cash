@@ -970,6 +970,16 @@
       "lastSeen": "2026-09-24T16:22:47.896Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "sherifshabaan70@gmaol.com",
+      "deviceId": "69aabc48-8a96-41fd-883f-329f5a72b32c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T17:52:20.011Z",
+      "lastSeen": "2026-09-24T17:52:20.011Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
