@@ -770,6 +770,16 @@
       "lastSeen": "2026-09-24T08:43:50.291Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مخاطر",
+      "deviceId": "fc078265-1835-48d8-8899-a500265e5f4f",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-09-24T08:44:46.629Z",
+      "lastSeen": "2026-09-24T08:44:46.629Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
