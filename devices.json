@@ -680,6 +680,16 @@
       "lastSeen": "2026-09-23T18:45:01.219Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تسجيل الدخول",
+      "deviceId": "8f8e1c3c-d2cd-40cb-98d6-bb903e04e026",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-24T06:39:00.235Z",
+      "lastSeen": "2026-09-24T06:39:00.235Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
