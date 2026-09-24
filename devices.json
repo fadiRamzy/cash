@@ -690,6 +690,16 @@
       "lastSeen": "2026-09-24T06:46:46.684Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "wael",
+      "deviceId": "e66b72a4-3e91-4ed0-81f8-944abda23e34",
+      "deviceType": "Mobile",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-24T07:17:24.246Z",
+      "lastSeen": "2026-09-24T07:17:24.246Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
