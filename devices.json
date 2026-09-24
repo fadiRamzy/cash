@@ -720,6 +720,16 @@
       "lastSeen": "2026-09-24T08:04:23.609Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "محمد صبحي",
+      "deviceId": "3b0d4276-fe08-4b62-8c35-2fd683ca6b40",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T08:08:22.038Z",
+      "lastSeen": "2026-09-24T08:08:22.038Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
