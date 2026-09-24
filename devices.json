@@ -860,6 +860,16 @@
       "lastSeen": "2026-09-24T11:12:28.020Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mahmoud.fouad@cash-eg.org",
+      "deviceId": "108e91fc-b3de-4b3c-bd55-d60e0aced810",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T11:22:01.165Z",
+      "lastSeen": "2026-09-24T11:22:01.165Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
