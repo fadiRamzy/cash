@@ -940,6 +940,16 @@
       "lastSeen": "2026-09-24T13:33:10.111Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كيرلس",
+      "deviceId": "678f2016-9403-40b2-9eb1-d12a89b3e3c6",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-24T13:46:25.579Z",
+      "lastSeen": "2026-09-24T13:46:25.579Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
