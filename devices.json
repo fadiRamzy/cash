@@ -800,6 +800,16 @@
       "lastSeen": "2026-09-24T08:47:34.953Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "alhassanelsayd@gmail.com",
+      "deviceId": "7f40042f-5976-4b07-a11a-855b25cb8622",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T08:58:24.315Z",
+      "lastSeen": "2026-09-24T08:58:24.315Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
