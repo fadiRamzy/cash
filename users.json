@@ -326,5 +326,9 @@
   "hesham": {
     "status": "blocked",
     "createdAt": "2026-09-24T08:41:37.680Z"
+  },
+  "mohamed.reyad@cash.egy.com": {
+    "status": "allowed",
+    "createdAt": "2026-09-24T08:42:28.293Z"
   }
 }
