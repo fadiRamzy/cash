@@ -780,6 +780,16 @@
       "lastSeen": "2026-09-24T08:44:46.629Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Chas",
+      "deviceId": "fc078265-1835-48d8-8899-a500265e5f4f",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-09-24T08:45:54.826Z",
+      "lastSeen": "2026-09-24T08:45:54.826Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
