@@ -910,6 +910,16 @@
       "lastSeen": "2026-09-24T12:50:49.736Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abanoub.nashed6112@gmail.com",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T12:52:38.729Z",
+      "lastSeen": "2026-09-24T12:52:38.729Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
