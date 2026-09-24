@@ -810,6 +810,16 @@
       "lastSeen": "2026-09-24T08:58:24.315Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "احمد عرفه",
+      "deviceId": "198c2336-49e8-4be4-a94b-bc8776634fcc",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T09:54:55.915Z",
+      "lastSeen": "2026-09-24T09:54:55.915Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
