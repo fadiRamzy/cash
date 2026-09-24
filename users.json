@@ -330,5 +330,9 @@
   "mohamed.reyad@cash.egy.com": {
     "status": "allowed",
     "createdAt": "2026-09-24T08:42:28.293Z"
+  },
+  "Chas": {
+    "status": "blocked",
+    "createdAt": "2026-09-24T09:40:38.144Z"
   }
 }
