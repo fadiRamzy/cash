@@ -790,6 +790,16 @@
       "lastSeen": "2026-09-24T08:45:54.826Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kamil.elwazir",
+      "deviceId": "e3e966c9-ac8d-4f5f-97b3-340ff8745bcb",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T08:47:34.953Z",
+      "lastSeen": "2026-09-24T08:47:34.953Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
