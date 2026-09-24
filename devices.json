@@ -760,6 +760,16 @@
       "lastSeen": "2026-09-24T08:22:02.385Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abdelfatah.elsisi",
+      "deviceId": "d42ac79b-2478-47c1-868c-923bba9093d3",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T08:43:50.291Z",
+      "lastSeen": "2026-09-24T08:43:50.291Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
