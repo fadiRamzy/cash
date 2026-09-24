@@ -890,6 +890,16 @@
       "lastSeen": "2026-09-24T12:15:31.640Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "emad",
+      "deviceId": "2560b27a-8a3c-4ee7-949d-7bb235e611d0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T12:20:23.110Z",
+      "lastSeen": "2026-09-24T12:20:23.110Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
