@@ -830,6 +830,16 @@
       "lastSeen": "2026-09-24T09:58:31.656Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmedarafa",
+      "deviceId": "198c2336-49e8-4be4-a94b-bc8776634fcc",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T10:00:04.056Z",
+      "lastSeen": "2026-09-24T10:00:04.056Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
