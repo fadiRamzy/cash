@@ -32,16 +32,6 @@
       "enabled": true
     },
     {
-      "username": "fady.adel@cach.org.eg",
-      "deviceId": "a3f793bd-b90b-4a66-93da-0c2b53bf86df",
-      "deviceType": "Laptop-Desktop",
-      "browser": "Firefox",
-      "firstSeen": "2026-09-22T12:10:35.030Z",
-      "lastSeen": "2026-09-22T12:10:35.030Z",
-      "status": "enabled",
-      "enabled": true
-    },
-    {
       "username": "maher.fawzy@cash-eg.org",
       "deviceId": "fec91e1a-119c-486f-8b1b-19b2fec207b1",
       "deviceType": "Mobile",
