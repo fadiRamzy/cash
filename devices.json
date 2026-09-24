@@ -860,6 +860,16 @@
       "lastSeen": "2026-09-24T11:08:06.492Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mahmoud.fouad@cash",
+      "deviceId": "6383db3a-46c0-4ab8-9a89-9cc8e7203c87",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-09-24T11:12:28.020Z",
+      "lastSeen": "2026-09-24T11:12:28.020Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
