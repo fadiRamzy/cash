@@ -842,16 +842,6 @@
       "enabled": true
     },
     {
-      "username": "mahmoud.fouad@cash-eg.org",
-      "deviceId": "108e91fc-b3de-4b3c-bd55-d60e0aced810",
-      "deviceType": "Mobile",
-      "browser": "Chrome",
-      "firstSeen": "2026-09-24T11:06:14.982Z",
-      "lastSeen": "2026-09-24T11:09:21.297Z",
-      "status": "enabled",
-      "enabled": true
-    },
-    {
       "username": "mahmoudabogarara@gmail.com",
       "deviceId": "108e91fc-b3de-4b3c-bd55-d60e0aced810",
       "deviceType": "Mobile",
