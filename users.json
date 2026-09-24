@@ -294,5 +294,9 @@
   "تسجيل الدخول": {
     "status": "blocked",
     "createdAt": "2026-09-24T06:39:11.423Z"
+  },
+  "fady.adel@cach.org.eg": {
+    "status": "allowed",
+    "createdAt": "2026-09-24T06:40:19.470Z"
   }
 }
