@@ -930,6 +930,16 @@
       "lastSeen": "2026-09-24T13:00:59.105Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gerges george",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T13:33:10.111Z",
+      "lastSeen": "2026-09-24T13:33:10.111Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
