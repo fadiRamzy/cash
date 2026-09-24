@@ -740,6 +740,16 @@
       "lastSeen": "2026-09-24T08:10:57.695Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohamed.reyad@cash.egy.com",
+      "deviceId": "3b0d4276-fe08-4b62-8c35-2fd683ca6b40",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T08:21:23.799Z",
+      "lastSeen": "2026-09-24T08:21:23.799Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
