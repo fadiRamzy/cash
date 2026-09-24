@@ -870,6 +870,16 @@
       "lastSeen": "2026-09-24T11:22:01.165Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohamed.elkhateeb@outlook.sa",
+      "deviceId": "2e4b0a4d-f156-418a-869a-286ac634776d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T12:13:24.351Z",
+      "lastSeen": "2026-09-24T12:13:24.351Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
