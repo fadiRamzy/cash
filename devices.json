@@ -700,6 +700,16 @@
       "lastSeen": "2026-09-24T07:17:24.246Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "moksha.elkhateeb@gmail.com",
+      "deviceId": "2e4b0a4d-f156-418a-869a-286ac634776d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T07:40:52.759Z",
+      "lastSeen": "2026-09-24T07:40:52.759Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
