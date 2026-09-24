@@ -880,6 +880,16 @@
       "lastSeen": "2026-09-24T12:13:24.351Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "waelrade386@gmail.com",
+      "deviceId": "c22b8dd5-4058-497e-a79b-96cdec8f170d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T12:15:31.640Z",
+      "lastSeen": "2026-09-24T12:15:31.640Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
