@@ -960,6 +960,16 @@
       "lastSeen": "2026-09-24T13:47:49.173Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "وائل",
+      "deviceId": "0ceb8d84-66dd-4900-97cb-e5f1ce298bc6",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-24T16:22:47.896Z",
+      "lastSeen": "2026-09-24T16:22:47.896Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
