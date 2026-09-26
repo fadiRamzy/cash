@@ -980,6 +980,16 @@
       "lastSeen": "2026-09-24T17:52:20.011Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gmalaref3@gmail.com",
+      "deviceId": "9d754871-a4fc-4080-8978-693ad980a4b7",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-26T16:17:17.683Z",
+      "lastSeen": "2026-09-26T16:17:17.683Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
