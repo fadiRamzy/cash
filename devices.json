@@ -1000,6 +1000,16 @@
       "lastSeen": "2026-09-27T07:27:48.410Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "waek",
+      "deviceId": "1fa60eb8-7ae3-47c6-b697-7c3411e216fc",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-27T09:41:04.758Z",
+      "lastSeen": "2026-09-27T09:41:04.758Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
