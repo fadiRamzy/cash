@@ -1040,6 +1040,16 @@
       "lastSeen": "2026-09-27T10:54:44.767Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "se280586@gmail.com",
+      "deviceId": "a6e7a935-1108-4bcd-8851-cb8eb48d7229",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-27T11:48:32.229Z",
+      "lastSeen": "2026-09-27T11:48:32.229Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
