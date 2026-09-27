@@ -1080,6 +1080,16 @@
       "lastSeen": "2026-09-27T13:42:58.360Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "waaaert",
+      "deviceId": "18585f89-40ac-4b55-869d-fe6f17570c06",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-27T13:49:29.928Z",
+      "lastSeen": "2026-09-27T13:49:29.928Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
