@@ -1200,6 +1200,16 @@
       "lastSeen": "2026-09-28T12:42:13.370Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohammed.mahmoud@cash",
+      "deviceId": "d7953bcd-e665-4a7b-a6c5-d6d46c3b2f6d",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-09-28T12:45:46.332Z",
+      "lastSeen": "2026-09-28T12:45:46.332Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
