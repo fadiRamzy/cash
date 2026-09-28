@@ -992,16 +992,6 @@
       "enabled": true
     },
     {
-      "username": "fady.adel@cach.org.eg",
-      "deviceId": "c02a9b1b-e102-45a1-8965-295302e6cdcb",
-      "deviceType": "Laptop-Desktop",
-      "browser": "Firefox",
-      "firstSeen": "2026-09-27T07:27:48.410Z",
-      "lastSeen": "2026-09-27T07:27:48.410Z",
-      "status": "enabled",
-      "enabled": true
-    },
-    {
       "username": "waek",
       "deviceId": "1fa60eb8-7ae3-47c6-b697-7c3411e216fc",
       "deviceType": "Mobile",
