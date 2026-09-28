@@ -1160,6 +1160,16 @@
       "lastSeen": "2026-09-28T10:41:45.656Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mohammed.mahmoud@cash.org",
+      "deviceId": "d7953bcd-e665-4a7b-a6c5-d6d46c3b2f6d",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-09-28T11:36:39.988Z",
+      "lastSeen": "2026-09-28T11:36:39.988Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
