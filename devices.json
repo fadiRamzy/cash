@@ -1340,6 +1340,16 @@
       "lastSeen": "2026-09-29T14:06:21.845Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mena.magdy@cash-eg.org",
+      "deviceId": "d4ff8d7c-90eb-474d-93db-1fdd96902c86",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-09-29T15:20:15.208Z",
+      "lastSeen": "2026-09-29T15:20:15.208Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
