@@ -1310,6 +1310,16 @@
       "lastSeen": "2026-09-29T11:39:14.287Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جرجس جورج فؤاد ك",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-29T11:40:27.329Z",
+      "lastSeen": "2026-09-29T11:40:27.329Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
