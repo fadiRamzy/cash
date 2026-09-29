@@ -542,5 +542,9 @@
   "كيرو": {
     "status": "blocked",
     "createdAt": "2026-09-29T11:04:33.579Z"
+  },
+  "ahmed.arafa@cash-eg.org": {
+    "status": "allowed",
+    "createdAt": "2026-09-29T11:04:59.930Z"
   }
 }
