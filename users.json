@@ -534,5 +534,9 @@
   "Mohamed. Mahmoud@cash.org": {
     "status": "allowed",
     "createdAt": "2026-09-29T11:04:19.392Z"
+  },
+  "mena.magdy@cash.eg.org": {
+    "status": "blocked",
+    "createdAt": "2026-09-29T11:04:31.695Z"
   }
 }
