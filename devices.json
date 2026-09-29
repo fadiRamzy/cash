@@ -1290,6 +1290,16 @@
       "lastSeen": "2026-09-29T08:48:13.255Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ابانوب ناشد",
+      "deviceId": "6565c8f4-6df4-4d1f-aa0d-dfe628edb10c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-29T08:59:23.731Z",
+      "lastSeen": "2026-09-29T08:59:23.731Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
