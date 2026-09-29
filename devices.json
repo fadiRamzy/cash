@@ -1300,6 +1300,16 @@
       "lastSeen": "2026-09-29T08:59:23.731Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اةب",
+      "deviceId": "900f1320-b010-4295-ad56-473582ad487c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-29T09:19:18.303Z",
+      "lastSeen": "2026-09-29T09:19:18.303Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
