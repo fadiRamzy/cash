@@ -1272,16 +1272,6 @@
       "enabled": true
     },
     {
-      "username": "mena.magdy@cash.eg.org",
-      "deviceId": "36541817-420c-4de3-b34d-49b56b7b8316",
-      "deviceType": "Laptop-Desktop",
-      "browser": "Firefox",
-      "firstSeen": "2026-09-29T08:44:32.319Z",
-      "lastSeen": "2026-09-29T08:44:32.319Z",
-      "status": "enabled",
-      "enabled": true
-    },
-    {
       "username": "Mohamed. Mahmoud@cash.org",
       "deviceId": "e4ec7391-f983-49b1-91ca-172e1781f654",
       "deviceType": "Mobile",
