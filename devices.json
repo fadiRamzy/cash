@@ -1230,6 +1230,16 @@
       "lastSeen": "2026-09-28T13:55:48.762Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ابراهيم سمير ابراهيم",
+      "deviceId": "f278820d-7c02-4431-950f-748f2d82a35c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-29T07:51:33.129Z",
+      "lastSeen": "2026-09-29T07:51:33.129Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
