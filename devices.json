@@ -1300,6 +1300,16 @@
       "lastSeen": "2026-09-29T09:25:30.055Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gerges g",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-09-29T11:39:14.287Z",
+      "lastSeen": "2026-09-29T11:39:14.287Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
