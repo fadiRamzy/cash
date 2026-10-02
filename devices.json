@@ -1410,6 +1410,16 @@
       "lastSeen": "2026-09-30T10:49:19.075Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmed.abdelnasser@cash-eg.org",
+      "deviceId": "b10a2da8-f97b-4f1b-b228-14449f4cfe76",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-02T21:14:02.060Z",
+      "lastSeen": "2026-10-02T21:14:02.060Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
