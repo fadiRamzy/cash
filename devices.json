@@ -1440,6 +1440,16 @@
       "lastSeen": "2026-10-05T09:36:35.850Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "وائل كفوري",
+      "deviceId": "0448aa92-6a35-4f40-8363-77fffd246d2b",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-05T10:54:27.466Z",
+      "lastSeen": "2026-10-05T10:54:27.466Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
