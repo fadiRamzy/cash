@@ -1430,6 +1430,16 @@
       "lastSeen": "2026-10-04T10:55:13.133Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "وائل راضي",
+      "deviceId": "f8168d3d-ae61-4531-85ae-58da435f7e38",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-05T09:36:35.850Z",
+      "lastSeen": "2026-10-05T09:36:35.850Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
