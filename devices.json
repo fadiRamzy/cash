@@ -1500,6 +1500,16 @@
       "lastSeen": "2026-10-06T12:47:33.676Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "FAHD MOHAMMED",
+      "deviceId": "0d2ae60e-96df-434f-8946-3f8535774775",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-06T12:54:27.727Z",
+      "lastSeen": "2026-10-06T12:54:27.727Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
