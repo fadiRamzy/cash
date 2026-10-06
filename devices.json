@@ -1530,6 +1530,16 @@
       "lastSeen": "2026-10-06T14:48:46.500Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "elhassan.elsayed@cash-eg.org",
+      "deviceId": "85e3dab2-dcf8-4fe2-ba3d-f91e39933cd2",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-06T15:41:52.497Z",
+      "lastSeen": "2026-10-06T15:41:52.497Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
