@@ -1520,6 +1520,16 @@
       "lastSeen": "2026-10-06T13:06:27.794Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mina.hanin@cash-eg.org",
+      "deviceId": "27e5bcea-c841-463d-a8f3-0f4f030efd5d",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-10-06T14:48:46.500Z",
+      "lastSeen": "2026-10-06T14:48:46.500Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
