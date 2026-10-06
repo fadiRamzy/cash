@@ -1470,6 +1470,16 @@
       "lastSeen": "2026-10-06T10:42:20.419Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "hassanrehab2021@gmail.com",
+      "deviceId": "5b115a2b-0175-4d12-9d46-d229fe366d76",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-06T10:46:07.879Z",
+      "lastSeen": "2026-10-06T10:46:07.879Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
