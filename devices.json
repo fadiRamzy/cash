@@ -1490,6 +1490,16 @@
       "lastSeen": "2026-10-06T12:09:01.998Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abdelrahmann",
+      "deviceId": "a1500d90-71f8-4d22-9069-3da91a4d68b3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-06T12:47:33.676Z",
+      "lastSeen": "2026-10-06T12:47:33.676Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
