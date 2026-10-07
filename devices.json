@@ -1570,6 +1570,16 @@
       "lastSeen": "2026-10-07T07:00:57.966Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abano",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-07T08:48:12.713Z",
+      "lastSeen": "2026-10-07T08:48:12.713Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
