@@ -1600,6 +1600,16 @@
       "lastSeen": "2026-10-07T10:09:47.504Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abdelrahmana",
+      "deviceId": "a1500d90-71f8-4d22-9069-3da91a4d68b3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-07T10:41:16.112Z",
+      "lastSeen": "2026-10-07T10:41:16.112Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
