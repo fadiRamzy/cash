@@ -1630,6 +1630,16 @@
       "lastSeen": "2026-10-07T10:48:34.049Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed elbanna",
+      "deviceId": "220366f0-9f5a-4cee-a96a-01058171730d",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-10-07T12:31:51.037Z",
+      "lastSeen": "2026-10-07T12:31:51.037Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
