@@ -1580,6 +1580,16 @@
       "lastSeen": "2026-10-07T08:48:12.713Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "صموئيل مينا عادل",
+      "deviceId": "4bd09e38-fb39-4e9d-ae67-17a05f9d489f",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-07T10:04:50.496Z",
+      "lastSeen": "2026-10-07T10:04:50.496Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
