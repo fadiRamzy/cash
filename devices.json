@@ -1560,6 +1560,16 @@
       "lastSeen": "2026-10-07T06:47:15.079Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مينا فوزي",
+      "deviceId": "065a8945-da0f-4211-b507-28565a82c4cf",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-07T07:00:57.966Z",
+      "lastSeen": "2026-10-07T07:00:57.966Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
