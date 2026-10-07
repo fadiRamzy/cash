@@ -630,5 +630,9 @@
   "مينا عادل": {
     "status": "blocked",
     "createdAt": "2026-10-07T06:41:43.463Z"
+  },
+  "elhassan.elsayed@cash-eg.org": {
+    "status": "allowed",
+    "createdAt": "2026-10-07T06:42:27.769Z"
   }
 }
