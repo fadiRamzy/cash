@@ -1710,6 +1710,16 @@
       "lastSeen": "2026-10-08T10:13:09.877Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "الوتتال",
+      "deviceId": "89205392-89c5-4275-9d13-249f153c7c6c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-08T10:50:44.210Z",
+      "lastSeen": "2026-10-08T10:50:44.210Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
