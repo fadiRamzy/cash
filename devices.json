@@ -1730,6 +1730,16 @@
       "lastSeen": "2026-10-08T11:20:00.546Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "نالغ",
+      "deviceId": "7b2a01c8-4128-4ed4-aae0-7a7e00140b7b",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-08T16:34:38.851Z",
+      "lastSeen": "2026-10-08T16:34:38.851Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
