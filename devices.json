@@ -1660,6 +1660,16 @@
       "lastSeen": "2026-10-07T22:08:07.972Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmed.arafa",
+      "deviceId": "85654db5-4633-4277-9f98-93a7faddd780",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-08T06:41:02.217Z",
+      "lastSeen": "2026-10-08T06:41:02.217Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
