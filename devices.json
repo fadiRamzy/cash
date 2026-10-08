@@ -1700,6 +1700,16 @@
       "lastSeen": "2026-10-08T09:52:18.175Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "elamtito2250@gmail.com",
+      "deviceId": "4218da71-4461-488c-ab8a-1a14a99e55b5",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-08T10:13:09.877Z",
+      "lastSeen": "2026-10-08T10:13:09.877Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
