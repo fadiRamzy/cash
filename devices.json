@@ -1850,6 +1850,16 @@
       "lastSeen": "2026-10-11T12:48:09.083Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "احمد عبدالله",
+      "deviceId": "dddb681a-e0ce-43d4-b0d5-e814e46beb63",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T12:49:01.474Z",
+      "lastSeen": "2026-10-11T12:49:01.474Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
