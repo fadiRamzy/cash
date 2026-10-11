@@ -1770,6 +1770,16 @@
       "lastSeen": "2026-10-11T09:25:51.090Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mahmoud Mostafa",
+      "deviceId": "e45b064c-b41a-42a5-bb0e-d99f774d464e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T10:43:33.349Z",
+      "lastSeen": "2026-10-11T10:43:33.349Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
