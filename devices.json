@@ -1820,6 +1820,16 @@
       "lastSeen": "2026-10-11T11:32:26.071Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kimo15882@gmail.com",
+      "deviceId": "e45b064c-b41a-42a5-bb0e-d99f774d464e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T13:38:32.831Z",
+      "lastSeen": "2026-10-11T13:38:32.831Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
