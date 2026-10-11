@@ -1760,6 +1760,16 @@
       "lastSeen": "2026-10-11T09:20:27.865Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "keroalsaiem9@gmail.com",
+      "deviceId": "f8fbf75d-b848-447d-bb2a-74434647ec88",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T09:25:51.090Z",
+      "lastSeen": "2026-10-11T09:25:51.090Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
