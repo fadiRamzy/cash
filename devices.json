@@ -1740,6 +1740,16 @@
       "lastSeen": "2026-10-08T16:34:38.851Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed Elshazly",
+      "deviceId": "9c45f926-8293-4dda-af7f-302fe90ca253",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T09:00:01.319Z",
+      "lastSeen": "2026-10-11T09:00:01.319Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
