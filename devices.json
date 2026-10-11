@@ -1810,6 +1810,16 @@
       "lastSeen": "2026-10-11T11:31:00.671Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "الللف",
+      "deviceId": "19512ae0-57a8-4cd0-a8d1-e54b5b31d86a",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-11T11:32:26.071Z",
+      "lastSeen": "2026-10-11T11:32:26.071Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
