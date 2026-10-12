@@ -1890,6 +1890,16 @@
       "lastSeen": "2026-10-12T10:59:59.031Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تهلبل",
+      "deviceId": "01fea5c3-05d6-43bf-8cef-8620334799de",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-12T12:11:43.341Z",
+      "lastSeen": "2026-10-12T12:11:43.341Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
