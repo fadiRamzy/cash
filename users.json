@@ -786,5 +786,9 @@
   "تهلبل": {
     "status": "blocked",
     "createdAt": "2026-10-12T13:38:10.928Z"
+  },
+  "aban": {
+    "status": "blocked",
+    "createdAt": "2026-10-12T13:38:17.675Z"
   }
 }
