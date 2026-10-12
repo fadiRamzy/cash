@@ -1850,6 +1850,16 @@
       "lastSeen": "2026-10-12T07:19:27.420Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "fady.adel@cach.org.eg",
+      "deviceId": "586115ec-24c3-4c43-b404-479cc66efd67",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-10-12T07:21:46.161Z",
+      "lastSeen": "2026-10-12T07:21:46.161Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
