@@ -1900,6 +1900,16 @@
       "lastSeen": "2026-10-12T12:11:43.341Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "عبدالرحمن محمد",
+      "deviceId": "b27940d6-1606-4436-a841-3e2f3a230f71",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-12T15:36:02.134Z",
+      "lastSeen": "2026-10-12T15:36:02.134Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
