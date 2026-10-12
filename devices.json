@@ -1880,6 +1880,16 @@
       "lastSeen": "2026-10-12T09:28:38.462Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "aban",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-12T10:59:59.031Z",
+      "lastSeen": "2026-10-12T10:59:59.031Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
