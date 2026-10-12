@@ -1870,6 +1870,16 @@
       "lastSeen": "2026-10-12T08:33:36.307Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "eslam tito288@",
+      "deviceId": "4218da71-4461-488c-ab8a-1a14a99e55b5",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-12T09:28:38.462Z",
+      "lastSeen": "2026-10-12T09:28:38.462Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
