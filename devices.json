@@ -1990,6 +1990,16 @@
       "lastSeen": "2026-10-13T09:26:14.638Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "eslam Elgendy",
+      "deviceId": "96fbeeb4-0751-4a33-a7d3-6d8571f51cd9",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-13T10:06:34.791Z",
+      "lastSeen": "2026-10-13T10:06:34.791Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
