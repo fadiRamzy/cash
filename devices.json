@@ -1930,6 +1930,16 @@
       "lastSeen": "2026-10-13T06:19:38.816Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "hassan rehab",
+      "deviceId": "5b115a2b-0175-4d12-9d46-d229fe366d76",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-13T06:25:19.000Z",
+      "lastSeen": "2026-10-13T06:25:19.000Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
