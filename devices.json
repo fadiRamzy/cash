@@ -2050,6 +2050,16 @@
       "lastSeen": "2026-10-13T13:08:50.516Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "amgad",
+      "deviceId": "68c3f757-f5d6-4bdd-be83-a58c7b75d224",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-10-13T14:46:05.678Z",
+      "lastSeen": "2026-10-13T14:46:05.678Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
