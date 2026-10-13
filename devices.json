@@ -1960,6 +1960,16 @@
       "lastSeen": "2026-10-13T06:26:15.438Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "aba",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-13T09:04:15.890Z",
+      "lastSeen": "2026-10-13T09:04:15.890Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
