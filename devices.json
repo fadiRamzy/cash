@@ -2010,6 +2010,16 @@
       "lastSeen": "2026-10-13T11:41:50.309Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed Ismail",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-13T12:14:53.238Z",
+      "lastSeen": "2026-10-13T12:14:53.238Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
