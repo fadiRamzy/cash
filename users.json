@@ -862,5 +862,9 @@
   "hassan.ibrahim@cash-eg.org": {
     "status": "allowed",
     "createdAt": "2026-10-14T06:50:05.198Z"
+  },
+  "abdo": {
+    "status": "blocked",
+    "createdAt": "2026-10-14T08:22:38.370Z"
   }
 }
