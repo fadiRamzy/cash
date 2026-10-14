@@ -2210,6 +2210,16 @@
       "lastSeen": "2026-10-14T11:09:18.236Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ab",
+      "deviceId": "a1500d90-71f8-4d22-9069-3da91a4d68b3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-14T11:13:58.403Z",
+      "lastSeen": "2026-10-14T11:13:58.403Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
