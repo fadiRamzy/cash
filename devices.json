@@ -2070,6 +2070,16 @@
       "lastSeen": "2026-10-13T15:00:12.233Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "hassan.ibrahim@cash-eg.org",
+      "deviceId": "14e19a55-053b-4e9c-a81b-a1e461bff944",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-14T06:04:41.543Z",
+      "lastSeen": "2026-10-14T06:04:41.543Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
