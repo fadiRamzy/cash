@@ -2180,6 +2180,16 @@
       "lastSeen": "2026-10-14T10:19:13.253Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "amgad.sameh2@gmail.com",
+      "deviceId": "0597b9e8-9bf8-4193-8ddf-2732ba967642",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-10-14T10:21:49.877Z",
+      "lastSeen": "2026-10-14T10:21:49.877Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
