@@ -2080,6 +2080,16 @@
       "lastSeen": "2026-10-14T06:04:41.543Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "راندا ممدوح",
+      "deviceId": "456855cd-d959-42d7-a4ff-f06a77d02c4e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-14T07:44:25.695Z",
+      "lastSeen": "2026-10-14T07:44:25.695Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
