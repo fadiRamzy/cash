@@ -2190,6 +2190,16 @@
       "lastSeen": "2026-10-14T10:33:43.318Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "fady.adel@cach.org.eg",
+      "deviceId": "1e0ccbd0-4306-4a26-b6d9-ab232d45641a",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-10-14T13:14:17.132Z",
+      "lastSeen": "2026-10-14T13:14:17.132Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
