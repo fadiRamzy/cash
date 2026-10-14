@@ -2110,6 +2110,16 @@
       "lastSeen": "2026-10-14T08:22:58.672Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Eslam Ahmed",
+      "deviceId": "4218da71-4461-488c-ab8a-1a14a99e55b5",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-14T09:12:15.692Z",
+      "lastSeen": "2026-10-14T09:12:15.692Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
