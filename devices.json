@@ -2140,6 +2140,16 @@
       "lastSeen": "2026-10-14T10:03:11.508Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جرجس  جورج  فؤا د",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-14T10:04:15.844Z",
+      "lastSeen": "2026-10-14T10:04:15.844Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
