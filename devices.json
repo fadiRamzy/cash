@@ -2790,6 +2790,16 @@
       "lastSeen": "2026-10-15T12:23:35.056Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "بيرو",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T13:17:48.609Z",
+      "lastSeen": "2026-10-15T13:17:48.609Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
