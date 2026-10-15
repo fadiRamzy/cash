@@ -2220,6 +2220,16 @@
       "lastSeen": "2026-10-15T07:49:33.337Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed Isma",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T09:53:07.581Z",
+      "lastSeen": "2026-10-15T09:53:07.581Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
