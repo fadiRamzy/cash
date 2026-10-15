@@ -2270,6 +2270,16 @@
       "lastSeen": "2026-10-15T10:49:40.084Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "abgg",
+      "deviceId": "a1500d90-71f8-4d22-9069-3da91a4d68b3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T11:01:12.659Z",
+      "lastSeen": "2026-10-15T11:01:12.659Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
