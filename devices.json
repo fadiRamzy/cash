@@ -2760,6 +2760,16 @@
       "lastSeen": "2026-10-15T11:25:51.618Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تتاف",
+      "deviceId": "4629a1c3-8652-4367-bb0a-ff1d92b21013",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T11:30:53.957Z",
+      "lastSeen": "2026-10-15T11:30:53.957Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
