@@ -2610,6 +2610,16 @@
       "lastSeen": "2026-10-15T11:18:13.117Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kerolosha",
+      "deviceId": "678f2016-9403-40b2-9eb1-d12a89b3e3c6",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-10-15T11:18:57.516Z",
+      "lastSeen": "2026-10-15T11:18:57.516Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
