@@ -2460,6 +2460,16 @@
       "lastSeen": "2026-10-15T11:13:02.765Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "سيد",
+      "deviceId": "456855cd-d959-42d7-a4ff-f06a77d02c4e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T11:13:15.013Z",
+      "lastSeen": "2026-10-15T11:13:15.013Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
