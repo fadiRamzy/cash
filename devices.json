@@ -2800,6 +2800,16 @@
       "lastSeen": "2026-10-15T13:17:48.609Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed galal000",
+      "deviceId": "220366f0-9f5a-4cee-a96a-01058171730d",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-10-15T15:29:43.795Z",
+      "lastSeen": "2026-10-15T15:29:43.795Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
