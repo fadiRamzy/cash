@@ -918,5 +918,9 @@
   "eslam 2888": {
     "status": "blocked",
     "createdAt": "2026-10-15T06:02:23.406Z"
+  },
+  "ossman": {
+    "status": "blocked",
+    "createdAt": "2026-10-15T09:17:27.039Z"
   }
 }
