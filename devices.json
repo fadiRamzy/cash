@@ -2490,6 +2490,16 @@
       "lastSeen": "2026-10-15T11:13:47.707Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kerolos ha",
+      "deviceId": "678f2016-9403-40b2-9eb1-d12a89b3e3c6",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-10-15T11:14:51.775Z",
+      "lastSeen": "2026-10-15T11:14:51.775Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
