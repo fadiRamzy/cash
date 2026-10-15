@@ -2250,6 +2250,16 @@
       "lastSeen": "2026-10-15T10:35:21.396Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "لاالبث",
+      "deviceId": "a2ca2ab4-8234-4141-9050-0d604340fef8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T10:41:00.390Z",
+      "lastSeen": "2026-10-15T10:41:00.390Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
