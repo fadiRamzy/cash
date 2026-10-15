@@ -2280,6 +2280,16 @@
       "lastSeen": "2026-10-15T11:01:12.659Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "راندا",
+      "deviceId": "456855cd-d959-42d7-a4ff-f06a77d02c4e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T11:01:35.489Z",
+      "lastSeen": "2026-10-15T11:01:35.489Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
