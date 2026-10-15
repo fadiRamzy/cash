@@ -2780,6 +2780,16 @@
       "lastSeen": "2026-10-15T12:08:31.134Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تتلل",
+      "deviceId": "b179d42d-7e47-46f3-a049-a4c4eb7d0bf8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T12:23:35.056Z",
+      "lastSeen": "2026-10-15T12:23:35.056Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
