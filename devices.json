@@ -2240,6 +2240,16 @@
       "lastSeen": "2026-10-15T10:22:54.565Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "رامى",
+      "deviceId": "456855cd-d959-42d7-a4ff-f06a77d02c4e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-15T10:35:21.396Z",
+      "lastSeen": "2026-10-15T10:35:21.396Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
