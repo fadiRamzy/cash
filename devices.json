@@ -2870,6 +2870,16 @@
       "lastSeen": "2026-10-18T09:35:15.602Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmedbismail",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-18T10:53:23.678Z",
+      "lastSeen": "2026-10-18T10:53:23.678Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
