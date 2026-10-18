@@ -2860,6 +2860,16 @@
       "lastSeen": "2026-10-18T06:43:55.088Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تاا",
+      "deviceId": "70018e39-ce24-44e9-a966-ba0f73e1cae8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-18T09:35:15.602Z",
+      "lastSeen": "2026-10-18T09:35:15.602Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
