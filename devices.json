@@ -2880,6 +2880,16 @@
       "lastSeen": "2026-10-18T10:53:23.678Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "amgad.sameh2",
+      "deviceId": "0597b9e8-9bf8-4193-8ddf-2732ba967642",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-10-18T11:35:17.176Z",
+      "lastSeen": "2026-10-18T11:35:17.176Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
