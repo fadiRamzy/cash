@@ -2890,6 +2890,16 @@
       "lastSeen": "2026-10-18T11:35:17.176Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تتا",
+      "deviceId": "2e0b48a7-1376-4355-82fe-9c0726639d31",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-18T11:46:54.016Z",
+      "lastSeen": "2026-10-18T11:46:54.016Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
