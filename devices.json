@@ -2850,6 +2850,16 @@
       "lastSeen": "2026-10-17T11:59:48.226Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ابراهيم سمير ابراهيم عياد ل",
+      "deviceId": "f278820d-7c02-4431-950f-748f2d82a35c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-18T06:43:48.042Z",
+      "lastSeen": "2026-10-18T06:43:48.042Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
