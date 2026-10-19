@@ -2930,6 +2930,16 @@
       "lastSeen": "2026-10-18T23:51:47.286Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ibrahim.samer@cash-eg.org",
+      "deviceId": "f278820d-7c02-4431-950f-748f2d82a35c",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-19T07:48:51.919Z",
+      "lastSeen": "2026-10-19T07:48:51.919Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
