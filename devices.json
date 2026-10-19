@@ -3000,6 +3000,16 @@
       "lastSeen": "2026-10-19T12:15:32.687Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اتاا",
+      "deviceId": "b990ee80-a066-481f-ba0c-a0e574b0dcb8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-19T12:34:59.260Z",
+      "lastSeen": "2026-10-19T12:34:59.260Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
