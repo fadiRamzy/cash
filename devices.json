@@ -3010,6 +3010,16 @@
       "lastSeen": "2026-10-19T12:34:59.260Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اللا",
+      "deviceId": "e5fb093a-8b21-4f94-9dc9-b7a99a3d2799",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-19T13:23:50.896Z",
+      "lastSeen": "2026-10-19T13:23:50.896Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
