@@ -2940,6 +2940,16 @@
       "lastSeen": "2026-10-19T07:48:51.919Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تهبرهب",
+      "deviceId": "38bb96dc-b6c0-4825-aac2-d20e204e5604",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-19T07:53:35.217Z",
+      "lastSeen": "2026-10-19T07:53:35.217Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
