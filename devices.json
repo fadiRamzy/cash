@@ -2970,6 +2970,16 @@
       "lastSeen": "2026-10-19T08:41:10.465Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Eslam",
+      "deviceId": "96fbeeb4-0751-4a33-a7d3-6d8571f51cd9",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-19T08:41:20.481Z",
+      "lastSeen": "2026-10-19T08:41:20.481Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
