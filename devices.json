@@ -3050,6 +3050,16 @@
       "lastSeen": "2026-10-20T13:08:03.150Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "1عبدالرحمن محمد",
+      "deviceId": "b27940d6-1606-4436-a841-3e2f3a230f71",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-20T14:16:42.530Z",
+      "lastSeen": "2026-10-20T14:16:42.530Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
