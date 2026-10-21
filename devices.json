@@ -3070,6 +3070,16 @@
       "lastSeen": "2026-10-21T06:37:14.638Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "rehab rehabو",
+      "deviceId": "5b115a2b-0175-4d12-9d46-d229fe366d76",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-21T08:57:38.061Z",
+      "lastSeen": "2026-10-21T08:57:38.061Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
