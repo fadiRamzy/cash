@@ -3090,6 +3090,16 @@
       "lastSeen": "2026-10-21T08:58:28.022Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mahmoud",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-21T11:04:37.120Z",
+      "lastSeen": "2026-10-21T11:04:37.120Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
