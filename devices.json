@@ -3060,6 +3060,16 @@
       "lastSeen": "2026-10-20T14:16:42.530Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "bebog8491@gmail.com",
+      "deviceId": "db169ec8-9af8-4e2f-9feb-a2f4c552dfe6",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-21T06:37:14.638Z",
+      "lastSeen": "2026-10-21T06:37:14.638Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
