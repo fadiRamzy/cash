@@ -3160,6 +3160,16 @@
       "lastSeen": "2026-10-22T09:14:31.024Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmedbisma",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-22T11:00:22.220Z",
+      "lastSeen": "2026-10-22T11:00:22.220Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
