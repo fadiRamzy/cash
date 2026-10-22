@@ -3150,6 +3150,16 @@
       "lastSeen": "2026-10-22T07:12:33.803Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kamal.wagih@cash-eg.org",
+      "deviceId": "b55dc2ea-41ad-454b-a214-4ba0965eeaed",
+      "deviceType": "Mobile",
+      "browser": "Samsung Internet",
+      "firstSeen": "2026-10-22T09:14:31.024Z",
+      "lastSeen": "2026-10-22T09:14:31.024Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
