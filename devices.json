@@ -3130,6 +3130,16 @@
       "lastSeen": "2026-10-21T16:23:44.739Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mahmoud gamal",
+      "deviceId": "56581d6a-a58f-4805-90f5-d1a445d6ef54",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-10-22T07:05:50.587Z",
+      "lastSeen": "2026-10-22T07:05:50.587Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
