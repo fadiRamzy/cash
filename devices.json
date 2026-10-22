@@ -3200,6 +3200,16 @@
       "lastSeen": "2026-10-22T11:54:09.559Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مكرم",
+      "deviceId": "0e5459e2-03aa-4e31-9cb1-76fe25d20edd",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-22T11:56:42.642Z",
+      "lastSeen": "2026-10-22T11:56:42.642Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
