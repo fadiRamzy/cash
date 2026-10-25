@@ -3270,6 +3270,16 @@
       "lastSeen": "2026-10-25T13:57:58.254Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "salah.elsaye@cash-eg.org",
+      "deviceId": "7b0ef9ee-73ea-4b42-ae4c-3dad15e6d3be",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-25T16:53:49.871Z",
+      "lastSeen": "2026-10-25T16:53:49.871Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
