@@ -3260,6 +3260,16 @@
       "lastSeen": "2026-10-25T08:43:05.099Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "elshazlymoham",
+      "deviceId": "0a892406-e247-450d-bca9-4c2929358695",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-25T13:57:58.254Z",
+      "lastSeen": "2026-10-25T13:57:58.254Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
