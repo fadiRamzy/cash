@@ -1342,5 +1342,9 @@
   "salah.elsaye@cash-eg.org": {
     "status": "blocked",
     "createdAt": "2026-10-26T06:46:26.984Z"
+  },
+  "kamal.wagih@cash-eg.org": {
+    "status": "allowed",
+    "createdAt": "2026-10-26T06:47:10.068Z"
   }
 }
