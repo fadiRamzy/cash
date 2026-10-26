@@ -3290,6 +3290,16 @@
       "lastSeen": "2026-10-26T09:46:05.790Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "angad.sameh22",
+      "deviceId": "0597b9e8-9bf8-4193-8ddf-2732ba967642",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-10-26T10:50:11.815Z",
+      "lastSeen": "2026-10-26T10:50:11.815Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
