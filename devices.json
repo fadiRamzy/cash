@@ -3330,6 +3330,16 @@
       "lastSeen": "2026-10-26T12:38:58.447Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مينا عاد",
+      "deviceId": "4bd09e38-fb39-4e9d-ae67-17a05f9d489f",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-27T06:11:35.550Z",
+      "lastSeen": "2026-10-27T06:11:35.550Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
