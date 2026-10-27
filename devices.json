@@ -3380,6 +3380,16 @@
       "lastSeen": "2026-10-27T09:59:08.357Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmed.arafa2000",
+      "deviceId": "85654db5-4633-4277-9f98-93a7faddd780",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-27T10:25:00.344Z",
+      "lastSeen": "2026-10-27T10:25:00.344Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
