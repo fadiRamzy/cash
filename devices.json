@@ -3370,6 +3370,16 @@
       "lastSeen": "2026-10-27T07:04:33.607Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "MINA FAWZI f",
+      "deviceId": "065a8945-da0f-4211-b507-28565a82c4cf",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-27T09:59:08.357Z",
+      "lastSeen": "2026-10-27T09:59:08.357Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
