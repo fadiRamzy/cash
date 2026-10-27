@@ -3400,6 +3400,16 @@
       "lastSeen": "2026-10-27T10:25:28.954Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "MINA FAWZI Fahim",
+      "deviceId": "065a8945-da0f-4211-b507-28565a82c4cf",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-27T10:32:44.341Z",
+      "lastSeen": "2026-10-27T10:32:44.341Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
