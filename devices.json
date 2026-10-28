@@ -3430,6 +3430,16 @@
       "lastSeen": "2026-10-28T09:51:15.408Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جرجس جورج فؤاد كال",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-28T12:58:39.766Z",
+      "lastSeen": "2026-10-28T12:58:39.766Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
