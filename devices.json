@@ -3540,6 +3540,16 @@
       "lastSeen": "2026-10-29T13:40:58.674Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "beshoy.nady@cash-eg.org",
+      "deviceId": "2dd1cbb6-9643-43b4-b540-839e5aee7b43",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-29T14:06:51.308Z",
+      "lastSeen": "2026-10-29T14:06:51.308Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
