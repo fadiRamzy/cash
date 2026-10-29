@@ -3460,6 +3460,16 @@
       "lastSeen": "2026-10-28T17:00:48.283Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mostafa",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-29T08:19:20.428Z",
+      "lastSeen": "2026-10-29T08:19:20.428Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
