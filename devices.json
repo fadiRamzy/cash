@@ -3520,6 +3520,16 @@
       "lastSeen": "2026-10-29T12:07:04.978Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed ismai",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-29T11:26:52.811Z",
+      "lastSeen": "2026-10-29T11:26:52.811Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
