@@ -3470,6 +3470,16 @@
       "lastSeen": "2026-10-29T08:19:20.428Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "محمود غانم",
+      "deviceId": "4f389130-6cfb-4bb7-8acb-e224391299b7",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-10-29T07:45:25.670Z",
+      "lastSeen": "2026-10-29T07:45:25.670Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
