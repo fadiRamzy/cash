@@ -3570,6 +3570,16 @@
       "lastSeen": "2026-10-31T10:28:43.729Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "kajhha",
+      "deviceId": "56581d6a-a58f-4805-90f5-d1a445d6ef54",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-11-01T07:34:38.578Z",
+      "lastSeen": "2026-11-01T07:34:38.578Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
