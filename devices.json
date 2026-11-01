@@ -3580,6 +3580,16 @@
       "lastSeen": "2026-11-01T07:34:38.578Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جرجس جورج فؤاد كا",
+      "deviceId": "fd4806e6-0eb5-476d-bffb-fb8a1b43c1ea",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-01T11:59:12.623Z",
+      "lastSeen": "2026-11-01T11:59:12.623Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
