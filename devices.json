@@ -3670,6 +3670,16 @@
       "lastSeen": "2026-11-03T12:03:21.740Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed Abdullah",
+      "deviceId": "dddb681a-e0ce-43d4-b0d5-e814e46beb63",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-03T12:12:12.615Z",
+      "lastSeen": "2026-11-03T12:12:12.615Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
