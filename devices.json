@@ -3690,6 +3690,16 @@
       "lastSeen": "2026-11-03T12:49:20.177Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "esla",
+      "deviceId": "4218da71-4461-488c-ab8a-1a14a99e55b5",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-03T12:54:57.841Z",
+      "lastSeen": "2026-11-03T12:54:57.841Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
