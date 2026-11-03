@@ -3660,6 +3660,16 @@
       "lastSeen": "2026-11-02T17:00:48.578Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "شششش",
+      "deviceId": "4bd09e38-fb39-4e9d-ae67-17a05f9d489f",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-03T12:03:21.740Z",
+      "lastSeen": "2026-11-03T12:03:21.740Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
