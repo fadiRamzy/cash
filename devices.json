@@ -3750,6 +3750,16 @@
       "lastSeen": "2026-11-04T13:10:51.783Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كب",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-04T17:47:58.110Z",
+      "lastSeen": "2026-11-04T17:47:58.110Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
