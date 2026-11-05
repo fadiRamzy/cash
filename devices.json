@@ -3860,6 +3860,16 @@
       "lastSeen": "2026-11-05T14:00:27.184Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahmed.arafa@cash",
+      "deviceId": "85654db5-4633-4277-9f98-93a7faddd780",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-05T17:15:58.318Z",
+      "lastSeen": "2026-11-05T17:15:58.318Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
