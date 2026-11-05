@@ -3850,6 +3850,16 @@
       "lastSeen": "2026-11-05T13:58:19.177Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "محمود مصطفي",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-05T14:00:27.184Z",
+      "lastSeen": "2026-11-05T14:00:27.184Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
