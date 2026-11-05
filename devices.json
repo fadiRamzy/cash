@@ -3840,6 +3840,16 @@
       "lastSeen": "2026-11-05T13:04:14.169Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ma",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-05T13:58:19.177Z",
+      "lastSeen": "2026-11-05T13:58:19.177Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
