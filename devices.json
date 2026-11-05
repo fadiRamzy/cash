@@ -3820,6 +3820,16 @@
       "lastSeen": "2026-11-05T12:02:41.761Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "جميل",
+      "deviceId": "58f956a8-24c0-4afa-b996-02b859ab606d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-05T12:57:37.594Z",
+      "lastSeen": "2026-11-05T12:57:37.594Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
