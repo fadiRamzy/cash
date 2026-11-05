@@ -3800,6 +3800,16 @@
       "lastSeen": "2026-11-05T09:31:26.418Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "m",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-05T09:38:24.464Z",
+      "lastSeen": "2026-11-05T09:38:24.464Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
