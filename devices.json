@@ -3910,6 +3910,16 @@
       "lastSeen": "2026-11-08T07:40:40.459Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ص10",
+      "deviceId": "5b115a2b-0175-4d12-9d46-d229fe366d76",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-08T07:46:02.417Z",
+      "lastSeen": "2026-11-08T07:46:02.417Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
