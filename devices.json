@@ -3970,6 +3970,16 @@
       "lastSeen": "2026-11-09T07:15:57.570Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mahmoud alsaeed 90",
+      "deviceId": "b6cf9f35-7079-409c-a047-2d6b9e25dd1b",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-09T07:44:05.191Z",
+      "lastSeen": "2026-11-09T07:44:05.191Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
