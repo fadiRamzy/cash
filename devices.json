@@ -3980,6 +3980,16 @@
       "lastSeen": "2026-11-09T07:44:05.191Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed ismael",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-09T09:12:02.903Z",
+      "lastSeen": "2026-11-09T09:12:02.903Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
