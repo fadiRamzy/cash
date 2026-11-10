@@ -4070,6 +4070,16 @@
       "lastSeen": "2026-11-10T11:38:53.168Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "معتز",
+      "deviceId": "e4a7d897-cfec-4787-bcad-4e6ec1438704",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-10T12:13:50.989Z",
+      "lastSeen": "2026-11-10T12:13:50.989Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
