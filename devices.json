@@ -4080,6 +4080,16 @@
       "lastSeen": "2026-11-10T12:13:50.989Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gmalaref@com",
+      "deviceId": "9d754871-a4fc-4080-8978-693ad980a4b7",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-10T13:59:29.681Z",
+      "lastSeen": "2026-11-10T13:59:29.681Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
