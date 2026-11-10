@@ -4060,6 +4060,16 @@
       "lastSeen": "2026-11-10T10:17:47.166Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كبمنه",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-10T11:38:53.168Z",
+      "lastSeen": "2026-11-10T11:38:53.168Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
