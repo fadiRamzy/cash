@@ -4140,6 +4140,16 @@
       "lastSeen": "2026-11-11T11:19:00.959Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "amgad sameh22",
+      "deviceId": "0597b9e8-9bf8-4193-8ddf-2732ba967642",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-11-11T11:19:37.492Z",
+      "lastSeen": "2026-11-11T11:19:37.492Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
