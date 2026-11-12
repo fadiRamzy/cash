@@ -4240,6 +4240,16 @@
       "lastSeen": "2026-11-12T10:48:36.574Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "هنات",
+      "deviceId": "f26e242e-85ae-4cbc-aeb8-d65d75900e51",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T11:00:53.199Z",
+      "lastSeen": "2026-11-12T11:00:53.199Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
