@@ -4250,6 +4250,16 @@
       "lastSeen": "2026-11-12T11:00:53.199Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كلمته تتلقى",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T11:18:09.159Z",
+      "lastSeen": "2026-11-12T11:18:09.159Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
