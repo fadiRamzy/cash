@@ -4320,6 +4320,16 @@
       "lastSeen": "2026-11-12T11:49:12.348Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahd3abmo5@gmail.com",
+      "deviceId": "dddb681a-e0ce-43d4-b0d5-e814e46beb63",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T12:31:24.367Z",
+      "lastSeen": "2026-11-12T12:31:24.367Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
