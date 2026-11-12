@@ -4330,6 +4330,16 @@
       "lastSeen": "2026-11-12T12:31:24.367Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "هانى",
+      "deviceId": "e4a7d897-cfec-4787-bcad-4e6ec1438704",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T12:33:19.762Z",
+      "lastSeen": "2026-11-12T12:33:19.762Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
