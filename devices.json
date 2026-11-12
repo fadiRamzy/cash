@@ -4260,6 +4260,16 @@
       "lastSeen": "2026-11-12T11:18:09.159Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كبمنهنن",
+      "deviceId": "fd49b6fe-a7be-4264-a63f-e601b688326e",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T11:18:27.608Z",
+      "lastSeen": "2026-11-12T11:18:27.608Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
