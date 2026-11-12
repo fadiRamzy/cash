@@ -4280,6 +4280,16 @@
       "lastSeen": "2026-11-12T11:24:45.301Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "وائل بولي",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T11:28:41.456Z",
+      "lastSeen": "2026-11-12T11:28:41.456Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
