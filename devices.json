@@ -4230,6 +4230,16 @@
       "lastSeen": "2026-11-11T16:10:34.465Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gmalaref@com.",
+      "deviceId": "9d754871-a4fc-4080-8978-693ad980a4b7",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T10:48:36.574Z",
+      "lastSeen": "2026-11-12T10:48:36.574Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
