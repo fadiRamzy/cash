@@ -4300,6 +4300,16 @@
       "lastSeen": "2026-11-12T11:33:23.921Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "إجمالى مبلغ تاخير 4253 شهر أكتوبر وتأخير شهر أغسطس وتأخير شهر يوليو",
+      "deviceId": "4f146d1f-bae2-4abe-96ff-67d2aa8ebac0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-12T11:47:06.953Z",
+      "lastSeen": "2026-11-12T11:47:06.953Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
