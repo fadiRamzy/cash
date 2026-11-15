@@ -4420,6 +4420,16 @@
       "lastSeen": "2026-11-15T12:22:52.362Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "mahmoudalsaeed387",
+      "deviceId": "b6cf9f35-7079-409c-a047-2d6b9e25dd1b",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T12:28:47.298Z",
+      "lastSeen": "2026-11-15T12:28:47.298Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
