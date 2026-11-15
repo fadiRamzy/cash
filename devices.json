@@ -4470,6 +4470,16 @@
       "lastSeen": "2026-11-15T17:10:40.468Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اعتللل",
+      "deviceId": "6eabfcda-5e00-4c88-8101-56babfcc5a7b",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T17:11:12.714Z",
+      "lastSeen": "2026-11-15T17:11:12.714Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
