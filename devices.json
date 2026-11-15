@@ -4450,6 +4450,16 @@
       "lastSeen": "2026-11-15T14:36:14.691Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اتm",
+      "deviceId": "1968d9de-238f-482f-ba9e-dbebf6475798",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T16:38:59.380Z",
+      "lastSeen": "2026-11-15T16:38:59.380Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
