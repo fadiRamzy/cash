@@ -4480,6 +4480,16 @@
       "lastSeen": "2026-11-15T17:11:12.714Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "sherifshabaan70@gmail.com‬‏",
+      "deviceId": "ac0eea8e-0c9c-4c57-9577-caa9392b84db",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T17:26:26.946Z",
+      "lastSeen": "2026-11-15T17:26:26.946Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
