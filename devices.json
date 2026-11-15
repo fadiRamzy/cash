@@ -4380,6 +4380,16 @@
       "lastSeen": "2026-11-15T07:36:12.408Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "تتبل",
+      "deviceId": "5aa05b5b-7d0f-4c23-b775-b480cc1b0421",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T09:01:54.333Z",
+      "lastSeen": "2026-11-15T09:01:54.333Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
