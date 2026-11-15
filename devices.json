@@ -4400,6 +4400,16 @@
       "lastSeen": "2026-11-15T09:26:09.814Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "sy",
+      "deviceId": "f158386c-8082-41c9-a250-d24152359b46",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T09:58:03.780Z",
+      "lastSeen": "2026-11-15T09:58:03.780Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
