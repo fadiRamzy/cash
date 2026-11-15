@@ -4410,6 +4410,16 @@
       "lastSeen": "2026-11-15T09:58:03.780Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "elshazlymohamed669@gmail.",
+      "deviceId": "0a892406-e247-450d-bca9-4c2929358695",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-15T12:22:52.362Z",
+      "lastSeen": "2026-11-15T12:22:52.362Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
