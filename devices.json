@@ -4530,6 +4530,16 @@
       "lastSeen": "2026-11-16T13:02:02.434Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Eslam Ahmed's",
+      "deviceId": "4218da71-4461-488c-ab8a-1a14a99e55b5",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-17T08:18:12.980Z",
+      "lastSeen": "2026-11-17T08:18:12.980Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
