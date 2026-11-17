@@ -4550,6 +4550,16 @@
       "lastSeen": "2026-11-17T10:49:43.437Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "عبدالرحمن",
+      "deviceId": "b27940d6-1606-4436-a841-3e2f3a230f71",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-17T12:30:41.191Z",
+      "lastSeen": "2026-11-17T12:30:41.191Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
