@@ -4540,6 +4540,16 @@
       "lastSeen": "2026-11-17T08:18:12.980Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "اللل",
+      "deviceId": "edce90d3-4918-40ba-8e97-5754514022fe",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-17T10:49:43.437Z",
+      "lastSeen": "2026-11-17T10:49:43.437Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
