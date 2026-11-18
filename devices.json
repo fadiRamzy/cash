@@ -4560,6 +4560,16 @@
       "lastSeen": "2026-11-17T12:30:41.191Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Eslam Elgend",
+      "deviceId": "b4323dc6-4ef0-47d7-af0f-bb5490ee12a2",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-18T09:15:41.456Z",
+      "lastSeen": "2026-11-18T09:15:41.456Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
