@@ -4570,6 +4570,16 @@
       "lastSeen": "2026-11-18T09:15:41.456Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "yy",
+      "deviceId": "313f0204-7d35-4646-bca2-63483d22dab6",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-18T12:59:02.476Z",
+      "lastSeen": "2026-11-18T12:59:02.476Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
