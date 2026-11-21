@@ -4580,6 +4580,16 @@
       "lastSeen": "2026-11-18T12:59:02.476Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "peterghaley@gmail.com",
+      "deviceId": "6c01fb9f-ff86-49d8-a4a5-22c70199bdc3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-21T07:43:58.917Z",
+      "lastSeen": "2026-11-21T07:43:58.917Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
