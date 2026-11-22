@@ -1742,5 +1742,9 @@
   "000": {
     "status": "blocked",
     "createdAt": "2026-11-22T08:02:23.381Z"
+  },
+  "ELHASSAN": {
+    "status": "blocked",
+    "createdAt": "2026-11-22T08:02:25.795Z"
   }
 }
