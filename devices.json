@@ -4610,6 +4610,16 @@
       "lastSeen": "2026-11-22T08:13:17.112Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "144",
+      "deviceId": "9e7fcd46-1c91-4769-8fab-1d1733deff55",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Firefox",
+      "firstSeen": "2026-11-22T09:05:47.868Z",
+      "lastSeen": "2026-11-22T09:05:47.868Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
