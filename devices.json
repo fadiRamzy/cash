@@ -4620,6 +4620,16 @@
       "lastSeen": "2026-11-22T09:05:47.868Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed Ismael77",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-22T10:45:12.273Z",
+      "lastSeen": "2026-11-22T10:45:12.273Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
