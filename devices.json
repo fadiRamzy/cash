@@ -4790,6 +4790,16 @@
       "lastSeen": "2026-11-23T14:02:38.895Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "gmalaref.com",
+      "deviceId": "9d754871-a4fc-4080-8978-693ad980a4b7",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T18:44:40.930Z",
+      "lastSeen": "2026-11-23T18:44:40.930Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
