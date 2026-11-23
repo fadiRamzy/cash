@@ -4680,6 +4680,16 @@
       "lastSeen": "2026-11-22T21:59:37.725Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "adam2026",
+      "deviceId": "f8370e74-3cb3-496a-80da-61cf72c5dc64",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T09:00:44.368Z",
+      "lastSeen": "2026-11-23T09:00:44.368Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
