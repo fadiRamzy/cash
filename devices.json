@@ -4770,6 +4770,16 @@
       "lastSeen": "2026-11-23T13:28:17.566Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "peterghaley",
+      "deviceId": "6c01fb9f-ff86-49d8-a4a5-22c70199bdc3",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T13:31:40.098Z",
+      "lastSeen": "2026-11-23T13:31:40.098Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
