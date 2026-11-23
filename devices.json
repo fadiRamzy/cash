@@ -4780,6 +4780,16 @@
       "lastSeen": "2026-11-23T13:31:40.098Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Emadmousa894@gmail.com",
+      "deviceId": "b58d6102-4d5a-4442-ab04-eac4bbb14ff8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T14:02:38.895Z",
+      "lastSeen": "2026-11-23T14:02:38.895Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
