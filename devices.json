@@ -4740,6 +4740,16 @@
       "lastSeen": "2026-11-23T13:21:29.409Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed.Mahmoud@cash.eg.org",
+      "deviceId": "006dfdc2-1738-46c2-b380-1a6b94aa1ddb",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T13:22:13.484Z",
+      "lastSeen": "2026-11-23T13:22:13.484Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
