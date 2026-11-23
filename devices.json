@@ -4720,6 +4720,16 @@
       "lastSeen": "2026-11-23T11:42:56.217Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "shigoonelovem2020@gmail.com",
+      "deviceId": "006dfdc2-1738-46c2-b380-1a6b94aa1ddb",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T13:16:55.955Z",
+      "lastSeen": "2026-11-23T13:16:55.955Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
