@@ -4730,6 +4730,16 @@
       "lastSeen": "2026-11-23T13:16:55.955Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed Shegery",
+      "deviceId": "006dfdc2-1738-46c2-b380-1a6b94aa1ddb",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-23T13:21:29.409Z",
+      "lastSeen": "2026-11-23T13:21:29.409Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
