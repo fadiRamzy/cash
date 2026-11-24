@@ -4880,6 +4880,16 @@
       "lastSeen": "2026-11-24T12:31:31.242Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Mohamed.Mahmou",
+      "deviceId": "006dfdc2-1738-46c2-b380-1a6b94aa1ddb",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T13:31:25.090Z",
+      "lastSeen": "2026-11-24T13:31:25.090Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
