@@ -4920,6 +4920,16 @@
       "lastSeen": "2026-11-24T14:16:16.753Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "salah.elsayd",
+      "deviceId": "2347ce55-4510-4376-bd5d-889cf85546f2",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T14:16:23.878Z",
+      "lastSeen": "2026-11-24T14:16:23.878Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
