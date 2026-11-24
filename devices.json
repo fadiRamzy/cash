@@ -4810,6 +4810,16 @@
       "lastSeen": "2026-11-24T07:40:22.782Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ahd4abmo8@gmail.com",
+      "deviceId": "dddb681a-e0ce-43d4-b0d5-e814e46beb63",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T08:36:16.424Z",
+      "lastSeen": "2026-11-24T08:36:16.424Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
