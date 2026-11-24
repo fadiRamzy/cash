@@ -4950,6 +4950,16 @@
       "lastSeen": "2026-11-24T15:29:37.036Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "عع",
+      "deviceId": "ee52ce20-fea7-4d07-9cfb-2a2649c06bc0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T19:02:09.168Z",
+      "lastSeen": "2026-11-24T19:02:09.168Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
