@@ -4800,6 +4800,16 @@
       "lastSeen": "2026-11-23T18:44:40.930Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "كيمو",
+      "deviceId": "0f3ca945-6cbd-4f5c-b06f-2781565aab77",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T07:40:22.782Z",
+      "lastSeen": "2026-11-24T07:40:22.782Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
