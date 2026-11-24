@@ -4840,6 +4840,16 @@
       "lastSeen": "2026-11-24T11:09:49.334Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "khaled.mabruk@cash-eg.org",
+      "deviceId": "4a87bed9-dc02-478a-b0eb-51ad59632166",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T11:18:15.227Z",
+      "lastSeen": "2026-11-24T11:18:15.227Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
