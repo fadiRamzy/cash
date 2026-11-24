@@ -4860,6 +4860,16 @@
       "lastSeen": "2026-11-24T11:27:34.643Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "amgad sameh abdooo",
+      "deviceId": "0597b9e8-9bf8-4193-8ddf-2732ba967642",
+      "deviceType": "Mobile",
+      "browser": "Safari",
+      "firstSeen": "2026-11-24T12:30:22.478Z",
+      "lastSeen": "2026-11-24T12:30:22.478Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
