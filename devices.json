@@ -4940,6 +4940,16 @@
       "lastSeen": "2026-11-24T14:17:31.017Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "elshazlymohamed669@gmai",
+      "deviceId": "0a892406-e247-450d-bca9-4c2929358695",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-24T15:29:37.036Z",
+      "lastSeen": "2026-11-24T15:29:37.036Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
