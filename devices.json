@@ -5000,6 +5000,16 @@
       "lastSeen": "2026-11-25T10:49:40.181Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "emad Mous",
+      "deviceId": "b58d6102-4d5a-4442-ab04-eac4bbb14ff8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T10:57:15.611Z",
+      "lastSeen": "2026-11-25T10:57:15.611Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
