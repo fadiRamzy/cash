@@ -4990,6 +4990,16 @@
       "lastSeen": "2026-11-25T10:49:30.343Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "waelrade389@gmail.com",
+      "deviceId": "6a81bbda-1563-460e-aca5-392e1b214de8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T10:49:40.181Z",
+      "lastSeen": "2026-11-25T10:49:40.181Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
