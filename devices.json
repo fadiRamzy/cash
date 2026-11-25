@@ -4960,6 +4960,16 @@
       "lastSeen": "2026-11-24T19:02:09.168Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "حازم محمد",
+      "deviceId": "714194c4-97dd-4150-a6bc-3e008ed5d597",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T09:30:46.547Z",
+      "lastSeen": "2026-11-25T09:30:46.547Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
