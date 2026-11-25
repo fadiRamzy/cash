@@ -5190,6 +5190,16 @@
       "lastSeen": "2026-11-25T14:38:23.314Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "طاهر",
+      "deviceId": "ee52ce20-fea7-4d07-9cfb-2a2649c06bc0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T14:42:46.309Z",
+      "lastSeen": "2026-11-25T14:42:46.309Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
