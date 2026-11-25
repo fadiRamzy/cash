@@ -5050,6 +5050,16 @@
       "lastSeen": "2026-11-25T13:57:52.469Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "ععmf0005",
+      "deviceId": "ee52ce20-fea7-4d07-9cfb-2a2649c06bc0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T13:58:42.625Z",
+      "lastSeen": "2026-11-25T13:58:42.625Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
