@@ -5170,6 +5170,16 @@
       "lastSeen": "2026-11-25T14:33:46.229Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مرفهجم",
+      "deviceId": "ee52ce20-fea7-4d07-9cfb-2a2649c06bc0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T14:38:19.488Z",
+      "lastSeen": "2026-11-25T14:38:19.488Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
