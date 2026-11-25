@@ -5150,6 +5150,16 @@
       "lastSeen": "2026-11-25T14:14:07.843Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "مرفه",
+      "deviceId": "ee52ce20-fea7-4d07-9cfb-2a2649c06bc0",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-25T14:16:39.922Z",
+      "lastSeen": "2026-11-25T14:16:39.922Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
