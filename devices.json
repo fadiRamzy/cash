@@ -5210,6 +5210,16 @@
       "lastSeen": "2026-11-25T20:41:04.623Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "khaledmabruk",
+      "deviceId": "4a87bed9-dc02-478a-b0eb-51ad59632166",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-26T07:28:45.254Z",
+      "lastSeen": "2026-11-26T07:28:45.254Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
