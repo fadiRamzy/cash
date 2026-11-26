@@ -5240,6 +5240,16 @@
       "lastSeen": "2026-11-26T09:57:21.439Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "waelrade389@gmaدد",
+      "deviceId": "6a81bbda-1563-460e-aca5-392e1b214de8",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-26T11:34:46.555Z",
+      "lastSeen": "2026-11-26T11:34:46.555Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
