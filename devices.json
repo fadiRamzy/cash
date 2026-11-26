@@ -5250,6 +5250,16 @@
       "lastSeen": "2026-11-26T11:34:46.555Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": ".",
+      "deviceId": "4bd09e38-fb39-4e9d-ae67-17a05f9d489f",
+      "deviceType": "Laptop-Desktop",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-26T12:32:33.497Z",
+      "lastSeen": "2026-11-26T12:32:33.497Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
