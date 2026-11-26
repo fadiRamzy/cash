@@ -5220,6 +5220,16 @@
       "lastSeen": "2026-11-26T07:28:45.254Z",
       "status": "enabled",
       "enabled": true
+    },
+    {
+      "username": "Ahmed Ismael7",
+      "deviceId": "2ba2ff45-70c1-4940-b6ea-7d3e0e596b1d",
+      "deviceType": "Mobile",
+      "browser": "Chrome",
+      "firstSeen": "2026-11-26T09:18:54.173Z",
+      "lastSeen": "2026-11-26T09:18:54.173Z",
+      "status": "enabled",
+      "enabled": true
     }
   ]
 }
